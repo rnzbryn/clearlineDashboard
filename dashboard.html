@@ -57,9 +57,17 @@
             <i data-lucide="circle-help"></i
             ><span class="nav-text">Help center</span>
           </button>
-          <button class="user" id="adminProfileButton" type="button" aria-label="View administrator profile">
+          <button
+            class="user"
+            id="adminProfileButton"
+            type="button"
+            aria-label="View administrator profile"
+          >
             <div class="avatar dark">JS</div>
-            <div><strong id="sidebarAdminName">Jamie Smith</strong><span>Administrator</span></div>
+            <div>
+              <strong id="sidebarAdminName">Jamie Smith</strong
+              ><span>Administrator</span>
+            </div>
           </button>
         </div>
       </aside>
@@ -196,7 +204,19 @@
                 placeholder="Search members, staff, items..."
               />
             </div>
-            <label class="filter-select"><i data-lucide="list-filter"></i><select class="filter" id="activityFilter" aria-label="Filter activity"><option value="all">All activity</option><option value="member">Member activity</option><option value="staff">Staff activity</option><option value="inventory">Inventory activity</option></select></label>
+            <label class="filter-select"
+              ><i data-lucide="list-filter"></i
+              ><select
+                class="filter"
+                id="activityFilter"
+                aria-label="Filter activity"
+              >
+                <option value="all">All activity</option>
+                <option value="member">Member activity</option>
+                <option value="staff">Staff activity</option>
+                <option value="inventory">Inventory activity</option>
+              </select></label
+            >
           </section>
 
           <section class="dashboard-grid">
@@ -206,7 +226,15 @@
                   <p class="overline">SYSTEM ACTIVITY</p>
                   <h2>Events this week</h2>
                 </div>
-                <select class="select" id="activityRange" aria-label="Activity range"><option>This week</option><option>This month</option><option>Today</option></select>
+                <select
+                  class="select"
+                  id="activityRange"
+                  aria-label="Activity range"
+                >
+                  <option>This week</option>
+                  <option>This month</option>
+                  <option>Today</option>
+                </select>
               </div>
               <div class="chart">
                 <div class="y-axis">
@@ -263,13 +291,17 @@
                   <div class="stock-icon green">
                     <i data-lucide="laptop"></i>
                   </div>
-                  <div><strong>Equipment</strong><span id="stockEquipmentTotal">0 items</span></div>
+                  <div>
+                    <strong>Equipment</strong
+                    ><span id="stockEquipmentTotal">0 items</span>
+                  </div>
                   <b class="good" id="stockEquipmentStatus">Good</b>
                 </div>
                 <div class="stock">
                   <div class="stock-icon orange"><i data-lucide="box"></i></div>
                   <div>
-                    <strong>Office supplies</strong><span id="stockSuppliesTotal">0 items</span>
+                    <strong>Office supplies</strong
+                    ><span id="stockSuppliesTotal">0 items</span>
                   </div>
                   <b class="good" id="stockSuppliesStatus">Good</b>
                 </div>
@@ -399,58 +431,14 @@
               <table class="staff-table">
                 <thead>
                   <tr>
+                    <th>Staff ID</th>
                     <th>Staff name</th>
-                    <th>Staff address</th>
-                    <th>Age</th>
-                    <th>Number</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Role</th>
                   </tr>
                 </thead>
-                <tbody id="staffRows">
-                  <tr>
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar mint">OM</div>
-                        <strong>Olivia Martin</strong>
-                      </div>
-                    </td>
-                    <td>18 Willow Lane, Portland</td>
-                    <td>29</td>
-                    <td>(503) 555-0142</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar peach">EB</div>
-                        <strong>Ethan Brooks</strong>
-                      </div>
-                    </td>
-                    <td>42 Cedar Street, Austin</td>
-                    <td>34</td>
-                    <td>(512) 555-0188</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar lilac">MP</div>
-                        <strong>Maya Patel</strong>
-                      </div>
-                    </td>
-                    <td>7 Park View, Chicago</td>
-                    <td>27</td>
-                    <td>(312) 555-0167</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar sky">NW</div>
-                        <strong>Noah Williams</strong>
-                      </div>
-                    </td>
-                    <td>91 Lake Road, Denver</td>
-                    <td>31</td>
-                    <td>(720) 555-0125</td>
-                  </tr>
-                </tbody>
+                <tbody id="staffRows"></tbody>
               </table>
             </div>
           </section>
@@ -461,58 +449,322 @@
             <div>
               <p class="overline">MEMBER DIRECTORY</p>
               <h1>Manage members</h1>
-              <p>Review member profiles, access levels, activity, and account status.</p>
+              <p>
+                Review member profiles, access levels, activity, and account
+                status.
+              </p>
             </div>
-            <button class="primary" id="inviteMemberButton"><i data-lucide="user-plus"></i>Invite member</button>
+            <button class="primary" id="inviteMemberButton">
+              <i data-lucide="user-plus"></i>Invite member
+            </button>
           </section>
           <section class="member-stats">
-            <article class="inventory-stat"><span>Total members</span><strong id="memberDirectoryTotal">3</strong><small>Registered accounts</small></article>
-            <article class="inventory-stat"><span>Active now</span><strong class="inventory-good" id="memberActiveTotal">2</strong><small>Online or recently active</small></article>
-            <article class="inventory-stat"><span>Pending invites</span><strong class="inventory-warning-number" id="memberPendingTotal">1</strong><small>Awaiting acceptance</small></article>
-            <article class="inventory-stat"><span>Administrators</span><strong id="memberAdminTotal">1</strong><small>Privileged accounts</small></article>
+            <article class="inventory-stat">
+              <span>Total members</span
+              ><strong id="memberDirectoryTotal">3</strong
+              ><small>Registered accounts</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Active now</span
+              ><strong class="inventory-good" id="memberActiveTotal">2</strong
+              ><small>Online or recently active</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Pending invites</span
+              ><strong class="inventory-warning-number" id="memberPendingTotal"
+                >1</strong
+              ><small>Awaiting acceptance</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Administrators</span><strong id="memberAdminTotal">1</strong
+              ><small>Privileged accounts</small>
+            </article>
           </section>
           <section class="panel member-directory-panel">
             <div class="member-toolbar">
-              <div class="search-box member-search"><i data-lucide="search"></i><input id="memberSearch" type="search" placeholder="Search by name or email..." /></div>
-              <select class="inventory-filter" id="memberStatusFilter"><option value="all">All statuses</option><option value="Active">Active</option><option value="Pending">Pending</option><option value="Suspended">Suspended</option></select>
-              <select class="inventory-filter" id="memberRoleFilter"><option value="all">All roles</option><option value="Administrator">Administrator</option><option value="Manager">Manager</option><option value="Member">Member</option></select>
+              <div class="search-box member-search">
+                <i data-lucide="search"></i
+                ><input
+                  id="memberSearch"
+                  type="search"
+                  placeholder="Search by name or email..."
+                />
+              </div>
+              <select class="inventory-filter" id="memberStatusFilter">
+                <option value="all">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Pending">Pending</option>
+                <option value="Suspended">Suspended</option>
+                <option value="Archived">Archived</option>
+              </select>
+              <select class="inventory-filter" id="memberRoleFilter">
+                <option value="all">All roles</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Manager">Manager</option>
+                <option value="Member">Member</option>
+              </select>
             </div>
             <div class="member-table-wrap">
               <table class="member-table">
-                <thead><tr><th>Member</th><th>Role</th><th>Department</th><th>Status</th><th>Last active</th><th>Joined</th><th><span class="sr-only">Actions</span></th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Role</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Last active</th>
+                    <th>Joined</th>
+                    <th><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
                 <tbody id="memberRows">
-                  <tr data-member-search="olivia martin olivia@acmecollective.com" data-member-status="Active" data-member-role="Member" data-member-name="Olivia Martin" data-member-email="olivia@acmecollective.com" data-member-department="Design" data-member-joined="12 September 2024" data-member-last-active="Just now" data-member-access="Standard member access">
-                    <td><div class="staff-person"><div class="avatar mint">OM</div><strong>Olivia Martin</strong></div><small>olivia@acmecollective.com</small></td><td>Member</td><td>Design</td><td><span class="member-status active">Active</span></td><td>Just now</td><td>12 Sep 2024</td><td><button class="row-action member-view" type="button" aria-label="View Olivia Martin"><i data-lucide="eye"></i></button></td>
+                  <tr
+                    data-member-search="olivia martin olivia@acmecollective.com"
+                    data-member-status="Active"
+                    data-member-role="Member"
+                    data-member-name="Olivia Martin"
+                    data-member-email="olivia@acmecollective.com"
+                    data-member-department="Design"
+                    data-member-joined="12 September 2024"
+                    data-member-last-active="Just now"
+                    data-member-access="Standard member access"
+                  >
+                    <td>
+                      <div class="staff-person">
+                        <div class="avatar mint">OM</div>
+                        <strong>Olivia Martin</strong>
+                      </div>
+                      <small>olivia@acmecollective.com</small>
+                    </td>
+                    <td>Member</td>
+                    <td>Design</td>
+                    <td><span class="member-status active">Active</span></td>
+                    <td>Just now</td>
+                    <td>12 Sep 2024</td>
+                    <td>
+                      <button
+                        class="row-action member-view"
+                        type="button"
+                        aria-label="View Olivia Martin"
+                      >
+                        <i data-lucide="eye"></i>
+                      </button>
+                    </td>
                   </tr>
-                  <tr data-member-search="ethan brooks ethan@acmecollective.com" data-member-status="Active" data-member-role="Manager" data-member-name="Ethan Brooks" data-member-email="ethan@acmecollective.com" data-member-department="Operations" data-member-joined="4 August 2024" data-member-last-active="18 minutes ago" data-member-access="Can manage department members">
-                    <td><div class="staff-person"><div class="avatar peach">EB</div><strong>Ethan Brooks</strong></div><small>ethan@acmecollective.com</small></td><td>Manager</td><td>Operations</td><td><span class="member-status active">Active</span></td><td>18 min ago</td><td>4 Aug 2024</td><td><button class="row-action member-view" type="button" aria-label="View Ethan Brooks"><i data-lucide="eye"></i></button></td>
+                  <tr
+                    data-member-search="ethan brooks ethan@acmecollective.com"
+                    data-member-status="Active"
+                    data-member-role="Manager"
+                    data-member-name="Ethan Brooks"
+                    data-member-email="ethan@acmecollective.com"
+                    data-member-department="Operations"
+                    data-member-joined="4 August 2024"
+                    data-member-last-active="18 minutes ago"
+                    data-member-access="Can manage department members"
+                  >
+                    <td>
+                      <div class="staff-person">
+                        <div class="avatar peach">EB</div>
+                        <strong>Ethan Brooks</strong>
+                      </div>
+                      <small>ethan@acmecollective.com</small>
+                    </td>
+                    <td>Manager</td>
+                    <td>Operations</td>
+                    <td><span class="member-status active">Active</span></td>
+                    <td>18 min ago</td>
+                    <td>4 Aug 2024</td>
+                    <td>
+                      <button
+                        class="row-action member-view"
+                        type="button"
+                        aria-label="View Ethan Brooks"
+                      >
+                        <i data-lucide="eye"></i>
+                      </button>
+                    </td>
                   </tr>
-                  <tr data-member-search="maya patel maya@acmecollective.com" data-member-status="Pending" data-member-role="Administrator" data-member-name="Maya Patel" data-member-email="maya@acmecollective.com" data-member-department="Support" data-member-joined="Pending invitation" data-member-last-active="Not yet active" data-member-access="Full workspace administration">
-                    <td><div class="staff-person"><div class="avatar lilac">MP</div><strong>Maya Patel</strong></div><small>maya@acmecollective.com</small></td><td>Administrator</td><td>Support</td><td><span class="member-status pending">Pending</span></td><td>Not yet active</td><td>Pending</td><td><button class="row-action member-view" type="button" aria-label="View Maya Patel"><i data-lucide="eye"></i></button></td>
+                  <tr
+                    data-member-search="maya patel maya@acmecollective.com"
+                    data-member-status="Pending"
+                    data-member-role="Administrator"
+                    data-member-name="Maya Patel"
+                    data-member-email="maya@acmecollective.com"
+                    data-member-department="Support"
+                    data-member-joined="Pending invitation"
+                    data-member-last-active="Not yet active"
+                    data-member-access="Full workspace administration"
+                  >
+                    <td>
+                      <div class="staff-person">
+                        <div class="avatar lilac">MP</div>
+                        <strong>Maya Patel</strong>
+                      </div>
+                      <small>maya@acmecollective.com</small>
+                    </td>
+                    <td>Administrator</td>
+                    <td>Support</td>
+                    <td><span class="member-status pending">Pending</span></td>
+                    <td>Not yet active</td>
+                    <td>Pending</td>
+                    <td>
+                      <button
+                        class="row-action member-view"
+                        type="button"
+                        aria-label="View Maya Patel"
+                      >
+                        <i data-lucide="eye"></i>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <p class="empty-members" id="emptyMembers" hidden>No members match your filters.</p>
+              <p class="empty-members" id="emptyMembers" hidden>
+                No members match your filters.
+              </p>
             </div>
           </section>
         </div>
 
         <div class="modal-backdrop" id="memberDetailModal" hidden>
-          <section class="modal member-detail-modal" role="dialog" aria-modal="true" aria-labelledby="memberDetailTitle">
-            <div class="modal-head"><div><p class="overline">MEMBER PROFILE</p><h2 id="memberDetailTitle">Member details</h2></div><button class="icon-button" id="closeMemberDetail" aria-label="Close member details"><i data-lucide="x"></i></button></div>
-            <div class="member-detail-grid"><div><span>Email address</span><strong id="detailEmail"></strong></div><div><span>Role</span><strong id="detailRole"></strong></div><div><span>Department</span><strong id="detailDepartment"></strong></div><div><span>Account status</span><strong id="detailStatus"></strong></div><div><span>Last active</span><strong id="detailLastActive"></strong></div><div><span>Joined</span><strong id="detailJoined"></strong></div></div>
-            <div class="member-access"><span>Access summary</span><strong id="detailAccess"></strong></div>
-            <div class="modal-actions"><button type="button" class="outline-button" id="suspendMember">Suspend account</button><button type="button" class="primary" id="closeMemberDetailAction">Done</button></div>
+          <section
+            class="modal member-detail-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="memberDetailTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">MEMBER PROFILE</p>
+                <h2 id="memberDetailTitle">Member details</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeMemberDetail"
+                aria-label="Close member details"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="member-detail-grid">
+              <div>
+                <span>Email address</span><strong id="detailEmail"></strong>
+              </div>
+              <div><span>Role</span><strong id="detailRole"></strong></div>
+              <div>
+                <span>Department</span><strong id="detailDepartment"></strong>
+              </div>
+              <div>
+                <span>Account status</span><strong id="detailStatus"></strong>
+              </div>
+              <div>
+                <span>Last active</span><strong id="detailLastActive"></strong>
+              </div>
+              <div><span>Joined</span><strong id="detailJoined"></strong></div>
+            </div>
+            <div class="member-access">
+              <span>Access summary</span><strong id="detailAccess"></strong>
+            </div>
+            <div class="modal-actions member-detail-actions">
+              <!-- Normal member buttons -->
+              <button type="button" class="outline-button" id="suspendMember">
+                Suspend account
+              </button>
+
+              <button
+                type="button"
+                class="outline-button archive-button"
+                id="archiveMember"
+              >
+                Archive account
+              </button>
+
+              <!-- These stay hidden until the member is archived -->
+              <button
+                type="button"
+                class="outline-button"
+                id="recoverMember"
+                hidden
+              >
+                Recover account
+              </button>
+
+              <button
+                type="button"
+                class="danger-button"
+                id="deleteMember"
+                hidden
+              >
+                Delete account
+              </button>
+
+              <button
+                type="button"
+                class="primary"
+                id="closeMemberDetailAction"
+              >
+                Done
+              </button>
+            </div>
           </section>
         </div>
 
         <div class="modal-backdrop" id="adminProfileModal" hidden>
-          <section class="modal admin-profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileAdminName">
-            <div class="modal-head"><div><p class="overline">ADMINISTRATOR PROFILE</p></div><button class="icon-button" id="closeAdminProfile" aria-label="Close administrator profile"><i data-lucide="x"></i></button></div>
-            <div class="profile-summary"><div class="avatar dark" id="profileAdminInitials">JS</div><div class="profile-summary-copy"><strong id="profileAdminName">Jamie Smith</strong><span>Workspace Administrator</span></div><span class="member-status active">Active</span></div>
-            <div class="member-detail-grid"><div><span>Email address</span><strong id="profileAdminEmail">jamie@acmecollective.com</strong></div><div><span>Access level</span><strong>Full administrator</strong></div><div><span>Department</span><strong>Operations</strong></div><div><span>Last sign-in</span><strong>Today, 09:42 AM</strong></div><div><span>Two-factor authentication</span><strong>Enabled</strong></div><div><span>Member since</span><strong>18 March 2023</strong></div></div>
-            <p class="profile-note">Profile details are managed from Settings.</p>
-            <div class="modal-actions"><button type="button" class="primary" id="closeAdminProfileAction">Done</button></div>
+          <section
+            class="modal admin-profile-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="profileAdminName"
+          >
+            <div class="modal-head">
+              <div><p class="overline">ADMINISTRATOR PROFILE</p></div>
+              <button
+                class="icon-button"
+                id="closeAdminProfile"
+                aria-label="Close administrator profile"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="profile-summary">
+              <div class="avatar dark" id="profileAdminInitials">JS</div>
+              <div class="profile-summary-copy">
+                <strong id="profileAdminName">Jamie Smith</strong
+                ><span>Workspace Administrator</span>
+              </div>
+              <span class="member-status active">Active</span>
+            </div>
+            <div class="member-detail-grid">
+              <div>
+                <span>Email address</span
+                ><strong id="profileAdminEmail"
+                  >jamie@acmecollective.com</strong
+                >
+              </div>
+              <div>
+                <span>Access level</span><strong>Full administrator</strong>
+              </div>
+              <div><span>Department</span><strong>Operations</strong></div>
+              <div>
+                <span>Last sign-in</span><strong>Today, 09:42 AM</strong>
+              </div>
+              <div>
+                <span>Two-factor authentication</span><strong>Enabled</strong>
+              </div>
+              <div><span>Member since</span><strong>18 March 2023</strong></div>
+            </div>
+            <p class="profile-note">
+              Profile details are managed from Settings.
+            </p>
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="primary"
+                id="closeAdminProfileAction"
+              >
+                Done
+              </button>
+            </div>
           </section>
         </div>
 
@@ -537,40 +789,54 @@
               </button>
             </div>
             <form id="staffForm">
-              <label
-                >Staff name<input
+              <label>
+                Staff name
+                <input
                   id="staffName"
                   type="text"
                   placeholder="e.g. Jordan Lee"
-                  required /></label
-              ><label
-                >Staff address<input
-                  id="staffAddress"
-                  type="text"
-                  placeholder="Street, city"
                   required
-              /></label>
-              <div class="form-row">
-                <label
-                  >Age<input
-                    id="staffAge"
-                    type="number"
-                    min="16"
-                    max="100"
-                    placeholder="Age"
-                    required /></label
-                ><label
-                  >Number<input
-                    id="staffNumber"
-                    type="tel"
-                    placeholder="Phone number"
-                    required
-                /></label>
+                />
+              </label>
+
+              <label>
+                Email address
+                <input
+                  id="staffEmail"
+                  type="email"
+                  placeholder="e.g. jordan@company.com"
+                  required
+                />
+              </label>
+
+              <div class="form-row staff-form-row">
+                <label>
+                  Department
+                  <select id="staffDepartment" required>
+                    <option value="Operations">Operations</option>
+                    <option value="Design">Design</option>
+                    <option value="Support">Support</option>
+                    <option value="Unassigned">Unassigned</option>
+                  </select>
+                </label>
+
+                <label>
+                  Role
+                  <select id="staffRole" required>
+                    <option value="Member">Member</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Viewer">Viewer</option>
+                  </select>
+                </label>
               </div>
+
               <div class="modal-actions">
                 <button type="button" class="outline-button" id="cancelStaff">
-                  Cancel</button
-                ><button type="submit" class="primary">Add staff</button>
+                  Cancel
+                </button>
+
+                <button type="submit" class="primary">Add staff</button>
               </div>
             </form>
           </section>
@@ -693,23 +959,113 @@
 
         <div class="page-content help-content" id="helpContent" hidden>
           <section class="intro help-intro">
-            <div><p class="overline">SUPPORT CENTER</p><h1>How can we help?</h1><p>Find answers, learn workspace workflows, or contact our support team.</p></div>
-            <button class="primary" id="contactSupport"><i data-lucide="message-circle"></i>Contact support</button>
+            <div>
+              <p class="overline">SUPPORT CENTER</p>
+              <h1>How can we help?</h1>
+              <p>
+                Find answers, learn workspace workflows, or contact our support
+                team.
+              </p>
+            </div>
+            <button class="primary" id="contactSupport">
+              <i data-lucide="message-circle"></i>Contact support
+            </button>
           </section>
-          <div class="help-search search-box"><i data-lucide="search"></i><input id="helpSearch" type="search" placeholder="Search help articles..." /></div>
+          <div class="help-search search-box">
+            <i data-lucide="search"></i
+            ><input
+              id="helpSearch"
+              type="search"
+              placeholder="Search help articles..."
+            />
+          </div>
           <section class="help-categories">
-            <button class="help-category" data-help-filter="Getting started"><i data-lucide="rocket"></i><strong>Getting started</strong><span>Workspace basics and setup</span></button>
-            <button class="help-category" data-help-filter="Members"><i data-lucide="users"></i><strong>Members & access</strong><span>Invitations, roles, and permissions</span></button>
-            <button class="help-category" data-help-filter="Security"><i data-lucide="shield-check"></i><strong>Security</strong><span>Authentication and account safety</span></button>
-            <button class="help-category" data-help-filter="Billing"><i data-lucide="credit-card"></i><strong>Billing</strong><span>Plans, seats, and invoices</span></button>
+            <button class="help-category" data-help-filter="Getting started">
+              <i data-lucide="rocket"></i><strong>Getting started</strong
+              ><span>Workspace basics and setup</span>
+            </button>
+            <button class="help-category" data-help-filter="Members">
+              <i data-lucide="users"></i><strong>Members & access</strong
+              ><span>Invitations, roles, and permissions</span>
+            </button>
+            <button class="help-category" data-help-filter="Security">
+              <i data-lucide="shield-check"></i><strong>Security</strong
+              ><span>Authentication and account safety</span>
+            </button>
+            <button class="help-category" data-help-filter="Billing">
+              <i data-lucide="credit-card"></i><strong>Billing</strong
+              ><span>Plans, seats, and invoices</span>
+            </button>
           </section>
-          <section class="panel help-articles-panel"><div class="panel-head"><div><p class="overline">POPULAR ARTICLES</p><h2>Recommended for administrators</h2></div><span class="staff-total" id="helpArticleCount">4 articles</span></div><div class="help-articles" id="helpArticles">
-            <button class="help-article" data-help-category="Members"><span class="help-article-icon"><i data-lucide="user-plus"></i></span><span><strong>Invite and onboard a member</strong><small>Learn how to send invitations and assign the right access level.</small></span><i data-lucide="arrow-up-right"></i></button>
-            <button class="help-article" data-help-category="Security"><span class="help-article-icon"><i data-lucide="lock-keyhole"></i></span><span><strong>Secure your workspace</strong><small>Review two-factor authentication and sign-in activity.</small></span><i data-lucide="arrow-up-right"></i></button>
-            <button class="help-article" data-help-category="Billing"><span class="help-article-icon"><i data-lucide="receipt"></i></span><span><strong>Understand your subscription</strong><small>Manage seats, plans, invoices, and payment details.</small></span><i data-lucide="arrow-up-right"></i></button>
-            <button class="help-article" data-help-category="Getting started"><span class="help-article-icon"><i data-lucide="layout-dashboard"></i></span><span><strong>Read your dashboard</strong><small>Understand summaries, activity, and workspace records.</small></span><i data-lucide="arrow-up-right"></i></button>
-          </div><p class="empty-help" id="emptyHelp" hidden>No help articles match your search.</p></section>
-          <section class="help-contact"><div><strong>Still need a hand?</strong><span>Our support team typically replies within one business day.</span></div><button class="outline-button" id="emailSupport">Email support</button></section>
+          <section class="panel help-articles-panel">
+            <div class="panel-head">
+              <div>
+                <p class="overline">POPULAR ARTICLES</p>
+                <h2>Recommended for administrators</h2>
+              </div>
+              <span class="staff-total" id="helpArticleCount">4 articles</span>
+            </div>
+            <div class="help-articles" id="helpArticles">
+              <button class="help-article" data-help-category="Members">
+                <span class="help-article-icon"
+                  ><i data-lucide="user-plus"></i></span
+                ><span
+                  ><strong>Invite and onboard a member</strong
+                  ><small
+                    >Learn how to send invitations and assign the right access
+                    level.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Security">
+                <span class="help-article-icon"
+                  ><i data-lucide="lock-keyhole"></i></span
+                ><span
+                  ><strong>Secure your workspace</strong
+                  ><small
+                    >Review two-factor authentication and sign-in
+                    activity.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Billing">
+                <span class="help-article-icon"
+                  ><i data-lucide="receipt"></i></span
+                ><span
+                  ><strong>Understand your subscription</strong
+                  ><small
+                    >Manage seats, plans, invoices, and payment details.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Getting started">
+                <span class="help-article-icon"
+                  ><i data-lucide="layout-dashboard"></i></span
+                ><span
+                  ><strong>Read your dashboard</strong
+                  ><small
+                    >Understand summaries, activity, and workspace
+                    records.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+            </div>
+            <p class="empty-help" id="emptyHelp" hidden>
+              No help articles match your search.
+            </p>
+          </section>
+          <section class="help-contact">
+            <div>
+              <strong>Still need a hand?</strong
+              ><span
+                >Our support team typically replies within one business
+                day.</span
+              >
+            </div>
+            <button class="outline-button" id="emailSupport">
+              Email support
+            </button>
+          </section>
         </div>
 
         <div class="modal-backdrop" id="manageModal" hidden>
@@ -724,38 +1080,136 @@
                 <p class="overline">WORKSPACE ADMINISTRATION</p>
                 <h2 id="manageModalTitle">Manage user accounts</h2>
               </div>
-              <button class="icon-button" id="closeManageModal" aria-label="Close settings">
+              <button
+                class="icon-button"
+                id="closeManageModal"
+                aria-label="Close settings"
+              >
                 <i data-lucide="x"></i>
               </button>
             </div>
             <form id="manageForm">
               <div class="manage-panel" data-manage-panel="accounts">
-                <label>Account name<input type="text" value="Acme Collective" required /></label>
-                <label>Account owner email<input type="email" value="admin@acmecollective.com" required /></label>
-                <label>Default role<select><option>Administrator</option><option>Manager</option><option>Member</option></select></label>
-                <label class="toggle-row compact"><span><strong>Allow new sign-ups</strong><small>Let invited users create their own password.</small></span><input type="checkbox" checked /><b></b></label>
+                <label
+                  >Account name<input
+                    type="text"
+                    value="Acme Collective"
+                    required
+                /></label>
+                <label
+                  >Account owner email<input
+                    type="email"
+                    value="admin@acmecollective.com"
+                    required
+                /></label>
+                <label
+                  >Default role<select>
+                    <option>Administrator</option>
+                    <option>Manager</option>
+                    <option>Member</option>
+                  </select></label
+                >
+                <label class="toggle-row compact"
+                  ><span
+                    ><strong>Allow new sign-ups</strong
+                    ><small
+                      >Let invited users create their own password.</small
+                    ></span
+                  ><input type="checkbox" checked /><b></b
+                ></label>
               </div>
               <div class="manage-panel" data-manage-panel="roles" hidden>
-                <label>Role to configure<select><option>Administrator</option><option>Manager</option><option>Member</option><option>Viewer</option></select></label>
+                <label
+                  >Role to configure<select>
+                    <option>Administrator</option>
+                    <option>Manager</option>
+                    <option>Member</option>
+                    <option>Viewer</option>
+                  </select></label
+                >
                 <div class="toggle-list manage-permissions">
-                  <label class="toggle-row compact"><span><strong>Member management</strong><small>Invite, edit, and remove members.</small></span><input type="checkbox" checked /><b></b></label>
-                  <label class="toggle-row compact"><span><strong>Workspace settings</strong><small>Change workspace preferences and security.</small></span><input type="checkbox" checked /><b></b></label>
-                  <label class="toggle-row compact"><span><strong>View billing</strong><small>Access invoices and subscription details.</small></span><input type="checkbox" /><b></b></label>
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>Member management</strong
+                      ><small>Invite, edit, and remove members.</small></span
+                    ><input type="checkbox" checked /><b></b
+                  ></label>
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>Workspace settings</strong
+                      ><small
+                        >Change workspace preferences and security.</small
+                      ></span
+                    ><input type="checkbox" checked /><b></b
+                  ></label>
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>View billing</strong
+                      ><small
+                        >Access invoices and subscription details.</small
+                      ></span
+                    ><input type="checkbox" /><b></b
+                  ></label>
                 </div>
               </div>
               <div class="manage-panel" data-manage-panel="teams" hidden>
-                <label>Department name<input type="text" value="Operations" required /></label>
-                <label>Department lead<select><option>Jamie Smith</option><option>Olivia Martin</option><option>Maya Patel</option></select></label>
-                <label>Office location<input type="text" value="Main office" required /></label>
+                <label
+                  >Department name<input
+                    type="text"
+                    value="Operations"
+                    required
+                /></label>
+                <label
+                  >Department lead<select>
+                    <option>Jamie Smith</option>
+                    <option>Olivia Martin</option>
+                    <option>Maya Patel</option>
+                  </select></label
+                >
+                <label
+                  >Office location<input
+                    type="text"
+                    value="Main office"
+                    required
+                /></label>
               </div>
               <div class="manage-panel" data-manage-panel="billing" hidden>
-                <label>Subscription plan<select><option>Enterprise</option><option>Business</option><option>Starter</option></select></label>
-                <div class="form-row"><label>Licensed seats<input type="number" min="1" value="50" required /></label><label>Billing cycle<select><option>Annual</option><option>Monthly</option></select></label></div>
-                <label>Billing email<input type="email" value="billing@acmecollective.com" required /></label>
-                <div class="billing-note"><strong>Next invoice</strong><span>14 November 2024 · Visa ending in 4242</span></div>
+                <label
+                  >Subscription plan<select>
+                    <option>Enterprise</option>
+                    <option>Business</option>
+                    <option>Starter</option>
+                  </select></label
+                >
+                <div class="form-row">
+                  <label
+                    >Licensed seats<input
+                      type="number"
+                      min="1"
+                      value="50"
+                      required /></label
+                  ><label
+                    >Billing cycle<select>
+                      <option>Annual</option>
+                      <option>Monthly</option>
+                    </select></label
+                  >
+                </div>
+                <label
+                  >Billing email<input
+                    type="email"
+                    value="billing@acmecollective.com"
+                    required
+                /></label>
+                <div class="billing-note">
+                  <strong>Next invoice</strong
+                  ><span>14 November 2024 · Visa ending in 4242</span>
+                </div>
               </div>
               <div class="modal-actions">
-                <button type="button" class="outline-button" id="cancelManage">Cancel</button>
+                <button type="button" class="outline-button" id="cancelManage">
+                  Cancel
+                </button>
                 <button type="submit" class="primary">Save changes</button>
               </div>
             </form>
@@ -783,9 +1237,15 @@
                 <i class="section-icon" data-lucide="user-round"></i>
               </div>
               <div class="settings-form">
-                <label>Full name<input id="adminNameInput" type="text" value="Jamie Smith" required /></label
+                <label
+                  >Full name<input
+                    id="adminNameInput"
+                    type="text"
+                    value="Jamie Smith"
+                    required /></label
                 ><label
-                  >Email address<input id="adminEmailInput"
+                  >Email address<input
+                    id="adminEmailInput"
                     type="email"
                     value="jamie@acmecollective.com" /></label
                 ><label
@@ -836,14 +1296,20 @@
                     ><small
                       >Receive updates about workspace activity.</small
                     ></span
-                  ><input id="systemActivityInput" type="checkbox" checked /><b></b></label
+                  ><input
+                    id="systemActivityInput"
+                    type="checkbox"
+                    checked /><b></b></label
                 ><label class="toggle-row"
                   ><span
                     ><strong>Low inventory alerts</strong
                     ><small
                       >Get notified when stock needs attention.</small
                     ></span
-                  ><input id="lowInventoryInput" type="checkbox" checked /><b></b></label
+                  ><input
+                    id="lowInventoryInput"
+                    type="checkbox"
+                    checked /><b></b></label
                 ><label class="toggle-row"
                   ><span
                     ><strong>Weekly summary</strong
@@ -931,9 +1397,7 @@
               </div>
 
               <strong>2</strong>
-              <small class="negative"
-                >Review required</small
-              >
+              <small class="negative">Review required</small>
             </article>
 
             <article class="stat coral">
@@ -961,7 +1425,9 @@
                   <span>Create, edit and disable user accounts</span>
                 </div>
 
-                <button class="outline-button" data-manage-action="accounts">Manage</button>
+                <button class="outline-button" data-manage-action="accounts">
+                  Manage
+                </button>
               </div>
 
               <div class="security-row">
@@ -970,7 +1436,9 @@
                   <span>Control access rights and modules</span>
                 </div>
 
-                <button class="outline-button" data-manage-action="roles">Configure</button>
+                <button class="outline-button" data-manage-action="roles">
+                  Configure
+                </button>
               </div>
 
               <div class="security-row">
@@ -979,7 +1447,9 @@
                   <span>Manage organizational structure</span>
                 </div>
 
-                <button class="outline-button" data-manage-action="teams">Open</button>
+                <button class="outline-button" data-manage-action="teams">
+                  Open
+                </button>
               </div>
             </section>
 
@@ -997,29 +1467,111 @@
                   <span>Enterprise Plan</span>
                 </div>
 
-                <button class="outline-button" data-manage-action="billing">Manage</button>
+                <button class="outline-button" data-manage-action="billing">
+                  Manage
+                </button>
               </div>
             </section>
           </div>
         </div>
         <div class="modal-backdrop" id="adminModal" hidden>
-          <section class="modal admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+          <section
+            class="modal admin-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="adminModalTitle"
+          >
             <div class="modal-head">
               <div>
                 <p class="overline">ADMINISTRATION</p>
                 <h2 id="adminModalTitle">Admin actions</h2>
               </div>
-              <button class="icon-button" id="closeAdminModal" aria-label="Close admin actions"><i data-lucide="x"></i></button>
+              <button
+                class="icon-button"
+                id="closeAdminModal"
+                aria-label="Close admin actions"
+              >
+                <i data-lucide="x"></i>
+              </button>
             </div>
             <div class="admin-action-list">
               <form class="admin-action-row" id="inviteUserForm">
-                <div class="admin-action-icon"><i data-lucide="user-plus"></i></div>
-                <div class="admin-action-copy"><strong>Invite a user</strong><span>Send an invitation with a selected workspace role.</span></div>
-                      <div class="admin-invite-fields"><input id="inviteName" type="text" placeholder="Full name" aria-label="Member name" required /><input id="inviteEmail" type="email" placeholder="name@company.com" aria-label="User email" required /><select id="inviteRole" aria-label="User role"><option>Member</option><option>Manager</option><option>Viewer</option></select><select id="inviteDepartment" aria-label="Department"><option>Unassigned</option><option>Operations</option><option>Design</option><option>Support</option></select><textarea id="inviteMessage" placeholder="Welcome message (optional)" aria-label="Welcome message" rows="2"></textarea><button class="outline-button" type="submit">Invite</button></div>
+                <div class="admin-action-icon">
+                  <i data-lucide="user-plus"></i>
+                </div>
+                <div class="admin-action-copy">
+                  <strong>Invite a user</strong
+                  ><span
+                    >Send an invitation with a selected workspace role.</span
+                  >
+                </div>
+                <div class="admin-invite-fields">
+                  <input
+                    id="inviteName"
+                    type="text"
+                    placeholder="Full name"
+                    aria-label="Member name"
+                    required
+                  /><input
+                    id="inviteEmail"
+                    type="email"
+                    placeholder="name@company.com"
+                    aria-label="User email"
+                    required
+                  /><select id="inviteRole" aria-label="User role">
+                    <option>Member</option>
+                    <option>Manager</option>
+                    <option>Viewer</option></select
+                  ><select id="inviteDepartment" aria-label="Department">
+                    <option>Unassigned</option>
+                    <option>Operations</option>
+                    <option>Design</option>
+                    <option>Support</option></select
+                  ><textarea
+                    id="inviteMessage"
+                    placeholder="Welcome message (optional)"
+                    aria-label="Welcome message"
+                    rows="2"
+                  ></textarea
+                  ><button class="outline-button" type="submit">Invite</button>
+                </div>
               </form>
-              <button class="admin-action-row" id="exportLogs" type="button"><span class="admin-action-icon"><i data-lucide="download"></i></span><span class="admin-action-copy"><strong>Export audit log</strong><span>Download a CSV copy of recorded workspace activity.</span></span><i class="admin-action-arrow" data-lucide="arrow-up-right"></i></button>
-              <button class="admin-action-row" id="reviewSecurity" type="button"><span class="admin-action-icon"><i data-lucide="shield-check"></i></span><span class="admin-action-copy"><strong>Review security</strong><span>Open account security settings and authentication controls.</span></span><i class="admin-action-arrow" data-lucide="arrow-up-right"></i></button>
-              <label class="admin-action-row admin-toggle-row"><span class="admin-action-icon"><i data-lucide="user-round-x"></i></span><span class="admin-action-copy"><strong>Pause new sign-ups</strong><span>Temporarily prevent new users from joining this workspace.</span></span><input id="pauseSignups" type="checkbox" /><b></b></label>
+              <button class="admin-action-row" id="exportLogs" type="button">
+                <span class="admin-action-icon"
+                  ><i data-lucide="download"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Export audit log</strong
+                  ><span
+                    >Download a CSV copy of recorded workspace activity.</span
+                  ></span
+                ><i class="admin-action-arrow" data-lucide="arrow-up-right"></i>
+              </button>
+              <button
+                class="admin-action-row"
+                id="reviewSecurity"
+                type="button"
+              >
+                <span class="admin-action-icon"
+                  ><i data-lucide="shield-check"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Review security</strong
+                  ><span
+                    >Open account security settings and authentication
+                    controls.</span
+                  ></span
+                ><i class="admin-action-arrow" data-lucide="arrow-up-right"></i>
+              </button>
+              <label class="admin-action-row admin-toggle-row"
+                ><span class="admin-action-icon"
+                  ><i data-lucide="user-round-x"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Pause new sign-ups</strong
+                  ><span
+                    >Temporarily prevent new users from joining this
+                    workspace.</span
+                  ></span
+                ><input id="pauseSignups" type="checkbox" /><b></b
+              ></label>
             </div>
           </section>
         </div>
@@ -1293,14 +1845,11 @@
       const overviewSystemTotal = document.getElementById(
         "overviewSystemTotal",
       );
-	  const manageTotalUsers =
-    document.getElementById("manageTotalUsers");
+      const manageTotalUsers = document.getElementById("manageTotalUsers");
 
-const manageTotalRoles =
-    document.getElementById("manageTotalRoles");
+      const manageTotalRoles = document.getElementById("manageTotalRoles");
 
-const manageMemberCount =
-    document.getElementById("manageMemberCount");
+      const manageMemberCount = document.getElementById("manageMemberCount");
       const staffRows = document.getElementById("staffRows");
       const staffTotal = document.getElementById("staffTotal");
       const staffNavCount = document.getElementById("staffNavCount");
@@ -1309,6 +1858,68 @@ const manageMemberCount =
         staffTotal.textContent = `${count} staff member${count === 1 ? "" : "s"}`;
         staffNavCount.textContent = count;
         overviewStaffTotal.textContent = count;
+      };
+      const syncStaffFromMembers = () => {
+        /* Remove old Staff rows before creating the updated list */
+        staffRows.replaceChildren();
+
+        /* Add Manage Member accounts into the Staff table.
+     Archived accounts are not shown in Staff. */
+        [...memberRows]
+          .filter((member) => member.dataset.memberStatus !== "Archived")
+          .forEach((member) => {
+            const name = member.dataset.memberName;
+            const email = member.dataset.memberEmail;
+            const department = member.dataset.memberDepartment;
+            const role = member.dataset.memberRole;
+
+            /* Create a Staff ID only if the member does not have one yet.
+         Examples: STF-001, STF-002, STF-003 */
+            if (!member.dataset.staffId) {
+              const highestId = [...memberRows].reduce((highest, row) => {
+                const number = Number(
+                  (row.dataset.staffId || "").replace("STF-", ""),
+                );
+
+                return Math.max(highest, number || 0);
+              }, 0);
+
+              member.dataset.staffId =
+                "STF-" + String(highestId + 1).padStart(3, "0");
+            }
+
+            const staffId = member.dataset.staffId;
+
+            /* Create one Staff table row */
+            const staffRow = document.createElement("tr");
+
+            staffRow.innerHTML = `
+  <td>${staffId}</td>
+
+  <td>
+    <div class="staff-person">
+      <div class="avatar sky">
+        ${name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase()}
+      </div>
+      <strong>${name}</strong>
+    </div>
+  </td>
+
+  <td>${email}</td>
+  <td>${department}</td>
+  <td>${role}</td>
+`;
+
+            staffRows.appendChild(staffRow);
+          });
+
+        /* Update Staff counts */
+        updateStaffCount();
       };
       const logRows = document.getElementById("logRows");
       const logTotal = document.getElementById("logTotal");
@@ -1364,9 +1975,13 @@ const manageMemberCount =
       const adminNameInput = document.getElementById("adminNameInput");
       const adminEmailInput = document.getElementById("adminEmailInput");
       const workspaceNameInput = document.getElementById("workspaceNameInput");
-      const workspaceAddressInput = document.getElementById("workspaceAddressInput");
+      const workspaceAddressInput = document.getElementById(
+        "workspaceAddressInput",
+      );
       const timeZoneInput = document.getElementById("timeZoneInput");
-      const systemActivityInput = document.getElementById("systemActivityInput");
+      const systemActivityInput = document.getElementById(
+        "systemActivityInput",
+      );
       const lowInventoryInput = document.getElementById("lowInventoryInput");
       const weeklySummaryInput = document.getElementById("weeklySummaryInput");
       const getGreeting = () => {
@@ -1377,8 +1992,15 @@ const manageMemberCount =
             hour12: false,
           }).format(new Date()),
         );
-        const greeting = hour < 12 ? "Good morning" : hour === 12 ? "Good noon" : "Good evening";
-        return greeting + ", " + adminNameInput.value.trim().split(/\s+/)[0] + " ✦";
+        const greeting =
+          hour < 12
+            ? "Good morning"
+            : hour === 12
+              ? "Good noon"
+              : "Good evening";
+        return (
+          greeting + ", " + adminNameInput.value.trim().split(/\s+/)[0] + " ✦"
+        );
       };
       try {
         const savedAdminProfile = JSON.parse(
@@ -1387,11 +2009,19 @@ const manageMemberCount =
         if (savedAdminProfile?.name && savedAdminProfile?.email) {
           adminNameInput.value = savedAdminProfile.name;
           adminEmailInput.value = savedAdminProfile.email;
-          document.getElementById("sidebarAdminName").textContent = savedAdminProfile.name;
-          document.getElementById("profileAdminName").textContent = savedAdminProfile.name;
-          document.getElementById("profileAdminEmail").textContent = savedAdminProfile.email;
-          document.getElementById("profileAdminInitials").textContent = savedAdminProfile.name
-            .split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+          document.getElementById("sidebarAdminName").textContent =
+            savedAdminProfile.name;
+          document.getElementById("profileAdminName").textContent =
+            savedAdminProfile.name;
+          document.getElementById("profileAdminEmail").textContent =
+            savedAdminProfile.email;
+          document.getElementById("profileAdminInitials").textContent =
+            savedAdminProfile.name
+              .split(/\s+/)
+              .map((part) => part[0])
+              .join("")
+              .slice(0, 2)
+              .toUpperCase();
         }
       } catch {
         localStorage.removeItem(adminProfileStorageKey);
@@ -1401,12 +2031,17 @@ const manageMemberCount =
           localStorage.getItem(settingsStorageKey) || "null",
         );
         if (savedSettings) {
-          workspaceNameInput.value = savedSettings.workspaceName ?? workspaceNameInput.value;
-          workspaceAddressInput.value = savedSettings.workspaceAddress ?? workspaceAddressInput.value;
+          workspaceNameInput.value =
+            savedSettings.workspaceName ?? workspaceNameInput.value;
+          workspaceAddressInput.value =
+            savedSettings.workspaceAddress ?? workspaceAddressInput.value;
           timeZoneInput.value = savedSettings.timeZone ?? timeZoneInput.value;
-          systemActivityInput.checked = savedSettings.systemActivity ?? systemActivityInput.checked;
-          lowInventoryInput.checked = savedSettings.lowInventory ?? lowInventoryInput.checked;
-          weeklySummaryInput.checked = savedSettings.weeklySummary ?? weeklySummaryInput.checked;
+          systemActivityInput.checked =
+            savedSettings.systemActivity ?? systemActivityInput.checked;
+          lowInventoryInput.checked =
+            savedSettings.lowInventory ?? lowInventoryInput.checked;
+          weeklySummaryInput.checked =
+            savedSettings.weeklySummary ?? weeklySummaryInput.checked;
         }
       } catch {
         localStorage.removeItem(settingsStorageKey);
@@ -1436,14 +2071,28 @@ const manageMemberCount =
           });
         });
         manageModal.hidden = false;
-        manageModal.querySelector("[data-manage-panel='" + action + "'] input, [data-manage-panel='" + action + "'] select")?.focus();
+        manageModal
+          .querySelector(
+            "[data-manage-panel='" +
+              action +
+              "'] input, [data-manage-panel='" +
+              action +
+              "'] select",
+          )
+          ?.focus();
         recordLog("Opened " + managePanelTitles[action], "Manage");
       };
       document.querySelectorAll("[data-manage-action]").forEach((button) => {
-        button.addEventListener("click", () => openManageModal(button.dataset.manageAction));
+        button.addEventListener("click", () =>
+          openManageModal(button.dataset.manageAction),
+        );
       });
-      document.getElementById("closeManageModal").addEventListener("click", closeManageModal);
-      document.getElementById("cancelManage").addEventListener("click", closeManageModal);
+      document
+        .getElementById("closeManageModal")
+        .addEventListener("click", closeManageModal);
+      document
+        .getElementById("cancelManage")
+        .addEventListener("click", closeManageModal);
       manageModal.addEventListener("click", (event) => {
         if (event.target === manageModal) closeManageModal();
       });
@@ -1457,56 +2106,90 @@ const manageMemberCount =
       const closeAdminModal = () => {
         adminModal.hidden = true;
       };
-      document.getElementById("adminActionsButton").addEventListener("click", () => {
-        adminModal.hidden = false;
-        document.getElementById("inviteEmail").focus();
-        recordLog("Opened admin actions", "Manage");
-      });
-      document.getElementById("inviteMemberButton").addEventListener("click", () => {
-        adminModal.hidden = false;
-        document.getElementById("inviteEmail").focus();
-        recordLog("Opened member invitation", "Manage Member");
-      });
-      document.getElementById("closeAdminModal").addEventListener("click", closeAdminModal);
+      document
+        .getElementById("adminActionsButton")
+        .addEventListener("click", () => {
+          adminModal.hidden = false;
+          document.getElementById("inviteEmail").focus();
+          recordLog("Opened admin actions", "Manage");
+        });
+      document
+        .getElementById("inviteMemberButton")
+        .addEventListener("click", () => {
+          adminModal.hidden = false;
+          document.getElementById("inviteEmail").focus();
+          recordLog("Opened member invitation", "Manage Member");
+        });
+      document
+        .getElementById("closeAdminModal")
+        .addEventListener("click", closeAdminModal);
       adminModal.addEventListener("click", (event) => {
         if (event.target === adminModal) closeAdminModal();
       });
-      document.getElementById("inviteUserForm").addEventListener("submit", (event) => {
-        event.preventDefault();
-        const name = document.getElementById("inviteName").value.trim();
-        const email = document.getElementById("inviteEmail").value.trim();
-        const role = document.getElementById("inviteRole").value;
-        const department = document.getElementById("inviteDepartment").value;
-        const message = document.getElementById("inviteMessage").value.trim();
-        const initials = name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
-        const row = document.createElement("tr");
-        row.dataset.memberSearch = (name + " " + email).toLowerCase();
-        row.dataset.memberStatus = "Pending";
-        row.dataset.memberRole = role;
-        row.dataset.memberName = name;
-        row.dataset.memberEmail = email;
-        row.dataset.memberDepartment = department;
-        row.dataset.memberJoined = "Pending invitation";
-        row.dataset.memberLastActive = "Not yet active";
-        row.dataset.memberAccess = role + " access pending invitation acceptance" + (message ? "; welcome message included" : "");
-        row.innerHTML = '<td><div class="staff-person"><div class="avatar sky"></div><strong></strong></div><small></small></td><td></td><td></td><td><span class="member-status pending">Pending</span></td><td>Not yet active</td><td>Pending</td><td><button class="row-action member-view" type="button" aria-label="View member"><i data-lucide="eye"></i></button></td>';
-        row.querySelector(".avatar").textContent = initials;
-        row.querySelector(".staff-person strong").textContent = name;
-        row.querySelector("td small").textContent = email;
-        row.querySelector("td:nth-child(2)").textContent = role;
-        row.querySelector("td:nth-child(3)").textContent = department;
-        document.getElementById("memberRows").appendChild(row);
-        memberRows = document.querySelectorAll("#memberRows tr");
-        row.querySelector(".member-view").addEventListener("click", () => openMemberDetails(row));
-        event.currentTarget.reset();
-        updateMemberStats();
-        closeAdminModal();
-        showToast("Invitation sent to " + name);
-        recordLog("Invited " + email + " as " + role, "Manage Member");
-      });
+      document
+        .getElementById("inviteUserForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const name = document.getElementById("inviteName").value.trim();
+          const email = document.getElementById("inviteEmail").value.trim();
+          const role = document.getElementById("inviteRole").value;
+          const department = document.getElementById("inviteDepartment").value;
+          const message = document.getElementById("inviteMessage").value.trim();
+          const initials = name
+            .split(/\s+/)
+            .map((part) => part[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          const row = document.createElement("tr");
+          row.dataset.memberSearch = (name + " " + email).toLowerCase();
+          row.dataset.memberStatus = "Pending";
+          row.dataset.memberRole = role;
+          row.dataset.memberName = name;
+          row.dataset.memberEmail = email;
+          row.dataset.memberDepartment = department;
+          row.dataset.memberJoined = "Pending invitation";
+          row.dataset.memberLastActive = "Not yet active";
+          row.dataset.memberAccess =
+            role +
+            " access pending invitation acceptance" +
+            (message ? "; welcome message included" : "");
+          row.innerHTML =
+            '<td><div class="staff-person"><div class="avatar sky"></div><strong></strong></div><small></small></td><td></td><td></td><td><span class="member-status pending">Pending</span></td><td>Not yet active</td><td>Pending</td><td><button class="row-action member-view" type="button" aria-label="View member"><i data-lucide="eye"></i></button></td>';
+          row.querySelector(".avatar").textContent = initials;
+          row.querySelector(".staff-person strong").textContent = name;
+          row.querySelector("td small").textContent = email;
+          row.querySelector("td:nth-child(2)").textContent = role;
+          row.querySelector("td:nth-child(3)").textContent = department;
+          document.getElementById("memberRows").appendChild(row);
+          memberRows = document.querySelectorAll("#memberRows tr");
+          row
+            .querySelector(".member-view")
+            .addEventListener("click", () => openMemberDetails(row));
+          event.currentTarget.reset();
+          updateMemberStats();
+          closeAdminModal();
+          showToast("Invitation sent to " + name);
+          recordLog("Invited " + email + " as " + role, "Manage Member");
+        });
       document.getElementById("exportLogs").addEventListener("click", () => {
-        const rows = [["Date and time", "User", "Activity", "Area", "Status"], ...readLogs().map((log) => [log.time, log.user, log.action, log.area, "Success"])];
-        const csv = rows.map((row) => row.map((value) => '"' + String(value).replaceAll('"', '""') + '"').join(",")).join("\n");
+        const rows = [
+          ["Date and time", "User", "Activity", "Area", "Status"],
+          ...readLogs().map((log) => [
+            log.time,
+            log.user,
+            log.action,
+            log.area,
+            "Success",
+          ]),
+        ];
+        const csv = rows
+          .map((row) =>
+            row
+              .map((value) => '"' + String(value).replaceAll('"', '""') + '"')
+              .join(","),
+          )
+          .join("\n");
         const link = document.createElement("a");
         link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
         link.download = "clearline-audit-log.csv";
@@ -1515,16 +2198,20 @@ const manageMemberCount =
         showToast("Audit log exported");
         recordLog("Exported audit log", "Manage");
       });
-      document.getElementById("reviewSecurity").addEventListener("click", () => {
-        closeAdminModal();
-        document.querySelector('[data-view="Settings"]').click();
-        showToast("Security settings opened");
-      });
-      document.getElementById("pauseSignups").addEventListener("change", (event) => {
-        const status = event.currentTarget.checked ? "paused" : "resumed";
-        showToast("New sign-ups " + status);
-        recordLog("New sign-ups " + status, "Manage");
-      });
+      document
+        .getElementById("reviewSecurity")
+        .addEventListener("click", () => {
+          closeAdminModal();
+          document.querySelector('[data-view="Settings"]').click();
+          showToast("Security settings opened");
+        });
+      document
+        .getElementById("pauseSignups")
+        .addEventListener("change", (event) => {
+          const status = event.currentTarget.checked ? "paused" : "resumed";
+          showToast("New sign-ups " + status);
+          recordLog("New sign-ups " + status, "Manage");
+        });
       let memberRows = document.querySelectorAll("#memberRows tr");
       const memberSearch = document.getElementById("memberSearch");
       const memberStatusFilter = document.getElementById("memberStatusFilter");
@@ -1532,12 +2219,18 @@ const manageMemberCount =
       const emptyMembers = document.getElementById("emptyMembers");
       const updateMemberStats = () => {
         const statuses = [...memberRows].map((row) => row.dataset.memberStatus);
-        document.getElementById("memberDirectoryTotal").textContent = statuses.length;
-        document.getElementById("memberActiveTotal").textContent = statuses.filter((status) => status === "Active").length;
-        document.getElementById("memberPendingTotal").textContent = statuses.filter((status) => status === "Pending").length;
-        document.getElementById("memberAdminTotal").textContent = [...memberRows].filter((row) => row.dataset.memberRole === "Administrator").length;
+        document.getElementById("memberDirectoryTotal").textContent =
+          statuses.length;
+        document.getElementById("memberActiveTotal").textContent =
+          statuses.filter((status) => status === "Active").length;
+        document.getElementById("memberPendingTotal").textContent =
+          statuses.filter((status) => status === "Pending").length;
+        document.getElementById("memberAdminTotal").textContent = [
+          ...memberRows,
+        ].filter((row) => row.dataset.memberRole === "Administrator").length;
         overviewMemberTotal.textContent = statuses.length;
         manageMemberCount.textContent = statuses.length;
+        /*syncStaffFromMembers();*/
       };
       const filterMembers = () => {
         const search = memberSearch.value.trim().toLowerCase();
@@ -1545,7 +2238,8 @@ const manageMemberCount =
         const role = memberRoleFilter.value;
         let visible = 0;
         memberRows.forEach((row) => {
-          const matches = row.dataset.memberSearch.includes(search) &&
+          const matches =
+            row.dataset.memberSearch.includes(search) &&
             (status === "all" || row.dataset.memberStatus === status) &&
             (role === "all" || row.dataset.memberRole === role);
           row.hidden = !matches;
@@ -1564,48 +2258,173 @@ const manageMemberCount =
       const openMemberDetails = (row) => {
         selectedMemberRow = row;
         const data = row.dataset;
-        document.getElementById("memberDetailTitle").textContent = data.memberName;
+        document.getElementById("memberDetailTitle").textContent =
+          data.memberName;
         document.getElementById("detailEmail").textContent = data.memberEmail;
         document.getElementById("detailRole").textContent = data.memberRole;
-        document.getElementById("detailDepartment").textContent = data.memberDepartment;
+        document.getElementById("detailDepartment").textContent =
+          data.memberDepartment;
         document.getElementById("detailStatus").textContent = data.memberStatus;
-        document.getElementById("detailLastActive").textContent = data.memberLastActive;
+        document.getElementById("detailLastActive").textContent =
+          data.memberLastActive;
         document.getElementById("detailJoined").textContent = data.memberJoined;
         document.getElementById("detailAccess").textContent = data.memberAccess;
-        document.getElementById("suspendMember").textContent = data.memberStatus === "Suspended" ? "Restore account" : "Suspend account";
+        document.getElementById("suspendMember").textContent =
+          data.memberStatus === "Suspended"
+            ? "Restore account"
+            : "Suspend account";
+
+        /* Show the correct archive/recover/delete buttons */
+        updateArchiveButtons();
+
         memberDetailModal.hidden = false;
         recordLog("Viewed member profile: " + data.memberName, "Manage Member");
       };
-      document.querySelectorAll(".member-view").forEach((button) =>
-        button.addEventListener("click", () => openMemberDetails(button.closest("tr"))),
-      );
-      document.getElementById("closeMemberDetail").addEventListener("click", closeMemberDetail);
-      document.getElementById("closeMemberDetailAction").addEventListener("click", closeMemberDetail);
+      document
+        .querySelectorAll(".member-view")
+        .forEach((button) =>
+          button.addEventListener("click", () =>
+            openMemberDetails(button.closest("tr")),
+          ),
+        );
+      document
+        .getElementById("closeMemberDetail")
+        .addEventListener("click", closeMemberDetail);
+      document
+        .getElementById("closeMemberDetailAction")
+        .addEventListener("click", closeMemberDetail);
+      const archiveMember = document.getElementById("archiveMember");
+      const recoverMember = document.getElementById("recoverMember");
+      const deleteMember = document.getElementById("deleteMember");
+
+      /* Changes the status text and color in the member table */
+      const updateMemberStatusBadge = (row, status) => {
+        const badge = row.querySelector(".member-status");
+
+        badge.textContent = status;
+
+        badge.className =
+          "member-status " + status.toLowerCase().replace(/\s+/g, "-");
+      };
+
+      /* Shows Archive for normal members.
+   Shows Recover and Delete for archived members. */
+      const updateArchiveButtons = () => {
+        const isArchived =
+          selectedMemberRow.dataset.memberStatus === "Archived";
+
+        archiveMember.hidden = isArchived;
+        recoverMember.hidden = !isArchived;
+        deleteMember.hidden = !isArchived;
+
+        /* Do not show Suspend if the account is already archived */
+        document.getElementById("suspendMember").hidden = isArchived;
+      };
+
+      /* Archive the selected member */
+      archiveMember.addEventListener("click", () => {
+        selectedMemberRow.dataset.memberStatus = "Archived";
+
+        updateMemberStatusBadge(selectedMemberRow, "Archived");
+
+        document.getElementById("detailStatus").textContent = "Archived";
+
+        updateMemberStats();
+        updateArchiveButtons();
+
+        showToast(selectedMemberRow.dataset.memberName + " account archived");
+
+        recordLog(
+          "Archived member account: " + selectedMemberRow.dataset.memberName,
+          "Manage Member",
+        );
+      });
+
+      /* Recover the selected archived member */
+      recoverMember.addEventListener("click", () => {
+        selectedMemberRow.dataset.memberStatus = "Active";
+
+        updateMemberStatusBadge(selectedMemberRow, "Active");
+
+        document.getElementById("detailStatus").textContent = "Active";
+
+        updateMemberStats();
+        updateArchiveButtons();
+
+        showToast(selectedMemberRow.dataset.memberName + " account recovered");
+
+        recordLog(
+          "Recovered member account: " + selectedMemberRow.dataset.memberName,
+          "Manage Member",
+        );
+      });
+
+      /* Permanently delete the selected archived member */
+      deleteMember.addEventListener("click", () => {
+        const name = selectedMemberRow.dataset.memberName;
+
+        const confirmed = confirm(
+          "Permanently delete " + name + "? This cannot be undone.",
+        );
+
+        if (!confirmed) return;
+
+        selectedMemberRow.remove();
+
+        /* Refresh the list of members after deleting */
+        memberRows = document.querySelectorAll("#memberRows tr");
+
+        updateMemberStats();
+        closeMemberDetail();
+
+        showToast(name + " account deleted");
+
+        recordLog("Deleted archived member account: " + name, "Manage Member");
+      });
       memberDetailModal.addEventListener("click", (event) => {
         if (event.target === memberDetailModal) closeMemberDetail();
       });
       document.getElementById("suspendMember").addEventListener("click", () => {
-        const nextStatus = selectedMemberRow.dataset.memberStatus === "Suspended" ? "Active" : "Suspended";
+        const nextStatus =
+          selectedMemberRow.dataset.memberStatus === "Suspended"
+            ? "Active"
+            : "Suspended";
         selectedMemberRow.dataset.memberStatus = nextStatus;
         const statusBadge = selectedMemberRow.querySelector(".member-status");
         statusBadge.textContent = nextStatus;
         statusBadge.className = "member-status " + nextStatus.toLowerCase();
         document.getElementById("detailStatus").textContent = nextStatus;
-        document.getElementById("suspendMember").textContent = nextStatus === "Suspended" ? "Restore account" : "Suspend account";
+        document.getElementById("suspendMember").textContent =
+          nextStatus === "Suspended" ? "Restore account" : "Suspend account";
         updateMemberStats();
-        showToast(selectedMemberRow.dataset.memberName + " account " + (nextStatus === "Suspended" ? "suspended" : "restored"));
-        recordLog(nextStatus + " member account: " + selectedMemberRow.dataset.memberName, "Manage Member");
+        showToast(
+          selectedMemberRow.dataset.memberName +
+            " account " +
+            (nextStatus === "Suspended" ? "suspended" : "restored"),
+        );
+        recordLog(
+          nextStatus +
+            " member account: " +
+            selectedMemberRow.dataset.memberName,
+          "Manage Member",
+        );
       });
       const adminProfileModal = document.getElementById("adminProfileModal");
       const closeAdminProfile = () => {
         adminProfileModal.hidden = true;
       };
-      document.getElementById("adminProfileButton").addEventListener("click", () => {
-        adminProfileModal.hidden = false;
-        recordLog("Viewed administrator profile", "Settings");
-      });
-      document.getElementById("closeAdminProfile").addEventListener("click", closeAdminProfile);
-      document.getElementById("closeAdminProfileAction").addEventListener("click", closeAdminProfile);
+      document
+        .getElementById("adminProfileButton")
+        .addEventListener("click", () => {
+          adminProfileModal.hidden = false;
+          recordLog("Viewed administrator profile", "Settings");
+        });
+      document
+        .getElementById("closeAdminProfile")
+        .addEventListener("click", closeAdminProfile);
+      document
+        .getElementById("closeAdminProfileAction")
+        .addEventListener("click", closeAdminProfile);
       adminProfileModal.addEventListener("click", (event) => {
         if (event.target === adminProfileModal) closeAdminProfile();
       });
@@ -1617,25 +2436,35 @@ const manageMemberCount =
         const search = helpSearch.value.trim().toLowerCase();
         let visible = 0;
         helpArticles.forEach((article) => {
-          const matches = (category === "all" || article.dataset.helpCategory === category) && article.textContent.toLowerCase().includes(search);
+          const matches =
+            (category === "all" || article.dataset.helpCategory === category) &&
+            article.textContent.toLowerCase().includes(search);
           article.hidden = !matches;
           if (matches) visible += 1;
         });
         emptyHelp.hidden = visible > 0;
-        document.getElementById("helpArticleCount").textContent = visible + (visible === 1 ? " article" : " articles");
+        document.getElementById("helpArticleCount").textContent =
+          visible + (visible === 1 ? " article" : " articles");
       };
       helpSearch.addEventListener("input", () => filterHelp());
       document.querySelectorAll("[data-help-filter]").forEach((button) =>
         button.addEventListener("click", () => {
           helpSearch.value = "";
           filterHelp(button.dataset.helpFilter);
-          recordLog("Filtered help articles: " + button.dataset.helpFilter, "Help Center");
+          recordLog(
+            "Filtered help articles: " + button.dataset.helpFilter,
+            "Help Center",
+          );
         }),
       );
       helpArticles.forEach((article) =>
         article.addEventListener("click", () => {
           showToast("Help article opened");
-          recordLog("Opened help article: " + article.querySelector("strong").textContent, "Help Center");
+          recordLog(
+            "Opened help article: " +
+              article.querySelector("strong").textContent,
+            "Help Center",
+          );
         }),
       );
       ["contactSupport", "emailSupport"].forEach((id) =>
@@ -1679,12 +2508,12 @@ const manageMemberCount =
                   : view === "Help Center"
                     ? "Help Center"
                     : view === "Settings"
-                  ? "Settings"
-                  : view === "System Logs"
-                    ? "System Logs"
-                    : view === "Inventory"
-                      ? "Inventory Management"
-                      : getGreeting();
+                      ? "Settings"
+                      : view === "System Logs"
+                        ? "System Logs"
+                        : view === "Inventory"
+                          ? "Inventory Management"
+                          : getGreeting();
           quickActionText.textContent =
             view === "Staff" ? "Add staff" : "Add new member";
           if (view !== "Overview") {
@@ -1719,6 +2548,41 @@ const manageMemberCount =
         recordLog("Opened new member form", "Manage Member");
       });
       const staffModal = document.getElementById("staffModal");
+      /* Adds a staff record to the visible Staff table */
+      const addStaffRowToTable = (staff) => {
+        /* Make initials: Olivia Martin becomes OM */
+        const initials = staff.staff_name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+
+        /* Use the real MySQL primary key.
+     Example: database ID 4 becomes STF-004 */
+        const staffId = "STF-" + String(staff.id).padStart(3, "0");
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+    <td>${staffId}</td>
+
+    <td>
+      <div class="staff-person">
+        <div class="avatar sky">${initials}</div>
+        <strong>${staff.staff_name}</strong>
+      </div>
+    </td>
+
+    <td>${staff.email}</td>
+    <td>${staff.department}</td>
+    <td>${staff.role}</td>
+  `;
+
+        staffRows.appendChild(row);
+
+        updateStaffCount();
+      };
       const staffForm = document.getElementById("staffForm");
       const closeStaffModal = () => {
         staffModal.hidden = true;
@@ -1738,47 +2602,69 @@ const manageMemberCount =
       staffModal.addEventListener("click", (event) => {
         if (event.target === staffModal) closeStaffModal();
       });
-      staffForm.addEventListener("submit", (event) => {
+      staffForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        /* Read form values */
         const name = document.getElementById("staffName").value.trim();
-        const address = document.getElementById("staffAddress").value.trim();
-        const age = document.getElementById("staffAge").value;
-        const number = document.getElementById("staffNumber").value.trim();
-        const initials = name
-          .split(/\s+/)
-          .map((part) => part[0])
-          .join("")
-          .slice(0, 2)
-          .toUpperCase();
-        const row = document.createElement("tr");
-        const personCell = document.createElement("td");
-        const person = document.createElement("div");
-        person.className = "staff-person";
-        const avatar = document.createElement("div");
-        avatar.className = "avatar sky";
-        avatar.textContent = initials;
-        const nameElement = document.createElement("strong");
-        nameElement.textContent = name;
-        person.append(avatar, nameElement);
-        personCell.appendChild(person);
-        row.append(
-          personCell,
-          ...[address, age, number].map((value) => {
-            const cell = document.createElement("td");
-            cell.textContent = value;
-            return cell;
-          }),
-        );
-        staffRows.appendChild(row);
-        updateStaffCount();
-        closeStaffModal();
-        showToast(`${name} added to staff`);
-        recordLog(`Added staff member: ${name}`, "Staff");
+        const email = document.getElementById("staffEmail").value.trim();
+        const department = document.getElementById("staffDepartment").value;
+        const role = document.getElementById("staffRole").value;
+
+        /* Create data that PHP can receive with $_POST */
+        const formData = new FormData();
+
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("department", department);
+        formData.append("role", role);
+
+        try {
+          /* Sends data to add_staff.php */
+          const response = await fetch("add_staff.php", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          /* Show database/PHP error if it did not save */
+          if (!result.success) {
+            showToast(result.error || "Could not save staff member.");
+            return;
+          }
+
+          /* Add the saved staff member into the table.
+       result.id comes from MySQL AUTO_INCREMENT primary key. */
+          addStaffRowToTable({
+            id: result.id,
+            staff_name: name,
+            email: email,
+            department: department,
+            role: role,
+          });
+
+          closeStaffModal();
+
+          showToast(name + " was saved to the database.");
+
+          recordLog("Added staff member: " + name, "Staff");
+        } catch (error) {
+          console.error(error);
+
+          showToast(
+            "Cannot connect to PHP. Check XAMPP Apache and the file location.",
+          );
+        }
       });
       document.getElementById("saveSettings").addEventListener("click", () => {
         const adminName = adminNameInput.value.trim();
         const adminEmail = adminEmailInput.value.trim();
-        if (!adminNameInput.reportValidity() || !adminEmailInput.reportValidity()) return;
+        if (
+          !adminNameInput.reportValidity() ||
+          !adminEmailInput.reportValidity()
+        )
+          return;
         const initials = adminName
           .split(/\s+/)
           .map((part) => part[0])
@@ -1789,7 +2675,12 @@ const manageMemberCount =
         document.getElementById("profileAdminName").textContent = adminName;
         document.getElementById("profileAdminEmail").textContent = adminEmail;
         document.getElementById("profileAdminInitials").textContent = initials;
-        document.getElementById("adminProfileButton").setAttribute("aria-label", "View administrator profile for " + adminName);
+        document
+          .getElementById("adminProfileButton")
+          .setAttribute(
+            "aria-label",
+            "View administrator profile for " + adminName,
+          );
         pageTitle.textContent = getGreeting();
         localStorage.setItem(
           adminProfileStorageKey,
@@ -1837,15 +2728,28 @@ const manageMemberCount =
           const search = event.dataset.search || "";
           event.hidden = filter !== "all" && !search.includes(filter);
         });
-        showToast(activityFilter.options[activityFilter.selectedIndex].text + " selected");
-        recordLog("Filtered activity: " + activityFilter.options[activityFilter.selectedIndex].text, "Overview");
+        showToast(
+          activityFilter.options[activityFilter.selectedIndex].text +
+            " selected",
+        );
+        recordLog(
+          "Filtered activity: " +
+            activityFilter.options[activityFilter.selectedIndex].text,
+          "Overview",
+        );
       };
       activityFilter.addEventListener("change", filterActivity);
-      document.getElementById("activityRange").addEventListener("change", (event) => {
-        document.querySelector(".chart-panel h2").textContent = "Item highlights · " + event.target.value.toLowerCase();
-        showToast("Showing " + event.target.value.toLowerCase());
-        recordLog("Changed activity range to " + event.target.value, "Overview");
-      });
+      document
+        .getElementById("activityRange")
+        .addEventListener("change", (event) => {
+          document.querySelector(".chart-panel h2").textContent =
+            "Item highlights · " + event.target.value.toLowerCase();
+          showToast("Showing " + event.target.value.toLowerCase());
+          recordLog(
+            "Changed activity range to " + event.target.value,
+            "Overview",
+          );
+        });
       document
         .getElementById("focusSearch")
         .addEventListener("click", () =>
@@ -1857,12 +2761,17 @@ const manageMemberCount =
       const notificationCount = document.getElementById("notificationCount");
       const notificationReadStorageKey = "clearline-notifications-read";
       const updateNotificationState = () => {
-        const unreadCount = document.querySelectorAll(".notification-item.unread").length;
+        const unreadCount = document.querySelectorAll(
+          ".notification-item.unread",
+        ).length;
         notificationDot.hidden = unreadCount === 0;
-        notificationCount.textContent = unreadCount === 0 ? "All caught up" : unreadCount + " unread";
+        notificationCount.textContent =
+          unreadCount === 0 ? "All caught up" : unreadCount + " unread";
       };
       if (localStorage.getItem(notificationReadStorageKey) === "true") {
-        document.querySelectorAll(".notification-item").forEach((item) => item.classList.remove("unread"));
+        document
+          .querySelectorAll(".notification-item")
+          .forEach((item) => item.classList.remove("unread"));
       }
       updateNotificationState();
       const toggleNotifications = () => {
@@ -1977,7 +2886,8 @@ const manageMemberCount =
           if (!categories[category]) return;
           const quantity = Number(row.children[3].textContent) || 0;
           categories[category].total += quantity;
-          if (row.dataset.status !== "In stock") categories[category].attention += 1;
+          if (row.dataset.status !== "In stock")
+            categories[category].attention += 1;
         });
         [
           ["Equipment", "stockEquipmentTotal", "stockEquipmentStatus"],
@@ -1985,14 +2895,23 @@ const manageMemberCount =
         ].forEach(([category, totalId, statusId]) => {
           const data = categories[category];
           const status = data.attention ? "Review" : "Good";
-          document.getElementById(totalId).textContent = data.total.toLocaleString() + " items";
+          document.getElementById(totalId).textContent =
+            data.total.toLocaleString() + " items";
           document.getElementById(statusId).textContent = status;
-          document.getElementById(statusId).className = data.attention ? "warning" : "good";
+          document.getElementById(statusId).className = data.attention
+            ? "warning"
+            : "good";
         });
-        const lowItems = rows.filter((row) => row.dataset.status === "Low stock").length;
-        const outItems = rows.filter((row) => row.dataset.status === "Out of stock").length;
+        const lowItems = rows.filter(
+          (row) => row.dataset.status === "Low stock",
+        ).length;
+        const outItems = rows.filter(
+          (row) => row.dataset.status === "Out of stock",
+        ).length;
         document.getElementById("stockAttentionTotal").textContent =
-          lowItems + " low" + (outItems ? " · " + outItems + " out of stock" : "");
+          lowItems +
+          " low" +
+          (outItems ? " · " + outItems + " out of stock" : "");
       };
       const updateInventoryCount = () => {
         const rows = [...inventoryRows.children];

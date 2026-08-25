@@ -3043,3 +3043,61 @@ canvas {
     margin-left: 245px;
   }
 }
+/* ===== ARCHIVED MEMBER ACCOUNT ===== */
+
+/* Gray Archived status label */
+.member-status.archived {
+  color: #64748b;
+  background: #e8edf2;
+}
+
+/* Archive button */
+.archive-button {
+  color: #9a641d;
+  border-color: #e4c487;
+  background: #fffaf0;
+}
+
+.archive-button:hover {
+  color: #7a4c12;
+  border-color: #c89446;
+  background: #fff4df;
+}
+
+/* Red Delete button */
+.danger-button {
+  border: 1px solid #e4b5ad;
+  border-radius: 5px;
+  background: #fff5f3;
+  color: #b94e42;
+  padding: 8px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.danger-button:hover {
+  border-color: #cf796e;
+  background: #feeae6;
+}
+
+/* Hides buttons when JavaScript adds hidden */
+.member-detail-actions [hidden] {
+  display: none;
+}
+/* Make Department and Role dropdowns look like inputs */
+#staffForm select {
+  width: 100%;
+  border: 1px solid #dfe6e0;
+  border-radius: 5px;
+  background: #fbfcfa;
+  color: var(--ink);
+  padding: 10px;
+  font: 12px "DM Sans";
+  outline: 0;
+}
+
+#staffForm select:focus {
+  border-color: #70b8a5;
+  box-shadow: 0 0 0 3px #118b7614;
+}
