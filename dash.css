@@ -204,13 +204,22 @@ button {
   min-width: 0;
 }
 .topbar {
+  position: fixed; /* keeps the top bar on screen while scrolling */
+  top: 0;
+  right: 0;
+  left: 1px; /* leaves space for your hidden sidebar */
+  z-index: 1000;
+
   height: 70px;
   padding: 0 42px;
   border-bottom: 1px solid var(--line);
-  background: #ffffff99;
+  background: rgba(255, 255, 255, 0.97);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  backdrop-filter: blur(8px);
 }
 .crumbs {
   display: flex;
@@ -251,6 +260,15 @@ button {
   border-radius: 50%;
   top: 5px;
   right: 5px;
+}
+.main {
+  padding-top: 70px;
+}
+
+/* Moves the top bar when the sidebar opens on hover */
+body:has(.sidebar:hover) .topbar,
+body:has(.sidebar:focus-within) .topbar {
+  left: 245px;
 }
 .page-content {
   max-width: 1370px;
