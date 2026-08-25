@@ -508,6 +508,7 @@
               <table class="member-table">
                 <thead>
                   <tr>
+                    <th>Member ID</th>
                     <th>Member</th>
                     <th>Role</th>
                     <th>Department</th>
@@ -1854,9 +1855,18 @@
       const staffTotal = document.getElementById("staffTotal");
       const staffNavCount = document.getElementById("staffNavCount");
       const updateStaffCount = () => {
-        const count = staffRows.children.length;
+        /* Count only Staff rows that are visible.
+     Archived Staff rows have hidden = true, so they are ignored. */
+        const count = [...staffRows.children].filter(
+          (row) => !row.hidden,
+        ).length;
+
         staffTotal.textContent = `${count} staff member${count === 1 ? "" : "s"}`;
+
+        /* Sidebar Staff badge */
         staffNavCount.textContent = count;
+
+        /* Dashboard Active Staff count */
         overviewStaffTotal.textContent = count;
       };
       const syncStaffFromMembers = () => {
@@ -1892,6 +1902,7 @@
 
             /* Create one Staff table row */
             const staffRow = document.createElement("tr");
+            staffRow.dataset.staffEmail = email.toLowerCase();
 
             staffRow.innerHTML = `
   <td>${staffId}</td>
@@ -2322,6 +2333,37 @@
       };
 
       /* Archive the selected member */
+      /* Hide or show the Staff row that has the same email as the member */
+      const setStaffVisibilityFromMember = (memberRow, shouldShow) => {
+        /* Email from the selected Manage Member account */
+        const memberEmail = memberRow.dataset.memberEmail.trim().toLowerCase();
+
+        document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
+          /*
+      First try data-staff-email.
+
+      If it does not exist, get the email from the Staff table.
+      In your Staff table:
+      0 = Staff ID
+      1 = Staff Name
+      2 = Email
+      3 = Department
+      4 = Role
+    */
+          const staffEmail = (
+            staffRow.dataset.staffEmail ||
+            staffRow.children[2]?.textContent ||
+            ""
+          )
+            .trim()
+            .toLowerCase();
+
+          /* Hide when archived, show again when recovered */
+          if (staffEmail === memberEmail) {
+            staffRow.hidden = !shouldShow;
+          }
+        });
+      };
       archiveMember.addEventListener("click", () => {
         selectedMemberRow.dataset.memberStatus = "Archived";
 
@@ -2331,6 +2373,8 @@
 
         updateMemberStats();
         updateArchiveButtons();
+        setStaffVisibilityFromMember(selectedMemberRow, false);
+        updateStaffCount();
 
         showToast(selectedMemberRow.dataset.memberName + " account archived");
 
@@ -2350,6 +2394,8 @@
 
         updateMemberStats();
         updateArchiveButtons();
+        setStaffVisibilityFromMember(selectedMemberRow, true);
+        updateStaffCount();
 
         showToast(selectedMemberRow.dataset.memberName + " account recovered");
 
@@ -2360,8 +2406,9 @@
       });
 
       /* Permanently delete the selected archived member */
-      deleteMember.addEventListener("click", () => {
+      deleteMember.addEventListener("click", async () => {
         const name = selectedMemberRow.dataset.memberName;
+        const email = selectedMemberRow.dataset.memberEmail;
 
         const confirmed = confirm(
           "Permanently delete " + name + "? This cannot be undone.",
@@ -2369,50 +2416,59 @@
 
         if (!confirmed) return;
 
-        selectedMemberRow.remove();
+        try {
+          /* Tell PHP to delete this Staff record from MySQL */
+          const formData = new FormData();
 
-        /* Refresh the list of members after deleting */
-        memberRows = document.querySelectorAll("#memberRows tr");
+          formData.append("email", email);
 
-        updateMemberStats();
-        closeMemberDetail();
+          const response = await fetch("delete_staff.php", {
+            method: "POST",
+            body: formData,
+          });
 
-        showToast(name + " account deleted");
+          const result = await response.json();
 
-        recordLog("Deleted archived member account: " + name, "Manage Member");
+          if (!result.success) {
+            showToast(result.error || "Could not delete Staff from database.");
+            return;
+          }
+
+          /* Remove the Manage Member row from the browser */
+          selectedMemberRow.remove();
+
+          /* Remove matching visible Staff row */
+          document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
+            const staffEmail = (
+              staffRow.dataset.staffEmail ||
+              staffRow.children[2]?.textContent ||
+              ""
+            )
+              .trim()
+              .toLowerCase();
+
+            if (staffEmail === email.trim().toLowerCase()) {
+              staffRow.remove();
+            }
+          });
+
+          /* Refresh counts */
+          memberRows = document.querySelectorAll("#memberRows tr");
+
+          updateMemberStats();
+          updateStaffCount();
+
+          closeMemberDetail();
+
+          showToast(name + " was permanently deleted.");
+
+          recordLog("Deleted staff account: " + name, "Manage Member");
+        } catch (error) {
+          console.error(error);
+
+          showToast("Could not connect to delete_staff.php.");
+        }
       });
-      memberDetailModal.addEventListener("click", (event) => {
-        if (event.target === memberDetailModal) closeMemberDetail();
-      });
-      document.getElementById("suspendMember").addEventListener("click", () => {
-        const nextStatus =
-          selectedMemberRow.dataset.memberStatus === "Suspended"
-            ? "Active"
-            : "Suspended";
-        selectedMemberRow.dataset.memberStatus = nextStatus;
-        const statusBadge = selectedMemberRow.querySelector(".member-status");
-        statusBadge.textContent = nextStatus;
-        statusBadge.className = "member-status " + nextStatus.toLowerCase();
-        document.getElementById("detailStatus").textContent = nextStatus;
-        document.getElementById("suspendMember").textContent =
-          nextStatus === "Suspended" ? "Restore account" : "Suspend account";
-        updateMemberStats();
-        showToast(
-          selectedMemberRow.dataset.memberName +
-            " account " +
-            (nextStatus === "Suspended" ? "suspended" : "restored"),
-        );
-        recordLog(
-          nextStatus +
-            " member account: " +
-            selectedMemberRow.dataset.memberName,
-          "Manage Member",
-        );
-      });
-      const adminProfileModal = document.getElementById("adminProfileModal");
-      const closeAdminProfile = () => {
-        adminProfileModal.hidden = true;
-      };
       document
         .getElementById("adminProfileButton")
         .addEventListener("click", () => {
@@ -2563,6 +2619,7 @@
         const staffId = "STF-" + String(staff.id).padStart(3, "0");
 
         const row = document.createElement("tr");
+        row.dataset.staffEmail = staff.email.toLowerCase();
 
         row.innerHTML = `
     <td>${staffId}</td>
@@ -2582,6 +2639,146 @@
         staffRows.appendChild(row);
 
         updateStaffCount();
+      };
+      /* Load all saved Staff records from the MySQL database */
+      const loadStaffFromDatabase = async () => {
+        try {
+          const response = await fetch("get_staff.php");
+
+          const staffList = await response.json();
+
+          /* Clear the Staff table before loading MySQL records */
+          staffRows.replaceChildren();
+
+          /* Put each MySQL Staff record into the Staff table */
+          staffList.forEach((staff) => {
+            addStaffRowToTable(staff);
+          });
+          syncMemberIdsFromStaff();
+
+          updateStaffCount();
+        } catch (error) {
+          console.error(error);
+
+          showToast("Could not load Staff records from the database.");
+        }
+      };
+      /* =====================================================
+   Show the same Staff ID inside Manage Member.
+   Example: STF-004 in Staff also becomes STF-004 in Member.
+   ===================================================== */
+      const syncMemberIdsFromStaff = () => {
+        /* Make a list of: email -> Staff ID */
+        const staffIdByEmail = new Map();
+
+        document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
+          const email = (
+            staffRow.dataset.staffEmail ||
+            staffRow.children[2]?.textContent ||
+            ""
+          )
+            .trim()
+            .toLowerCase();
+
+          /* Staff ID is in the first Staff table column */
+          const staffId = staffRow.children[0]?.textContent.trim();
+
+          if (email && staffId) {
+            staffIdByEmail.set(email, staffId);
+          }
+        });
+
+        /* Add/update the first column of every Manage Member row */
+        memberRows.forEach((memberRow) => {
+          const memberEmail = memberRow.dataset.memberEmail
+            .trim()
+            .toLowerCase();
+
+          /* Use the matching Staff ID. Show — if not a Staff account. */
+          const memberId = staffIdByEmail.get(memberEmail) || "—";
+
+          let idCell = memberRow.querySelector(".member-id");
+
+          /* Create the first Member ID cell only once */
+          if (!idCell) {
+            idCell = document.createElement("td");
+            idCell.className = "member-id";
+
+            /* Put Member ID before the Member name cell */
+            memberRow.insertBefore(idCell, memberRow.firstElementChild);
+          }
+
+          idCell.textContent = memberId;
+
+          /* Save ID in the Member row for future use */
+          memberRow.dataset.memberId = memberId;
+        });
+      };
+      /* Adds a Staff member to the Manage Member table */
+      const addStaffToManageMembers = (staff) => {
+        const initials = staff.staff_name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+
+        const row = document.createElement("tr");
+
+        row.dataset.memberSearch = (
+          staff.staff_name +
+          " " +
+          staff.email
+        ).toLowerCase();
+
+        row.dataset.memberStatus = "Active";
+        row.dataset.memberRole = staff.role;
+        row.dataset.memberName = staff.staff_name;
+        row.dataset.memberEmail = staff.email;
+        row.dataset.memberDepartment = staff.department;
+        row.dataset.memberJoined = "Added as staff";
+        row.dataset.memberLastActive = "Just added";
+        row.dataset.memberAccess = staff.role + " staff access";
+
+        row.innerHTML = `
+    <td>
+      <div class="staff-person">
+        <div class="avatar sky">${initials}</div>
+        <strong>${staff.staff_name}</strong>
+      </div>
+      <small>${staff.email}</small>
+    </td>
+
+    <td>${staff.role}</td>
+    <td>${staff.department}</td>
+    <td><span class="member-status active">Active</span></td>
+    <td>Just added</td>
+    <td>Today</td>
+
+    <td>
+      <button
+        class="row-action member-view"
+        type="button"
+        aria-label="View member"
+      >
+        <i data-lucide="eye"></i>
+      </button>
+    </td>
+  `;
+
+        document.getElementById("memberRows").appendChild(row);
+
+        /* Refresh the member list used by your filters and counters */
+        memberRows = document.querySelectorAll("#memberRows tr");
+
+        /* Make the new eye button work */
+        row.querySelector(".member-view").addEventListener("click", () => {
+          openMemberDetails(row);
+        });
+
+        updateMemberStats();
+
+        lucide.createIcons();
       };
       const staffForm = document.getElementById("staffForm");
       const closeStaffModal = () => {
@@ -2636,14 +2833,23 @@
 
           /* Add the saved staff member into the table.
        result.id comes from MySQL AUTO_INCREMENT primary key. */
-          addStaffRowToTable({
+          const newStaff = {
             id: result.id,
             staff_name: name,
             email: email,
             department: department,
             role: role,
-          });
+          };
 
+          /* Show staff in Staff table */
+          /* Show the saved Staff record in Staff */
+          addStaffRowToTable(newStaff);
+
+          /* Also create the member record first */
+          addStaffToManageMembers(newStaff);
+
+          /* Now add the Staff ID in the first Manage Member column */
+          syncMemberIdsFromStaff();
           closeStaffModal();
 
           showToast(name + " was saved to the database.");
@@ -3299,6 +3505,7 @@
       overviewSystemTotal.textContent = readLogs().length;
       renderLogs();
       lucide.createIcons();
+      loadStaffFromDatabase();
     </script>
   </body>
 </html>
