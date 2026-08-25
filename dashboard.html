@@ -1369,7 +1369,17 @@ const manageMemberCount =
       const systemActivityInput = document.getElementById("systemActivityInput");
       const lowInventoryInput = document.getElementById("lowInventoryInput");
       const weeklySummaryInput = document.getElementById("weeklySummaryInput");
-      const getGreeting = () => "Good morning, " + adminNameInput.value.trim().split(/\s+/)[0] + " ✦";
+      const getGreeting = () => {
+        const hour = Number(
+          new Intl.DateTimeFormat("en-US", {
+            timeZone: "Asia/Manila",
+            hour: "numeric",
+            hour12: false,
+          }).format(new Date()),
+        );
+        const greeting = hour < 12 ? "Good morning" : hour === 12 ? "Good noon" : "Good evening";
+        return greeting + ", " + adminNameInput.value.trim().split(/\s+/)[0] + " ✦";
+      };
       try {
         const savedAdminProfile = JSON.parse(
           localStorage.getItem(adminProfileStorageKey) || "null",
@@ -2277,11 +2287,28 @@ const manageMemberCount =
         );
       const trendPanel = document.querySelector(".chart-panel");
       trendPanel.classList.add("trend-panel");
-      trendPanel.querySelector(".overline").textContent = "TRENDS";
-      trendPanel.querySelector("h2").textContent = "Item highlights";
+      trendPanel.querySelector(".overline").textContent = "ITEM TRENDS";
+      trendPanel.querySelector("h2").textContent = "Top items sold";
       trendPanel.querySelector(".select").value = "This month";
-      const trendList = document.createElement("div");
-      trendList.className = "trend-list";
+      const trendCarousel = document.createElement("div");
+      trendCarousel.className = "trend-carousel";
+      const trendSlides = document.createElement("div");
+      trendSlides.className = "trend-slides";
+      const trendControls = document.createElement("div");
+      trendControls.className = "trend-controls";
+      const previousTrend = document.createElement("button");
+      previousTrend.className = "trend-arrow";
+      previousTrend.type = "button";
+      previousTrend.setAttribute("aria-label", "Show previous top item");
+      previousTrend.innerHTML = '<i data-lucide="chevron-left"></i>';
+      const trendDots = document.createElement("div");
+      trendDots.className = "trend-dots";
+      const nextTrend = document.createElement("button");
+      nextTrend.className = "trend-arrow";
+      nextTrend.type = "button";
+      nextTrend.setAttribute("aria-label", "Show next top item");
+      nextTrend.innerHTML = '<i data-lucide="chevron-right"></i>';
+      trendControls.append(previousTrend, trendDots, nextTrend);
       [...inventoryRows.children]
         .sort(
           (first, second) =>
@@ -2289,11 +2316,22 @@ const manageMemberCount =
             Number(first.children[3].textContent),
         )
         .forEach((row, index) => {
-          const item = document.createElement("div");
-          item.className = "trend-item";
+          const item = document.createElement("article");
+          item.className = "trend-slide";
+          const photo = document.createElement("div");
+          photo.className = "trend-photo";
           const rank = document.createElement("b");
           rank.className = "trend-rank";
           rank.textContent = index + 1;
+          const inventoryPhoto = row.querySelector(".inventory-photo");
+          if (inventoryPhoto) {
+            photo.appendChild(inventoryPhoto.cloneNode(true));
+          } else {
+            const itemIcon = row.querySelector(".item-icon").cloneNode(true);
+            itemIcon.className = "trend-icon";
+            photo.appendChild(itemIcon);
+          }
+          photo.appendChild(rank);
           const info = document.createElement("div");
           info.className = "trend-info";
           const name = document.createElement("strong");
@@ -2306,10 +2344,30 @@ const manageMemberCount =
           const status = document.createElement("span");
           status.className = `trend-status ${row.dataset.status === "In stock" ? "good" : row.dataset.status === "Low stock" ? "warning" : "danger"}`;
           status.textContent = row.dataset.status;
-          item.append(rank, info, status);
-          trendList.appendChild(item);
+          item.append(photo, info, status);
+          trendSlides.appendChild(item);
+          const dot = document.createElement("button");
+          dot.className = "trend-dot";
+          dot.type = "button";
+          dot.setAttribute("aria-label", `Show top item ${index + 1}`);
+          dot.addEventListener("click", () => showTrend(index));
+          trendDots.appendChild(dot);
         });
-      trendPanel.querySelector(".chart").replaceWith(trendList);
+      let activeTrend = 0;
+      const showTrend = (index) => {
+        const slides = trendSlides.children;
+        activeTrend = (index + slides.length) % slides.length;
+        trendSlides.style.transform = `translateX(-${activeTrend * 100}%)`;
+        [...trendDots.children].forEach((dot, dotIndex) => {
+          dot.classList.toggle("active", dotIndex === activeTrend);
+        });
+      };
+      previousTrend.addEventListener("click", () => showTrend(activeTrend - 1));
+      nextTrend.addEventListener("click", () => showTrend(activeTrend + 1));
+      setInterval(() => showTrend(activeTrend + 1), 5000);
+      trendCarousel.append(trendSlides, trendControls);
+      trendPanel.querySelector(".chart").replaceWith(trendCarousel);
+      showTrend(0);
       trendPanel.querySelector(".chart-foot span").innerHTML =
         '<b class="legend"></b>Based on recorded inventory';
       trendPanel.querySelector(".chart-foot strong").innerHTML =

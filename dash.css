@@ -923,6 +923,16 @@ button {
 .sidebar:focus-within .sidebar-bottom {
   transition-delay: 0s;
 }
+@media (min-width: 761px) {
+  .app-shell {
+    min-height: 100dvh;
+  }
+  .sidebar {
+    align-self: stretch;
+    min-height: 100dvh;
+    height: auto;
+  }
+}
 .settings-content[hidden] {
   display: none;
 }
@@ -949,6 +959,49 @@ button {
 .settings-form label {
   display: grid;
   gap: 7px;
+@media (min-width: 761px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 245px;
+    flex: 0 0 245px;
+    height: 100vh;
+    min-height: 100vh;
+    align-self: auto;
+    overflow-y: auto;
+    padding: 27px 15px 18px;
+    background: #183b34;
+  }
+  .sidebar > *,
+  .sidebar .brand,
+  .sidebar .company-switcher,
+  .sidebar nav,
+  .sidebar .sidebar-bottom,
+  .sidebar .brand > div:last-child,
+  .sidebar .company-switcher > div:nth-child(2),
+  .sidebar .company-switcher > svg,
+  .sidebar .nav-heading,
+  .sidebar .nav-text,
+  .sidebar .nav-badge,
+  .sidebar .user > div:nth-child(2),
+  .sidebar .user > svg {
+    visibility: visible;
+    opacity: 1;
+  }
+  .sidebar .company-switcher,
+  .sidebar .nav-link {
+    width: 100%;
+  }
+  .main {
+    margin-left: 245px;
+  }
+  .sidebar nav {
+    margin-top: 0;
+  }
+  .sidebar-bottom {
+    margin-top: auto;
+  }
+}
   color: #728079;
   font-size: 11px;
   font-weight: 600;
@@ -1770,32 +1823,64 @@ button {
 .trend-panel .chart-foot strong {
   font-size: 13px;
 }
-.trend-list {
-  height: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 22px 0 10px;
+.trend-carousel {
+  overflow: hidden;
+  margin: 16px 0 12px;
 }
-.trend-item {
+.trend-slides {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #edf0ec;
-  padding: 9px 0;
+  transition: transform 0.35s ease;
 }
-.trend-item:last-child {
-  border-bottom: 0;
+.trend-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 148px auto;
+  gap: 10px 12px;
+}
+.trend-photo {
+  width: 100%;
+  height: 148px;
+  grid-column: 1 / -1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #427e72, #a8d3c4);
+}
+.trend-slide:nth-child(2) .trend-photo {
+  background: linear-gradient(135deg, #bf8b48, #f1c891);
+}
+.trend-slide:nth-child(3) .trend-photo {
+  background: linear-gradient(135deg, #547da6, #b8cee5);
+}
+.trend-slide:nth-child(4) .trend-photo {
+  background: linear-gradient(135deg, #a75e52, #e9aaa0);
+}
+.trend-photo .inventory-photo {
+  opacity: 1;
+  transform: none;
+}
+.trend-icon {
+  position: absolute;
+  inset: 42px;
+  width: 64px;
+  height: 64px;
+  color: #fff !important;
 }
 .trend-rank {
-  width: 20px;
-  height: 20px;
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: #e5f2ed;
-  color: #27816d;
+  background: #17322c;
+  color: #fff;
   display: grid;
   place-items: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 .trend-info {
   display: flex;
@@ -1803,6 +1888,43 @@ button {
   gap: 2px;
   flex: 1;
   min-width: 0;
+}
+.trend-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2px;
+}
+.trend-arrow {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.trend-arrow svg {
+  width: 14px;
+}
+.trend-dots {
+  display: flex;
+  gap: 5px;
+}
+.trend-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #cbd8d2;
+  cursor: pointer;
+}
+.trend-dot.active {
+  background: #118b76;
+  transform: scale(1.35);
 }
 .trend-info strong {
   overflow: hidden;
@@ -1819,10 +1941,16 @@ button {
   font-size: 10px;
 }
 .trend-status {
+  min-width: 72px;
+  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
-  padding: 4px 6px;
+  padding: 6px 8px;
   font-size: 9px;
   font-weight: 700;
+  text-align: center;
 }
 .trend-status.good {
   background: #e8f5ef;
@@ -2004,12 +2132,6 @@ button {
 .sidebar .nav-link:hover:not(.active) {
   background: #2e5a50;
   color: #fff;
-}
-
-.sidebar nav,
-.sidebar-bottom {
-  gap: 3px;
-  margin-top: auto;
 }
 
 .manage-content .settings-grid {
@@ -2829,5 +2951,77 @@ canvas {
 @media (max-height: 560px) {
   .sidebar {
     overflow-y: auto;
+  }
+}
+@media (min-width: 761px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 12px;
+    flex: 0 0 12px;
+    height: 100vh;
+    min-height: 100vh;
+    align-self: auto;
+    overflow-y: auto;
+    padding: 0;
+    background: transparent;
+  }
+  .main {
+    margin-left: 12px;
+    transition: margin-left 0.22s ease;
+  }
+  .sidebar > *,
+  .sidebar .brand,
+  .sidebar .company-switcher,
+  .sidebar nav,
+  .sidebar .sidebar-bottom,
+  .sidebar .brand > div:last-child,
+  .sidebar .company-switcher > div:nth-child(2),
+  .sidebar .company-switcher > svg,
+  .sidebar .nav-heading,
+  .sidebar .nav-text,
+  .sidebar .nav-badge,
+  .sidebar .user > div:nth-child(2),
+  .sidebar .user > svg {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .sidebar:hover,
+  .sidebar:focus-within {
+    width: 245px;
+    flex-basis: 245px;
+    padding: 27px 15px 18px;
+    background: #183b34;
+  }
+  .sidebar:hover > *,
+  .sidebar:focus-within > *,
+  .sidebar:hover .brand,
+  .sidebar:hover .company-switcher,
+  .sidebar:hover nav,
+  .sidebar:hover .sidebar-bottom,
+  .sidebar:focus-within .brand,
+  .sidebar:focus-within .company-switcher,
+  .sidebar:focus-within nav,
+  .sidebar:focus-within .sidebar-bottom {
+    visibility: visible;
+    opacity: 1;
+  }
+  .sidebar:hover nav,
+  .sidebar:focus-within nav {
+    margin-top: 0;
+  }
+  .sidebar:hover .sidebar-bottom,
+  .sidebar:focus-within .sidebar-bottom {
+    margin-top: auto;
+  }
+  .sidebar:hover .company-switcher,
+  .sidebar:focus-within .company-switcher,
+  .sidebar:hover .nav-link,
+  .sidebar:focus-within .nav-link {
+    width: 100%;
+  }
+  body:has(.sidebar:hover) .main,
+  body:has(.sidebar:focus-within) .main {
+    margin-left: 245px;
   }
 }
