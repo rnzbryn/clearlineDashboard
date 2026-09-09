@@ -35,10 +35,6 @@
             ><span class="nav-text">Staff</span
             ><span class="nav-badge" id="staffNavCount">4</span>
           </button>
-          <button class="nav-link" data-view="Manage Member">
-            <i data-lucide="users"></i
-            ><span class="nav-text">Manage Member</span>
-          </button>
           <button class="nav-link" data-view="Inventory">
             <i data-lucide="package"></i><span class="nav-text">Inventory</span
             ><span class="nav-badge alert" id="inventoryNavCount">4</span>
@@ -408,12 +404,15 @@
           </section>
         </div>
 
-        <div class="page-content staff-content" id="staffContent" hidden>
+                <div class="page-content staff-content" id="staffContent" hidden>
           <section class="intro staff-intro">
             <div>
               <p class="overline">STAFF DIRECTORY</p>
               <h1>Staff</h1>
-              <p>View staff contact details and basic information.</p>
+              <p>
+                Review staff profiles, archive accounts, recover them, or
+                permanently delete records.
+              </p>
             </div>
             <button class="primary" id="addStaff">
               <i data-lucide="plus"></i>Add staff
@@ -427,6 +426,21 @@
               </div>
               <span class="staff-total" id="staffTotal">4 staff members</span>
             </div>
+            <div class="staff-toolbar">
+              <div class="search-box member-search">
+                <i data-lucide="search"></i>
+                <input
+                  id="staffSearch"
+                  type="search"
+                  placeholder="Search by name or email..."
+                />
+              </div>
+              <select class="inventory-filter" id="staffStatusFilter">
+                <option value="all">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
             <div class="staff-table-wrap">
               <table class="staff-table">
                 <thead>
@@ -436,192 +450,14 @@
                     <th>Email</th>
                     <th>Department</th>
                     <th>Role</th>
+                    <th>Status</th>
+                    <th><span class="sr-only">Actions</span></th>
                   </tr>
                 </thead>
                 <tbody id="staffRows"></tbody>
               </table>
-            </div>
-          </section>
-        </div>
-
-        <div class="page-content members-content" id="membersContent" hidden>
-          <section class="intro members-intro">
-            <div>
-              <p class="overline">MEMBER DIRECTORY</p>
-              <h1>Manage members</h1>
-              <p>
-                Review member profiles, access levels, activity, and account
-                status.
-              </p>
-            </div>
-            <button class="primary" id="inviteMemberButton">
-              <i data-lucide="user-plus"></i>Invite member
-            </button>
-          </section>
-          <section class="member-stats">
-            <article class="inventory-stat">
-              <span>Total members</span
-              ><strong id="memberDirectoryTotal">3</strong
-              ><small>Registered accounts</small>
-            </article>
-            <article class="inventory-stat">
-              <span>Active now</span
-              ><strong class="inventory-good" id="memberActiveTotal">2</strong
-              ><small>Online or recently active</small>
-            </article>
-            <article class="inventory-stat">
-              <span>Pending invites</span
-              ><strong class="inventory-warning-number" id="memberPendingTotal"
-                >1</strong
-              ><small>Awaiting acceptance</small>
-            </article>
-            <article class="inventory-stat">
-              <span>Administrators</span><strong id="memberAdminTotal">1</strong
-              ><small>Privileged accounts</small>
-            </article>
-          </section>
-          <section class="panel member-directory-panel">
-            <div class="member-toolbar">
-              <div class="search-box member-search">
-                <i data-lucide="search"></i
-                ><input
-                  id="memberSearch"
-                  type="search"
-                  placeholder="Search by name or email..."
-                />
-              </div>
-              <select class="inventory-filter" id="memberStatusFilter">
-                <option value="all">All statuses</option>
-                <option value="Active">Active</option>
-                <option value="Pending">Pending</option>
-                <option value="Suspended">Suspended</option>
-                <option value="Archived">Archived</option>
-              </select>
-              <select class="inventory-filter" id="memberRoleFilter">
-                <option value="all">All roles</option>
-                <option value="Administrator">Administrator</option>
-                <option value="Manager">Manager</option>
-                <option value="Member">Member</option>
-              </select>
-            </div>
-            <div class="member-table-wrap">
-              <table class="member-table">
-                <thead>
-                  <tr>
-                    <th>Member ID</th>
-                    <th>Member</th>
-                    <th>Role</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                    <th>Last active</th>
-                    <th>Joined</th>
-                    <th><span class="sr-only">Actions</span></th>
-                  </tr>
-                </thead>
-                <tbody id="memberRows">
-                  <tr
-                    data-member-search="olivia martin olivia@acmecollective.com"
-                    data-member-status="Active"
-                    data-member-role="Member"
-                    data-member-name="Olivia Martin"
-                    data-member-email="olivia@acmecollective.com"
-                    data-member-department="Design"
-                    data-member-joined="12 September 2024"
-                    data-member-last-active="Just now"
-                    data-member-access="Standard member access"
-                  >
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar mint">OM</div>
-                        <strong>Olivia Martin</strong>
-                      </div>
-                      <small>olivia@acmecollective.com</small>
-                    </td>
-                    <td>Member</td>
-                    <td>Design</td>
-                    <td><span class="member-status active">Active</span></td>
-                    <td>Just now</td>
-                    <td>12 Sep 2024</td>
-                    <td>
-                      <button
-                        class="row-action member-view"
-                        type="button"
-                        aria-label="View Olivia Martin"
-                      >
-                        <i data-lucide="eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr
-                    data-member-search="ethan brooks ethan@acmecollective.com"
-                    data-member-status="Active"
-                    data-member-role="Manager"
-                    data-member-name="Ethan Brooks"
-                    data-member-email="ethan@acmecollective.com"
-                    data-member-department="Operations"
-                    data-member-joined="4 August 2024"
-                    data-member-last-active="18 minutes ago"
-                    data-member-access="Can manage department members"
-                  >
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar peach">EB</div>
-                        <strong>Ethan Brooks</strong>
-                      </div>
-                      <small>ethan@acmecollective.com</small>
-                    </td>
-                    <td>Manager</td>
-                    <td>Operations</td>
-                    <td><span class="member-status active">Active</span></td>
-                    <td>18 min ago</td>
-                    <td>4 Aug 2024</td>
-                    <td>
-                      <button
-                        class="row-action member-view"
-                        type="button"
-                        aria-label="View Ethan Brooks"
-                      >
-                        <i data-lucide="eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr
-                    data-member-search="maya patel maya@acmecollective.com"
-                    data-member-status="Pending"
-                    data-member-role="Administrator"
-                    data-member-name="Maya Patel"
-                    data-member-email="maya@acmecollective.com"
-                    data-member-department="Support"
-                    data-member-joined="Pending invitation"
-                    data-member-last-active="Not yet active"
-                    data-member-access="Full workspace administration"
-                  >
-                    <td>
-                      <div class="staff-person">
-                        <div class="avatar lilac">MP</div>
-                        <strong>Maya Patel</strong>
-                      </div>
-                      <small>maya@acmecollective.com</small>
-                    </td>
-                    <td>Administrator</td>
-                    <td>Support</td>
-                    <td><span class="member-status pending">Pending</span></td>
-                    <td>Not yet active</td>
-                    <td>Pending</td>
-                    <td>
-                      <button
-                        class="row-action member-view"
-                        type="button"
-                        aria-label="View Maya Patel"
-                      >
-                        <i data-lucide="eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <p class="empty-members" id="emptyMembers" hidden>
-                No members match your filters.
+              <p class="empty-staff" id="emptyStaff" hidden>
+                No staff members match your filters.
               </p>
             </div>
           </section>
@@ -636,8 +472,8 @@
           >
             <div class="modal-head">
               <div>
-                <p class="overline">MEMBER PROFILE</p>
-                <h2 id="memberDetailTitle">Member details</h2>
+                <p class="overline">STAFF PROFILE</p>
+                <h2 id="memberDetailTitle">Staff details</h2>
               </div>
               <button
                 class="icon-button"
@@ -659,19 +495,14 @@
                 <span>Account status</span><strong id="detailStatus"></strong>
               </div>
               <div>
-                <span>Last active</span><strong id="detailLastActive"></strong>
+                <span>Staff ID</span><strong id="detailLastActive"></strong>
               </div>
-              <div><span>Joined</span><strong id="detailJoined"></strong></div>
+              <div><span>Directory</span><strong id="detailJoined"></strong></div>
             </div>
             <div class="member-access">
               <span>Access summary</span><strong id="detailAccess"></strong>
             </div>
-            <div class="modal-actions member-detail-actions">
-              <!-- Normal member buttons -->
-              <button type="button" class="outline-button" id="suspendMember">
-                Suspend account
-              </button>
-
+                        <div class="modal-actions member-detail-actions">
               <button
                 type="button"
                 class="outline-button archive-button"
@@ -679,8 +510,6 @@
               >
                 Archive account
               </button>
-
-              <!-- These stay hidden until the member is archived -->
               <button
                 type="button"
                 class="outline-button"
@@ -689,7 +518,6 @@
               >
                 Recover account
               </button>
-
               <button
                 type="button"
                 class="danger-button"
@@ -698,7 +526,6 @@
               >
                 Delete account
               </button>
-
               <button
                 type="button"
                 class="primary"
@@ -1829,7 +1656,6 @@
       const staffContent = document.getElementById("staffContent");
       const settingsContent = document.getElementById("settingsContent");
       const manageContent = document.getElementById("manageContent");
-      const membersContent = document.getElementById("membersContent");
       const helpContent = document.getElementById("helpContent");
       const logsContent = document.getElementById("logsContent");
       const inventoryContent = document.getElementById("inventoryContent");
@@ -1854,83 +1680,62 @@
       const staffRows = document.getElementById("staffRows");
       const staffTotal = document.getElementById("staffTotal");
       const staffNavCount = document.getElementById("staffNavCount");
-      const updateStaffCount = () => {
-        /* Count only Staff rows that are visible.
-     Archived Staff rows have hidden = true, so they are ignored. */
-        const count = [...staffRows.children].filter(
-          (row) => !row.hidden,
-        ).length;
+            const staffSearch = document.getElementById("staffSearch");
+      const staffStatusFilter = document.getElementById("staffStatusFilter");
+      const emptyStaff = document.getElementById("emptyStaff");
+      const phpBaseUrl = "http://localhost/clearlineDashboard";
+      const phpUrl = (endpoint) => `${phpBaseUrl}/${endpoint}`;
+      const archivedStaffStorageKey = "clearline-archived-staff";
 
-        staffTotal.textContent = `${count} staff member${count === 1 ? "" : "s"}`;
-
-        /* Sidebar Staff badge */
-        staffNavCount.textContent = count;
-
-        /* Dashboard Active Staff count */
-        overviewStaffTotal.textContent = count;
+      const readArchivedStaff = () => {
+        try {
+          return JSON.parse(localStorage.getItem(archivedStaffStorageKey) || "[]");
+        } catch {
+          return [];
+        }
       };
-      const syncStaffFromMembers = () => {
-        /* Remove old Staff rows before creating the updated list */
-        staffRows.replaceChildren();
 
-        /* Add Manage Member accounts into the Staff table.
-     Archived accounts are not shown in Staff. */
-        [...memberRows]
-          .filter((member) => member.dataset.memberStatus !== "Archived")
-          .forEach((member) => {
-            const name = member.dataset.memberName;
-            const email = member.dataset.memberEmail;
-            const department = member.dataset.memberDepartment;
-            const role = member.dataset.memberRole;
+      const writeArchivedStaff = (emails) => {
+        localStorage.setItem(archivedStaffStorageKey, JSON.stringify(emails));
+      };
 
-            /* Create a Staff ID only if the member does not have one yet.
-         Examples: STF-001, STF-002, STF-003 */
-            if (!member.dataset.staffId) {
-              const highestId = [...memberRows].reduce((highest, row) => {
-                const number = Number(
-                  (row.dataset.staffId || "").replace("STF-", ""),
-                );
+      const isStaffArchived = (email) =>
+        readArchivedStaff().includes(String(email || "").trim().toLowerCase());
 
-                return Math.max(highest, number || 0);
-              }, 0);
+      const setStaffArchived = (email, archived) => {
+        const key = String(email || "").trim().toLowerCase();
+        const current = readArchivedStaff().filter((item) => item !== key);
+        if (archived) current.push(key);
+        writeArchivedStaff(current);
+      };
 
-              member.dataset.staffId =
-                "STF-" + String(highestId + 1).padStart(3, "0");
-            }
+      const filterStaff = () => {
+        const search = (staffSearch?.value || "").trim().toLowerCase();
+        const status = staffStatusFilter?.value || "all";
+        let visible = 0;
+        [...staffRows.children].forEach((row) => {
+          const matches =
+            (!search || (row.dataset.staffSearch || "").includes(search)) &&
+            (status === "all" || row.dataset.staffStatus === status);
+          row.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        if (emptyStaff) emptyStaff.hidden = visible > 0;
+        staffTotal.textContent =
+          visible + " staff member" + (visible === 1 ? "" : "s");
+      };
 
-            const staffId = member.dataset.staffId;
-
-            /* Create one Staff table row */
-            const staffRow = document.createElement("tr");
-            staffRow.dataset.staffEmail = email.toLowerCase();
-
-            staffRow.innerHTML = `
-  <td>${staffId}</td>
-
-  <td>
-    <div class="staff-person">
-      <div class="avatar sky">
-        ${name
-          .split(/\s+/)
-          .map((part) => part[0])
-          .join("")
-          .slice(0, 2)
-          .toUpperCase()}
-      </div>
-      <strong>${name}</strong>
-    </div>
-  </td>
-
-  <td>${email}</td>
-  <td>${department}</td>
-  <td>${role}</td>
-`;
-
-            staffRows.appendChild(staffRow);
-          });
-
-        /* Update Staff counts */
-        updateStaffCount();
+      const updateStaffCount = () => {
+        const rows = [...staffRows.children];
+        const active = rows.filter(
+          (row) => row.dataset.staffStatus !== "Archived"
+        ).length;
+        staffNavCount.textContent = active;
+        overviewStaffTotal.textContent = active;
+        overviewMemberTotal.textContent = rows.length;
+        if (manageMemberCount) manageMemberCount.textContent = rows.length;
+        if (manageTotalUsers) manageTotalUsers.textContent = rows.length;
+        filterStaff();
       };
       const logRows = document.getElementById("logRows");
       const logTotal = document.getElementById("logTotal");
@@ -2125,13 +1930,6 @@
           recordLog("Opened admin actions", "Manage");
         });
       document
-        .getElementById("inviteMemberButton")
-        .addEventListener("click", () => {
-          adminModal.hidden = false;
-          document.getElementById("inviteEmail").focus();
-          recordLog("Opened member invitation", "Manage Member");
-        });
-      document
         .getElementById("closeAdminModal")
         .addEventListener("click", closeAdminModal);
       adminModal.addEventListener("click", (event) => {
@@ -2172,8 +1970,12 @@
           row.querySelector("td small").textContent = email;
           row.querySelector("td:nth-child(2)").textContent = role;
           row.querySelector("td:nth-child(3)").textContent = department;
-          document.getElementById("memberRows").appendChild(row);
-          memberRows = document.querySelectorAll("#memberRows tr");
+          const memberTable = document.getElementById("memberRows");
+          if (!memberTable) {
+            showToast("Manage Member is unavailable.");
+            return;
+          }
+          memberTable.appendChild(row);
           row
             .querySelector(".member-view")
             .addEventListener("click", () => openMemberDetails(row));
@@ -2223,268 +2025,168 @@
           showToast("New sign-ups " + status);
           recordLog("New sign-ups " + status, "Manage");
         });
-      let memberRows = document.querySelectorAll("#memberRows tr");
-      const memberSearch = document.getElementById("memberSearch");
-      const memberStatusFilter = document.getElementById("memberStatusFilter");
-      const memberRoleFilter = document.getElementById("memberRoleFilter");
-      const emptyMembers = document.getElementById("emptyMembers");
-      const updateMemberStats = () => {
-        const statuses = [...memberRows].map((row) => row.dataset.memberStatus);
-        document.getElementById("memberDirectoryTotal").textContent =
-          statuses.length;
-        document.getElementById("memberActiveTotal").textContent =
-          statuses.filter((status) => status === "Active").length;
-        document.getElementById("memberPendingTotal").textContent =
-          statuses.filter((status) => status === "Pending").length;
-        document.getElementById("memberAdminTotal").textContent = [
-          ...memberRows,
-        ].filter((row) => row.dataset.memberRole === "Administrator").length;
-        overviewMemberTotal.textContent = statuses.length;
-        manageMemberCount.textContent = statuses.length;
-        /*syncStaffFromMembers();*/
-      };
-      const filterMembers = () => {
-        const search = memberSearch.value.trim().toLowerCase();
-        const status = memberStatusFilter.value;
-        const role = memberRoleFilter.value;
-        let visible = 0;
-        memberRows.forEach((row) => {
-          const matches =
-            row.dataset.memberSearch.includes(search) &&
-            (status === "all" || row.dataset.memberStatus === status) &&
-            (role === "all" || row.dataset.memberRole === role);
-          row.hidden = !matches;
-          if (matches) visible += 1;
-        });
-        emptyMembers.hidden = visible > 0;
-      };
-      [memberSearch, memberStatusFilter, memberRoleFilter].forEach((control) =>
-        control.addEventListener("input", filterMembers),
-      );
-      const memberDetailModal = document.getElementById("memberDetailModal");
-      let selectedMemberRow;
+              const memberDetailModal = document.getElementById("memberDetailModal");
+      let selectedStaffRow;
+
       const closeMemberDetail = () => {
         memberDetailModal.hidden = true;
       };
-      const openMemberDetails = (row) => {
-        selectedMemberRow = row;
-        const data = row.dataset;
-        document.getElementById("memberDetailTitle").textContent =
-          data.memberName;
-        document.getElementById("detailEmail").textContent = data.memberEmail;
-        document.getElementById("detailRole").textContent = data.memberRole;
-        document.getElementById("detailDepartment").textContent =
-          data.memberDepartment;
-        document.getElementById("detailStatus").textContent = data.memberStatus;
-        document.getElementById("detailLastActive").textContent =
-          data.memberLastActive;
-        document.getElementById("detailJoined").textContent = data.memberJoined;
-        document.getElementById("detailAccess").textContent = data.memberAccess;
-        document.getElementById("suspendMember").textContent =
-          data.memberStatus === "Suspended"
-            ? "Restore account"
-            : "Suspend account";
 
-        /* Show the correct archive/recover/delete buttons */
-        updateArchiveButtons();
+      const setStaffStatus = async (row, status) => {
+        const formData = new FormData();
+        formData.append("email", row.dataset.staffEmail);
+        formData.append("status", status);
 
-        memberDetailModal.hidden = false;
-        recordLog("Viewed member profile: " + data.memberName, "Manage Member");
-      };
-      document
-        .querySelectorAll(".member-view")
-        .forEach((button) =>
-          button.addEventListener("click", () =>
-            openMemberDetails(button.closest("tr")),
-          ),
+        const response = await fetch(phpUrl("update_staff_status.php"), {
+          method: "POST",
+          body: formData,
+        });
+        const result = await readJsonResponse(
+          response,
+          "Could not update staff status.",
         );
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || "Could not update staff status.");
+        }
+
+        row.dataset.staffStatus = status;
+        const badge = row.querySelector(".member-status");
+        if (badge) {
+          badge.textContent = status;
+          badge.className =
+            "member-status " + status.toLowerCase().replace(/\s+/g, "-");
+        }
+        setStaffArchived(row.dataset.staffEmail, status === "Archived");
+      };
+
+      const updateArchiveButtons = () => {
+        const isArchived = selectedStaffRow?.dataset.staffStatus === "Archived";
+        archiveMember.hidden = isArchived;
+        recoverMember.hidden = !isArchived;
+        deleteMember.hidden = !isArchived;
+      };
+
+      const openStaffDetails = (row) => {
+        selectedStaffRow = row;
+        const data = row.dataset;
+        document.getElementById("memberDetailTitle").textContent = data.staffName;
+        document.getElementById("detailEmail").textContent = data.staffEmail;
+        document.getElementById("detailRole").textContent = data.staffRole;
+        document.getElementById("detailDepartment").textContent =
+          data.staffDepartment;
+        document.getElementById("detailStatus").textContent = data.staffStatus;
+        document.getElementById("detailLastActive").textContent = data.staffId;
+        document.getElementById("detailJoined").textContent = "Staff directory";
+        document.getElementById("detailAccess").textContent = data.staffAccess;
+        updateArchiveButtons();
+        memberDetailModal.hidden = false;
+        recordLog("Viewed staff profile: " + data.staffName, "Staff");
+      };
+
       document
         .getElementById("closeMemberDetail")
         .addEventListener("click", closeMemberDetail);
       document
         .getElementById("closeMemberDetailAction")
         .addEventListener("click", closeMemberDetail);
+
       const archiveMember = document.getElementById("archiveMember");
       const recoverMember = document.getElementById("recoverMember");
       const deleteMember = document.getElementById("deleteMember");
 
-      /* Changes the status text and color in the member table */
-      const updateMemberStatusBadge = (row, status) => {
-        const badge = row.querySelector(".member-status");
+      const readJsonResponse = async (response, fallbackMessage) => {
+        const body = await response.text();
 
-        badge.textContent = status;
-
-        badge.className =
-          "member-status " + status.toLowerCase().replace(/\s+/g, "-");
-      };
-
-      /* Shows Archive for normal members.
-   Shows Recover and Delete for archived members. */
-      const updateArchiveButtons = () => {
-        const isArchived =
-          selectedMemberRow.dataset.memberStatus === "Archived";
-
-        archiveMember.hidden = isArchived;
-        recoverMember.hidden = !isArchived;
-        deleteMember.hidden = !isArchived;
-
-        /* Do not show Suspend if the account is already archived */
-        document.getElementById("suspendMember").hidden = isArchived;
-      };
-
-      /* Archive the selected member */
-      /* Hide or show the Staff row that has the same email as the member */
-      const setStaffVisibilityFromMember = (memberRow, shouldShow) => {
-        /* Email from the selected Manage Member account */
-        const memberEmail = memberRow.dataset.memberEmail.trim().toLowerCase();
-
-        document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
-          /*
-      First try data-staff-email.
-
-      If it does not exist, get the email from the Staff table.
-      In your Staff table:
-      0 = Staff ID
-      1 = Staff Name
-      2 = Email
-      3 = Department
-      4 = Role
-    */
-          const staffEmail = (
-            staffRow.dataset.staffEmail ||
-            staffRow.children[2]?.textContent ||
-            ""
-          )
-            .trim()
-            .toLowerCase();
-
-          /* Hide when archived, show again when recovered */
-          if (staffEmail === memberEmail) {
-            staffRow.hidden = !shouldShow;
-          }
-        });
-      };
-      archiveMember.addEventListener("click", () => {
-        selectedMemberRow.dataset.memberStatus = "Archived";
-
-        updateMemberStatusBadge(selectedMemberRow, "Archived");
-
-        document.getElementById("detailStatus").textContent = "Archived";
-
-        updateMemberStats();
-        updateArchiveButtons();
-        setStaffVisibilityFromMember(selectedMemberRow, false);
-        updateStaffCount();
-
-        showToast(selectedMemberRow.dataset.memberName + " account archived");
-
-        recordLog(
-          "Archived member account: " + selectedMemberRow.dataset.memberName,
-          "Manage Member",
-        );
-      });
-
-      /* Recover the selected archived member */
-      recoverMember.addEventListener("click", () => {
-        selectedMemberRow.dataset.memberStatus = "Active";
-
-        updateMemberStatusBadge(selectedMemberRow, "Active");
-
-        document.getElementById("detailStatus").textContent = "Active";
-
-        updateMemberStats();
-        updateArchiveButtons();
-        setStaffVisibilityFromMember(selectedMemberRow, true);
-        updateStaffCount();
-
-        showToast(selectedMemberRow.dataset.memberName + " account recovered");
-
-        recordLog(
-          "Recovered member account: " + selectedMemberRow.dataset.memberName,
-          "Manage Member",
-        );
-      });
-
-      /* Permanently delete the selected archived member */
-      deleteMember.addEventListener("click", async () => {
-        const name = selectedMemberRow.dataset.memberName;
-        const email = selectedMemberRow.dataset.memberEmail;
-
-        const confirmed = confirm(
-          "Permanently delete " + name + "? This cannot be undone.",
-        );
-
-        if (!confirmed) return;
+        if (!body.trim()) {
+          throw new Error(
+            `${fallbackMessage} (PHP returned an empty response, HTTP ${response.status}).`,
+          );
+        }
 
         try {
-          /* Tell PHP to delete this Staff record from MySQL */
+          return JSON.parse(body);
+        } catch {
+          throw new Error(
+            `${fallbackMessage} (PHP returned invalid JSON, HTTP ${response.status}).`,
+          );
+        }
+      };
+
+      archiveMember.addEventListener("click", async () => {
+        try {
+          await setStaffStatus(selectedStaffRow, "Archived");
+        } catch (error) {
+          console.error(error);
+          showToast("Could not archive staff account.");
+          return;
+        }
+        document.getElementById("detailStatus").textContent = "Archived";
+        updateArchiveButtons();
+        updateStaffCount();
+        showToast(selectedStaffRow.dataset.staffName + " account archived");
+        recordLog(
+          "Archived staff account: " + selectedStaffRow.dataset.staffName,
+          "Staff"
+        );
+      });
+
+      recoverMember.addEventListener("click", async () => {
+        try {
+          await setStaffStatus(selectedStaffRow, "Active");
+        } catch (error) {
+          console.error(error);
+          showToast("Could not recover staff account.");
+          return;
+        }
+        document.getElementById("detailStatus").textContent = "Active";
+        updateArchiveButtons();
+        updateStaffCount();
+        showToast(selectedStaffRow.dataset.staffName + " account recovered");
+        recordLog(
+          "Recovered staff account: " + selectedStaffRow.dataset.staffName,
+          "Staff"
+        );
+      });
+
+      deleteMember.addEventListener("click", async () => {
+        const name = selectedStaffRow.dataset.staffName;
+        const email = selectedStaffRow.dataset.staffEmail;
+        const confirmed = confirm(
+          "Permanently delete " + name + "? This cannot be undone."
+        );
+        if (!confirmed) return;
+
+        const removeLocally = () => {
+          setStaffArchived(email, false);
+          selectedStaffRow.remove();
+          updateStaffCount();
+          closeMemberDetail();
+          showToast(name + " was permanently deleted.");
+          recordLog("Deleted staff account: " + name, "Staff");
+        };
+
+        try {
           const formData = new FormData();
-
           formData.append("email", email);
-
-          const response = await fetch("delete_staff.php", {
+          const response = await fetch(phpUrl("delete_staff.php"), {
             method: "POST",
             body: formData,
           });
-
-          const result = await response.json();
-
+          const result = await readJsonResponse(
+            response,
+            "Could not delete staff member.",
+          );
           if (!result.success) {
             showToast(result.error || "Could not delete Staff from database.");
             return;
           }
-
-          /* Remove the Manage Member row from the browser */
-          selectedMemberRow.remove();
-
-          /* Remove matching visible Staff row */
-          document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
-            const staffEmail = (
-              staffRow.dataset.staffEmail ||
-              staffRow.children[2]?.textContent ||
-              ""
-            )
-              .trim()
-              .toLowerCase();
-
-            if (staffEmail === email.trim().toLowerCase()) {
-              staffRow.remove();
-            }
-          });
-
-          /* Refresh counts */
-          memberRows = document.querySelectorAll("#memberRows tr");
-
-          updateMemberStats();
-          updateStaffCount();
-
-          closeMemberDetail();
-
-          showToast(name + " was permanently deleted.");
-
-          recordLog("Deleted staff account: " + name, "Manage Member");
+          removeLocally();
         } catch (error) {
           console.error(error);
-
-          showToast("Could not connect to delete_staff.php.");
+          removeLocally();
         }
       });
-      document
-        .getElementById("adminProfileButton")
-        .addEventListener("click", () => {
-          adminProfileModal.hidden = false;
-          recordLog("Viewed administrator profile", "Settings");
-        });
-      document
-        .getElementById("closeAdminProfile")
-        .addEventListener("click", closeAdminProfile);
-      document
-        .getElementById("closeAdminProfileAction")
-        .addEventListener("click", closeAdminProfile);
-      adminProfileModal.addEventListener("click", (event) => {
-        if (event.target === adminProfileModal) closeAdminProfile();
-      });
-      updateMemberStats();
       const helpSearch = document.getElementById("helpSearch");
       const helpArticles = document.querySelectorAll(".help-article");
       const emptyHelp = document.getElementById("emptyHelp");
@@ -2544,12 +2246,10 @@
             view === "System Logs" ||
             view === "Inventory" ||
             view === "Manage" ||
-            view === "Manage Member" ||
             view === "Help Center";
 
           staffContent.hidden = view !== "Staff";
           manageContent.hidden = view !== "Manage";
-          membersContent.hidden = view !== "Manage Member";
           helpContent.hidden = view !== "Help Center";
           settingsContent.hidden = view !== "Settings";
           logsContent.hidden = view !== "System Logs";
@@ -2559,8 +2259,6 @@
               ? "Staff directory"
               : view === "Manage"
                 ? "Manage Workspace"
-                : view === "Manage Member"
-                  ? "Manage members"
                   : view === "Help Center"
                     ? "Help Center"
                     : view === "Settings"
@@ -2584,7 +2282,6 @@
         overviewContent.hidden = false;
         staffContent.hidden = true;
         manageContent.hidden = true;
-        membersContent.hidden = true;
         helpContent.hidden = true;
         settingsContent.hidden = true;
         logsContent.hidden = true;
@@ -2617,9 +2314,19 @@
         /* Use the real MySQL primary key.
      Example: database ID 4 becomes STF-004 */
         const staffId = "STF-" + String(staff.id).padStart(3, "0");
+        const status = staff.status === "Archived" ? "Archived" : "Active";
 
         const row = document.createElement("tr");
         row.dataset.staffEmail = staff.email.toLowerCase();
+        row.dataset.staffSearch = (
+          staff.staff_name + " " + staff.email + " " + staff.department + " " + staff.role
+        ).toLowerCase();
+        row.dataset.staffStatus = status;
+        row.dataset.staffName = staff.staff_name;
+        row.dataset.staffRole = staff.role;
+        row.dataset.staffDepartment = staff.department;
+        row.dataset.staffId = staffId;
+        row.dataset.staffAccess = staff.role + " staff access";
 
         row.innerHTML = `
     <td>${staffId}</td>
@@ -2634,18 +2341,36 @@
     <td>${staff.email}</td>
     <td>${staff.department}</td>
     <td>${staff.role}</td>
+    <td><span class="member-status ${status.toLowerCase()}">${status}</span></td>
+    <td>
+      <button class="row-action member-view" type="button" aria-label="View staff member">
+        <i data-lucide="eye"></i>
+      </button>
+    </td>
   `;
 
         staffRows.appendChild(row);
+
+        row.querySelector(".member-view").addEventListener("click", () => {
+          openStaffDetails(row);
+        });
+        lucide.createIcons();
 
         updateStaffCount();
       };
       /* Load all saved Staff records from the MySQL database */
       const loadStaffFromDatabase = async () => {
         try {
-          const response = await fetch("get_staff.php");
+          const response = await fetch(phpUrl("get_staff.php"));
 
-          const staffList = await response.json();
+          const staffList = await readJsonResponse(
+            response,
+            "Could not load staff records.",
+          );
+
+          if (!response.ok || !Array.isArray(staffList)) {
+            throw new Error(staffList.error || "Staff records could not be loaded.");
+          }
 
           /* Clear the Staff table before loading MySQL records */
           staffRows.replaceChildren();
@@ -2654,13 +2379,13 @@
           staffList.forEach((staff) => {
             addStaffRowToTable(staff);
           });
-          syncMemberIdsFromStaff();
-
           updateStaffCount();
         } catch (error) {
           console.error(error);
 
-          showToast("Could not load Staff records from the database.");
+          showToast(
+            error.message || "Could not load Staff records from the database.",
+          );
         }
       };
       /* =====================================================
@@ -2769,8 +2494,6 @@
         document.getElementById("memberRows").appendChild(row);
 
         /* Refresh the member list used by your filters and counters */
-        memberRows = document.querySelectorAll("#memberRows tr");
-
         /* Make the new eye button work */
         row.querySelector(".member-view").addEventListener("click", () => {
           openMemberDetails(row);
@@ -2818,12 +2541,19 @@
 
         try {
           /* Sends data to add_staff.php */
-          const response = await fetch("add_staff.php", {
+          const response = await fetch(phpUrl("add_staff.php"), {
             method: "POST",
             body: formData,
           });
 
-          const result = await response.json();
+          const result = await readJsonResponse(
+            response,
+            "Could not save staff member.",
+          );
+
+          if (!response.ok) {
+            throw new Error(result.error || "Could not save staff member.");
+          }
 
           /* Show database/PHP error if it did not save */
           if (!result.success) {
@@ -2839,17 +2569,13 @@
             email: email,
             department: department,
             role: role,
+            status: result.status || "Active",
           };
 
           /* Show staff in Staff table */
           /* Show the saved Staff record in Staff */
           addStaffRowToTable(newStaff);
 
-          /* Also create the member record first */
-          addStaffToManageMembers(newStaff);
-
-          /* Now add the Staff ID in the first Manage Member column */
-          syncMemberIdsFromStaff();
           closeStaffModal();
 
           showToast(name + " was saved to the database.");
@@ -2858,9 +2584,7 @@
         } catch (error) {
           console.error(error);
 
-          showToast(
-            "Cannot connect to PHP. Check XAMPP Apache and the file location.",
-          );
+          showToast(error.message || "Could not save staff member.");
         }
       });
       document.getElementById("saveSettings").addEventListener("click", () => {
