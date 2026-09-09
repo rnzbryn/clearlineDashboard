@@ -1,0 +1,53 @@
+:root {
+  font-family: "Segoe UI", sans-serif;
+  color: #17211f;
+  background: #f4f6f1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.dashboard-host {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f4f6f1;
+}
+
+.dashboard-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  border: 0;
+  background: #f4f6f1;
+}
+
+.dashboard-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f4f6f1;
+  color: #315b52;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dashboard-error {
+  color: #a33d35;
+}

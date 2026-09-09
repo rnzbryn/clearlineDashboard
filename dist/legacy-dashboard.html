@@ -1,0 +1,3494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f6f1" />
+    <title>Clearline Operations Dashboard</title>
+    <link rel="stylesheet" href="dash.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-icon">C</div>
+          <div><strong>RBGC</strong><span>OPERATIONS</span></div>
+        </div>
+        <div class="company-switcher">
+          <div class="company-mark">AC</div>
+          <div><strong>Acme Collective</strong><span>Workspace</span></div>
+          <i data-lucide="chevrons-up-down"></i>
+        </div>
+        <nav aria-label="Primary navigation">
+          <p class="nav-heading">WORKSPACE</p>
+          <button class="nav-link active" data-view="Overview">
+            <i data-lucide="layout-dashboard"></i
+            ><span class="nav-text">Overview</span>
+          </button>
+          <button class="nav-link" data-view="Manage">
+            <i data-lucide="sliders-horizontal"></i
+            ><span class="nav-text">Manage</span>
+          </button>
+          <button class="nav-link" data-view="Staff">
+            <i data-lucide="briefcase-business"></i
+            ><span class="nav-text">Staff</span
+            ><span class="nav-badge" id="staffNavCount">4</span>
+          </button>
+          <button class="nav-link" data-view="Inventory">
+            <i data-lucide="package"></i><span class="nav-text">Inventory</span
+            ><span class="nav-badge alert" id="inventoryNavCount">4</span>
+          </button>
+          <button class="nav-link" data-view="System Logs">
+            <i data-lucide="file-clock"></i
+            ><span class="nav-text">System Logs</span>
+          </button>
+        </nav>
+        <div class="sidebar-bottom">
+          <button class="nav-link" data-view="Settings">
+            <i data-lucide="settings-2"></i
+            ><span class="nav-text">Settings</span>
+          </button>
+          <button class="nav-link" data-view="Help Center">
+            <i data-lucide="circle-help"></i
+            ><span class="nav-text">Help center</span>
+          </button>
+          <button
+            class="user"
+            id="adminProfileButton"
+            type="button"
+            aria-label="View administrator profile"
+          >
+            <div class="avatar dark">JS</div>
+            <div>
+              <strong id="sidebarAdminName">Jamie Smith</strong
+              ><span>Administrator</span>
+            </div>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <button
+            class="mobile-toggle"
+            id="mobileToggle"
+            aria-label="Open navigation"
+          >
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="crumbs">
+            <button class="workspace-crumb" id="workspaceHome">Workspace</button
+            ><i data-lucide="chevron-right"></i
+            ><strong id="currentView">Overview</strong>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" aria-label="Search" id="focusSearch">
+              <i data-lucide="search"></i>
+            </button>
+            <div class="notification-wrap">
+              <button
+                class="icon-button notification"
+                aria-label="Notifications"
+                id="notificationButton"
+                aria-expanded="false"
+              >
+                <i data-lucide="bell"></i><b id="notificationDot"></b>
+              </button>
+              <section class="notification-panel" id="notificationPanel" hidden>
+                <div class="notification-head">
+                  <div>
+                    <strong>Notifications</strong
+                    ><span id="notificationCount">3 unread</span>
+                  </div>
+                  <button id="markNotificationsRead">Mark all as read</button>
+                </div>
+                <div class="notification-list">
+                  <button class="notification-item unread">
+                    <span class="notification-symbol inventory"
+                      ><i data-lucide="triangle-alert"></i></span
+                    ><span
+                      ><strong>Low stock alert</strong
+                      ><small>Notebook set is running low in Supply room.</small
+                      ><time>12 min ago</time></span
+                    ></button
+                  ><button class="notification-item unread">
+                    <span class="notification-symbol staff"
+                      ><i data-lucide="user-plus"></i></span
+                    ><span
+                      ><strong>New staff member</strong
+                      ><small
+                        >Olivia Martin was added to the Staff directory.</small
+                      ><time>1 hour ago</time></span
+                    ></button
+                  ><button class="notification-item unread">
+                    <span class="notification-symbol security"
+                      ><i data-lucide="shield-check"></i></span
+                    ><span
+                      ><strong>Security reminder</strong
+                      ><small
+                        >Review your two-factor authentication settings.</small
+                      ><time>Yesterday</time></span
+                    >
+                  </button>
+                </div>
+                <button class="notification-footer" id="viewNotifications">
+                  View system logs <i data-lucide="arrow-up-right"></i>
+                </button>
+              </section>
+            </div>
+          </div>
+        </header>
+        <div class="toast" id="toast" role="status"></div>
+
+        <div class="page-content" id="overviewContent">
+          <section class="intro">
+            <div>
+              <p class="overline" id="overviewDate">MONDAY, 14 OCTOBER 2024</p>
+              <h1 id="pageTitle">Good morning, Jamie Smith <span>✦</span></h1>
+              <p>
+                Everything important across your workspace, in one calm view.
+              </p>
+            </div>
+            <button class="primary" id="quickAction">
+              <i data-lucide="plus"></i
+              ><span id="quickActionText">Add new member</span>
+            </button>
+          </section>
+
+          <section class="stats" aria-label="Summary metrics">
+            <article class="stat teal">
+              <div>
+                <span class="stat-label">REGISTERED MEMBERS</span
+                ><i data-lucide="users"></i>
+              </div>
+              <strong id="overviewMemberTotal">3</strong
+              ><small class="positive">Live page records</small>
+            </article>
+            <article class="stat gold">
+              <div>
+                <span class="stat-label">ACTIVE STAFF</span
+                ><i data-lucide="briefcase-business"></i>
+              </div>
+              <strong id="overviewStaffTotal">4</strong
+              ><small class="positive">Live staff records</small>
+            </article>
+            <article class="stat coral">
+              <div>
+                <span class="stat-label">STOCK QUANTITY</span
+                ><i data-lucide="package"></i>
+              </div>
+              <strong id="overviewInventoryTotal">146</strong
+              ><small class="positive">Live inventory records</small>
+            </article>
+            <article class="stat blue">
+              <div>
+                <span class="stat-label">SYSTEM EVENTS</span
+                ><i data-lucide="activity"></i>
+              </div>
+              <strong id="overviewSystemTotal">0</strong
+              ><small class="positive">Saved log events</small>
+            </article>
+          </section>
+
+          <section class="toolbar">
+            <div class="search-box">
+              <i data-lucide="search"></i
+              ><input
+                id="searchInput"
+                type="search"
+                placeholder="Search members, staff, items..."
+              />
+            </div>
+            <label class="filter-select"
+              ><i data-lucide="list-filter"></i
+              ><select
+                class="filter"
+                id="activityFilter"
+                aria-label="Filter activity"
+              >
+                <option value="all">All activity</option>
+                <option value="member">Member activity</option>
+                <option value="staff">Staff activity</option>
+                <option value="inventory">Inventory activity</option>
+              </select></label
+            >
+          </section>
+
+          <section class="dashboard-grid">
+            <article class="panel chart-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">SYSTEM ACTIVITY</p>
+                  <h2>Events this week</h2>
+                </div>
+                <select
+                  class="select"
+                  id="activityRange"
+                  aria-label="Activity range"
+                >
+                  <option>This week</option>
+                  <option>This month</option>
+                  <option>Today</option>
+                </select>
+              </div>
+              <div class="chart">
+                <div class="y-axis">
+                  <span>500</span><span>400</span><span>300</span
+                  ><span>200</span><span>100</span><span>0</span>
+                </div>
+                <div class="chart-area">
+                  <div class="grid-lines">
+                    <i></i><i></i><i></i><i></i><i></i><i></i>
+                  </div>
+                  <div class="bars">
+                    <div class="bar-day">
+                      <b style="height: 58%"></b><span>Mon</span>
+                    </div>
+                    <div class="bar-day">
+                      <b style="height: 76%"></b><span>Tue</span>
+                    </div>
+                    <div class="bar-day">
+                      <b style="height: 46%"></b><span>Wed</span>
+                    </div>
+                    <div class="bar-day">
+                      <b class="today" style="height: 88%"></b><span>Thu</span>
+                    </div>
+                    <div class="bar-day">
+                      <b style="height: 65%"></b><span>Fri</span>
+                    </div>
+                    <div class="bar-day">
+                      <b style="height: 78%"></b><span>Sat</span>
+                    </div>
+                    <div class="bar-day">
+                      <b style="height: 31%"></b><span>Sun</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-foot">
+                <span><b class="legend"></b>All system events</span
+                ><strong>1,842 <small>total</small></strong>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">INVENTORY</p>
+                  <h2>Stock overview</h2>
+                </div>
+                <button class="icon-button">
+                  <i data-lucide="more-horizontal"></i>
+                </button>
+              </div>
+              <div class="stock-list">
+                <div class="stock">
+                  <div class="stock-icon green">
+                    <i data-lucide="laptop"></i>
+                  </div>
+                  <div>
+                    <strong>Equipment</strong
+                    ><span id="stockEquipmentTotal">0 items</span>
+                  </div>
+                  <b class="good" id="stockEquipmentStatus">Good</b>
+                </div>
+                <div class="stock">
+                  <div class="stock-icon orange"><i data-lucide="box"></i></div>
+                  <div>
+                    <strong>Office supplies</strong
+                    ><span id="stockSuppliesTotal">0 items</span>
+                  </div>
+                  <b class="good" id="stockSuppliesStatus">Good</b>
+                </div>
+                <div class="stock">
+                  <div class="stock-icon red">
+                    <i data-lucide="triangle-alert"></i>
+                  </div>
+                  <div>
+                    <strong>Needs attention</strong
+                    ><span id="stockAttentionTotal">0 items are low</span>
+                  </div>
+                  <b class="warning">Review</b>
+                </div>
+              </div>
+              <button class="link-button" data-view="Inventory">
+                View inventory <i data-lucide="arrow-up-right"></i>
+              </button>
+            </article>
+          </section>
+
+          <section class="dashboard-grid lower">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">SYSTEM LOGS</p>
+                  <h2>Latest events</h2>
+                </div>
+                <button class="link-button" data-view="System Logs">
+                  View all <i data-lucide="arrow-up-right"></i>
+                </button>
+              </div>
+              <div class="event-list" id="eventList">
+                <div class="event" data-search="olivia martin manage member">
+                  <div class="avatar mint">OM</div>
+                  <div>
+                    <strong>Olivia Martin</strong
+                    ><span>Updated member profile · Manage Member</span>
+                  </div>
+                  <time>09:42 AM</time>
+                </div>
+                <div class="event" data-search="ethan brooks inventory">
+                  <div class="avatar peach">EB</div>
+                  <div>
+                    <strong>Ethan Brooks</strong
+                    ><span>Checked out equipment · Inventory</span>
+                  </div>
+                  <time>08:15 AM</time>
+                </div>
+                <div class="event" data-search="maya patel staff">
+                  <div class="avatar lilac">MP</div>
+                  <div>
+                    <strong>Maya Patel</strong
+                    ><span>Staff schedule published · Staff</span>
+                  </div>
+                  <time>Yesterday</time>
+                </div>
+                <div class="event" data-search="noah williams manage">
+                  <div class="avatar sky">NW</div>
+                  <div>
+                    <strong>Noah Williams</strong
+                    ><span>Changed workspace settings · Manage</span>
+                  </div>
+                  <time>Yesterday</time>
+                </div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">STAFF</p>
+                  <h2>Recently added</h2>
+                </div>
+                <button
+                  class="icon-button"
+                  id="overviewStaffMenu"
+                  type="button"
+                  aria-label="Open staff dashboard"
+                >
+                  <i data-lucide="more-horizontal"></i>
+                </button>
+              </div>
+              <div class="member-list" id="overviewStaffList">
+                <p class="empty-staff">Loading staff...</p>
+              </div>
+              <button class="link-button" data-view="Staff">
+                View staff directory <i data-lucide="arrow-up-right"></i>
+              </button>
+            </article>
+          </section>
+        </div>
+
+                <div class="page-content staff-content" id="staffContent" hidden>
+          <section class="intro staff-intro">
+            <div>
+              <p class="overline">STAFF DIRECTORY</p>
+              <h1>Staff</h1>
+              <p>
+                Review staff profiles, archive accounts, recover them, or
+                permanently delete records.
+              </p>
+            </div>
+            <button class="primary" id="addStaff">
+              <i data-lucide="plus"></i>Add staff
+            </button>
+          </section>
+          <section class="panel staff-panel">
+            <div class="panel-head">
+              <div>
+                <p class="overline">CURRENT TEAM</p>
+                <h2>Staff members</h2>
+              </div>
+              <span class="staff-total" id="staffTotal">4 staff members</span>
+            </div>
+            <div class="staff-toolbar">
+              <div class="search-box member-search">
+                <i data-lucide="search"></i>
+                <input
+                  id="staffSearch"
+                  type="search"
+                  placeholder="Search by name or email..."
+                />
+              </div>
+              <select class="inventory-filter" id="staffStatusFilter">
+                <option value="all">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
+            <div class="staff-table-wrap">
+              <table class="staff-table">
+                <thead>
+                  <tr>
+                    <th>Staff ID</th>
+                    <th>Staff name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="staffRows"></tbody>
+              </table>
+              <p class="empty-staff" id="emptyStaff" hidden>
+                No staff members match your filters.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal-backdrop" id="memberDetailModal" hidden>
+          <section
+            class="modal member-detail-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="memberDetailTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">STAFF PROFILE</p>
+                <h2 id="memberDetailTitle">Staff details</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeMemberDetail"
+                aria-label="Close member details"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="member-detail-grid">
+              <div>
+                <span>Email address</span><strong id="detailEmail"></strong>
+              </div>
+              <div><span>Role</span><strong id="detailRole"></strong></div>
+              <div>
+                <span>Department</span><strong id="detailDepartment"></strong>
+              </div>
+              <div>
+                <span>Account status</span><strong id="detailStatus"></strong>
+              </div>
+              <div>
+                <span>Staff ID</span><strong id="detailLastActive"></strong>
+              </div>
+              <div><span>Directory</span><strong id="detailJoined"></strong></div>
+            </div>
+            <div class="member-access">
+              <span>Access summary</span><strong id="detailAccess"></strong>
+            </div>
+                        <div class="modal-actions member-detail-actions">
+              <button
+                type="button"
+                class="outline-button archive-button"
+                id="archiveMember"
+              >
+                Archive account
+              </button>
+              <button
+                type="button"
+                class="outline-button"
+                id="recoverMember"
+                hidden
+              >
+                Recover account
+              </button>
+              <button
+                type="button"
+                class="danger-button"
+                id="deleteMember"
+                hidden
+              >
+                Delete account
+              </button>
+              <button
+                type="button"
+                class="primary"
+                id="closeMemberDetailAction"
+              >
+                Done
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal-backdrop" id="adminProfileModal" hidden>
+          <section
+            class="modal admin-profile-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="profileAdminName"
+          >
+            <div class="modal-head">
+              <div><p class="overline">ADMINISTRATOR PROFILE</p></div>
+              <button
+                class="icon-button"
+                id="closeAdminProfile"
+                aria-label="Close administrator profile"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="profile-summary">
+              <div class="avatar dark" id="profileAdminInitials">JS</div>
+              <div class="profile-summary-copy">
+                <strong id="profileAdminName">Jamie Smith</strong
+                ><span>Workspace Administrator</span>
+              </div>
+              <span class="member-status active">Active</span>
+            </div>
+            <div class="member-detail-grid">
+              <div>
+                <span>Email address</span
+                ><strong id="profileAdminEmail"
+                  >jamie@acmecollective.com</strong
+                >
+              </div>
+              <div>
+                <span>Access level</span><strong>Full administrator</strong>
+              </div>
+              <div><span>Department</span><strong id="profileAdminDepartment">Operations</strong></div>
+              <div>
+                <span>Last sign-in</span><strong>Today, 09:42 AM</strong>
+              </div>
+              <div>
+                <span>Two-factor authentication</span><strong>Enabled</strong>
+              </div>
+              <div><span>Member since</span><strong>18 March 2023</strong></div>
+            </div>
+            <p class="profile-note">
+              Profile details are managed from Settings.
+            </p>
+            <div class="profile-switcher">
+              <label for="adminAccountSelect">Switch administrator</label>
+              <div>
+                <select id="adminAccountSelect" aria-label="Switch administrator">
+                  <option value="">Select an administrator</option>
+                </select>
+                <button class="outline-button" id="switchAdminButton" type="button">
+                  Switch profile
+                </button>
+              </div>
+            </div>
+            <div class="modal-actions">
+              <button
+                type="button"
+                class="primary"
+                id="closeAdminProfileAction"
+              >
+                Done
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div class="modal-backdrop" id="staffModal" hidden>
+          <section
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="staffModalTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">STAFF DIRECTORY</p>
+                <h2 id="staffModalTitle">Add new staff</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeStaffModal"
+                aria-label="Close form"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <form id="staffForm">
+              <label>
+                Staff name
+                <input
+                  id="staffName"
+                  type="text"
+                  placeholder="e.g. Jordan Lee"
+                  required
+                />
+              </label>
+
+              <label>
+                Email address
+                <input
+                  id="staffEmail"
+                  type="email"
+                  placeholder="e.g. jordan@company.com"
+                  required
+                />
+              </label>
+
+              <div class="password-strength" aria-live="polite">
+                <label>
+                  Password
+                  <span class="password-input-wrap">
+                    <input
+                      id="staffPassword"
+                      type="password"
+                      placeholder="Create a secure password"
+                      minlength="8"
+                      required
+                    />
+                    <button
+                      class="password-toggle"
+                      type="button"
+                      data-password-target="staffPassword"
+                      aria-label="Show password"
+                    >
+                      <i data-lucide="eye"></i>
+                    </button>
+                  </span>
+                </label>
+                <div class="password-meter" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+                <strong id="passwordStrengthLabel">Password strength: Not set</strong>
+                <small>Use 8+ characters with a capital letter, number, and special character.</small>
+              </div>
+
+              <label>
+                Confirm password
+                <span class="password-input-wrap">
+                  <input
+                    id="staffPasswordConfirm"
+                    type="password"
+                    placeholder="Re-enter the password"
+                    minlength="8"
+                    required
+                  />
+                  <button
+                    class="password-toggle"
+                    type="button"
+                    data-password-target="staffPasswordConfirm"
+                    aria-label="Show confirmation password"
+                  >
+                    <i data-lucide="eye"></i>
+                  </button>
+                </span>
+              </label>
+
+              <div class="form-row staff-form-row">
+                <label>
+                  Department
+                  <select id="staffDepartment" required>
+                    <option value="Operations">Operations</option>
+                    <option value="Design">Design</option>
+                    <option value="Support">Support</option>
+                    <option value="Unassigned">Unassigned</option>
+                  </select>
+                </label>
+
+                <label>
+                  Role
+                  <select id="staffRole" required>
+                    <option value="Member">Member</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Viewer">Viewer</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="modal-actions">
+                <button type="button" class="outline-button" id="cancelStaff">
+                  Cancel
+                </button>
+
+                <button type="submit" class="primary">Add staff</button>
+              </div>
+            </form>
+          </section>
+        </div>
+        <div class="modal-backdrop" id="inventoryModal" hidden>
+          <section
+            class="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="inventoryModalTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">INVENTORY CONTROL</p>
+                <h2 id="inventoryModalTitle">Add inventory item</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeInventoryModal"
+                aria-label="Close form"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <form id="inventoryForm">
+              <label
+                >Item name<input
+                  id="inventoryName"
+                  type="text"
+                  placeholder="e.g. Monitor stand"
+                  required
+              /></label>
+              <div class="form-row">
+                <label
+                  >SKU<input
+                    id="inventorySku"
+                    type="text"
+                    placeholder="SKU-001"
+                    required /></label
+                ><label
+                  >Quantity<input
+                    id="inventoryQuantity"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                    required
+                /></label>
+              </div>
+              <div class="form-row">
+                <label
+                  >Category<select id="inventoryItemCategory">
+                    <option>Equipment</option>
+                    <option>Office supplies</option>
+                    <option>Furniture</option>
+                  </select></label
+                ><label
+                  >Location<input
+                    id="inventoryLocation"
+                    type="text"
+                    placeholder="Storage room"
+                    required
+                /></label>
+              </div>
+              <div class="form-row">
+                <label
+                  >Supplier<input
+                    id="inventorySupplier"
+                    type="text"
+                    placeholder="Supplier name"
+                    required /></label
+                ><label
+                  >Reorder level<input
+                    id="inventoryReorder"
+                    type="number"
+                    min="0"
+                    placeholder="10"
+                    required
+                /></label>
+              </div>
+              <div class="form-row">
+                <label
+                  >Unit cost<input
+                    id="inventoryCost"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    required /></label
+                ><label
+                  >Notes<input
+                    id="inventoryNotes"
+                    type="text"
+                    placeholder="Optional notes"
+                /></label>
+              </div>
+              <label class="photo-upload"
+                >Item photo<input
+                  id="inventoryPhoto"
+                  type="file"
+                  accept="image/*"
+                /><span id="photoName">Choose a photo of this item</span></label
+              >
+              <div class="photo-preview" id="photoPreview" hidden>
+                <img id="photoPreviewImage" alt="Selected item preview" />
+              </div>
+              <div class="modal-actions">
+                <button
+                  type="button"
+                  class="outline-button"
+                  id="cancelInventory"
+                >
+                  Cancel</button
+                ><button type="submit" class="primary" id="inventorySubmit">
+                  Add item
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div class="page-content help-content" id="helpContent" hidden>
+          <section class="intro help-intro">
+            <div>
+              <p class="overline">SUPPORT CENTER</p>
+              <h1>How can we help?</h1>
+              <p>
+                Find answers, learn workspace workflows, or contact our support
+                team.
+              </p>
+            </div>
+            <button class="primary" id="contactSupport">
+              <i data-lucide="message-circle"></i>Contact support
+            </button>
+          </section>
+          <div class="help-search search-box">
+            <i data-lucide="search"></i
+            ><input
+              id="helpSearch"
+              type="search"
+              placeholder="Search help articles..."
+            />
+          </div>
+          <section class="help-categories">
+            <button class="help-category" data-help-filter="Getting started">
+              <i data-lucide="rocket"></i><strong>Getting started</strong
+              ><span>Workspace basics and setup</span>
+            </button>
+            <button class="help-category" data-help-filter="Members">
+              <i data-lucide="users"></i><strong>Members & access</strong
+              ><span>Invitations, roles, and permissions</span>
+            </button>
+            <button class="help-category" data-help-filter="Security">
+              <i data-lucide="shield-check"></i><strong>Security</strong
+              ><span>Authentication and account safety</span>
+            </button>
+            <button class="help-category" data-help-filter="Billing">
+              <i data-lucide="credit-card"></i><strong>Billing</strong
+              ><span>Plans, seats, and invoices</span>
+            </button>
+          </section>
+          <section class="panel help-articles-panel">
+            <div class="panel-head">
+              <div>
+                <p class="overline">POPULAR ARTICLES</p>
+                <h2>Recommended for administrators</h2>
+              </div>
+              <span class="staff-total" id="helpArticleCount">4 articles</span>
+            </div>
+            <div class="help-articles" id="helpArticles">
+              <button class="help-article" data-help-category="Members">
+                <span class="help-article-icon"
+                  ><i data-lucide="user-plus"></i></span
+                ><span
+                  ><strong>Invite and onboard a member</strong
+                  ><small
+                    >Learn how to send invitations and assign the right access
+                    level.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Security">
+                <span class="help-article-icon"
+                  ><i data-lucide="lock-keyhole"></i></span
+                ><span
+                  ><strong>Secure your workspace</strong
+                  ><small
+                    >Review two-factor authentication and sign-in
+                    activity.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Billing">
+                <span class="help-article-icon"
+                  ><i data-lucide="receipt"></i></span
+                ><span
+                  ><strong>Understand your subscription</strong
+                  ><small
+                    >Manage seats, plans, invoices, and payment details.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+              <button class="help-article" data-help-category="Getting started">
+                <span class="help-article-icon"
+                  ><i data-lucide="layout-dashboard"></i></span
+                ><span
+                  ><strong>Read your dashboard</strong
+                  ><small
+                    >Understand summaries, activity, and workspace
+                    records.</small
+                  ></span
+                ><i data-lucide="arrow-up-right"></i>
+              </button>
+            </div>
+            <p class="empty-help" id="emptyHelp" hidden>
+              No help articles match your search.
+            </p>
+          </section>
+          <section class="help-contact">
+            <div>
+              <strong>Still need a hand?</strong
+              ><span
+                >Our support team typically replies within one business
+                day.</span
+              >
+            </div>
+            <button class="outline-button" id="emailSupport">
+              Email support
+            </button>
+          </section>
+        </div>
+
+        <div class="modal-backdrop" id="manageModal" hidden>
+          <section
+            class="modal manage-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="manageModalTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">WORKSPACE ADMINISTRATION</p>
+                <h2 id="manageModalTitle">Manage user accounts</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeManageModal"
+                aria-label="Close settings"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <form id="manageForm">
+              <div class="manage-panel" data-manage-panel="accounts">
+                <label
+                  >Account name<input
+                    type="text"
+                    value="Acme Collective"
+                    required
+                /></label>
+                <label
+                  >Account owner email<input
+                    type="email"
+                    value="admin@acmecollective.com"
+                    required
+                /></label>
+                <label
+                  >Default role<select>
+                    <option>Administrator</option>
+                    <option>Manager</option>
+                    <option>Member</option>
+                  </select></label
+                >
+                <label class="toggle-row compact"
+                  ><span
+                    ><strong>Allow new sign-ups</strong
+                    ><small
+                      >Let invited users create their own password.</small
+                    ></span
+                  ><input type="checkbox" checked /><b></b
+                ></label>
+              </div>
+              <div class="manage-panel" data-manage-panel="roles" hidden>
+                <label
+                  >Role to configure<select>
+                    <option>Administrator</option>
+                    <option>Manager</option>
+                    <option>Member</option>
+                    <option>Viewer</option>
+                  </select></label
+                >
+                <div class="toggle-list manage-permissions">
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>Member management</strong
+                      ><small>Invite, edit, and remove members.</small></span
+                    ><input type="checkbox" checked /><b></b
+                  ></label>
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>Workspace settings</strong
+                      ><small
+                        >Change workspace preferences and security.</small
+                      ></span
+                    ><input type="checkbox" checked /><b></b
+                  ></label>
+                  <label class="toggle-row compact"
+                    ><span
+                      ><strong>View billing</strong
+                      ><small
+                        >Access invoices and subscription details.</small
+                      ></span
+                    ><input type="checkbox" /><b></b
+                  ></label>
+                </div>
+              </div>
+              <div class="manage-panel" data-manage-panel="teams" hidden>
+                <label
+                  >Department name<input
+                    type="text"
+                    value="Operations"
+                    required
+                /></label>
+                <label
+                  >Department lead<select>
+                    <option>Jamie Smith</option>
+                    <option>Olivia Martin</option>
+                    <option>Maya Patel</option>
+                  </select></label
+                >
+                <label
+                  >Office location<input
+                    type="text"
+                    value="Main office"
+                    required
+                /></label>
+              </div>
+              <div class="manage-panel" data-manage-panel="billing" hidden>
+                <label
+                  >Subscription plan<select>
+                    <option>Enterprise</option>
+                    <option>Business</option>
+                    <option>Starter</option>
+                  </select></label
+                >
+                <div class="form-row">
+                  <label
+                    >Licensed seats<input
+                      type="number"
+                      min="1"
+                      value="50"
+                      required /></label
+                  ><label
+                    >Billing cycle<select>
+                      <option>Annual</option>
+                      <option>Monthly</option>
+                    </select></label
+                  >
+                </div>
+                <label
+                  >Billing email<input
+                    type="email"
+                    value="billing@acmecollective.com"
+                    required
+                /></label>
+                <div class="billing-note">
+                  <strong>Next invoice</strong
+                  ><span>14 November 2024 · Visa ending in 4242</span>
+                </div>
+              </div>
+              <div class="modal-actions">
+                <button type="button" class="outline-button" id="cancelManage">
+                  Cancel
+                </button>
+                <button type="submit" class="primary">Save changes</button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div class="page-content settings-content" id="settingsContent" hidden>
+          <section class="intro settings-intro">
+            <div>
+              <p class="overline">WORKSPACE ADMINISTRATION</p>
+              <h1>Settings</h1>
+              <p>Manage your workspace preferences, profile, and security.</p>
+            </div>
+            <button class="primary" id="saveSettings">
+              <i data-lucide="save"></i>Save changes
+            </button>
+          </section>
+          <div class="settings-grid">
+            <section class="panel settings-section">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">PROFILE</p>
+                  <h2>Personal information</h2>
+                </div>
+                <i class="section-icon" data-lucide="user-round"></i>
+              </div>
+              <div class="settings-form">
+                <label
+                  >Full name<input
+                    id="adminNameInput"
+                    type="text"
+                    value="Jamie Smith"
+                    required /></label
+                ><label
+                  >Email address<input
+                    id="adminEmailInput"
+                    type="email"
+                    value="jamie@acmecollective.com" /></label
+                ><label
+                  >Role<input type="text" value="Administrator" disabled
+                /></label>
+              </div>
+            </section>
+            <section class="panel settings-section">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">WORKSPACE</p>
+                  <h2>Workspace details</h2>
+                </div>
+                <i class="section-icon" data-lucide="building-2"></i>
+              </div>
+              <div class="settings-form">
+                <label
+                  >Workspace name<input
+                    id="workspaceNameInput"
+                    type="text"
+                    value="Acme Collective" /></label
+                ><label
+                  >Workspace address<input
+                    id="workspaceAddressInput"
+                    type="text"
+                    value="18 Willow Lane, Portland" /></label
+                ><label
+                  >Time zone<select id="timeZoneInput">
+                    <option>Pacific Time (PT)</option>
+                    <option>Eastern Time (ET)</option>
+                    <option>Central Time (CT)</option>
+                  </select></label
+                >
+              </div>
+            </section>
+            <section class="panel settings-section">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">NOTIFICATIONS</p>
+                  <h2>Notification preferences</h2>
+                </div>
+                <i class="section-icon" data-lucide="bell-ring"></i>
+              </div>
+              <div class="toggle-list">
+                <label class="toggle-row"
+                  ><span
+                    ><strong>System activity</strong
+                    ><small
+                      >Receive updates about workspace activity.</small
+                    ></span
+                  ><input
+                    id="systemActivityInput"
+                    type="checkbox"
+                    checked /><b></b></label
+                ><label class="toggle-row"
+                  ><span
+                    ><strong>Low inventory alerts</strong
+                    ><small
+                      >Get notified when stock needs attention.</small
+                    ></span
+                  ><input
+                    id="lowInventoryInput"
+                    type="checkbox"
+                    checked /><b></b></label
+                ><label class="toggle-row"
+                  ><span
+                    ><strong>Weekly summary</strong
+                    ><small>Receive a weekly report by email.</small></span
+                  ><input id="weeklySummaryInput" type="checkbox" /><b></b
+                ></label>
+              </div>
+            </section>
+            <section class="panel settings-section">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">SECURITY</p>
+                  <h2>Account security</h2>
+                </div>
+                <i class="section-icon" data-lucide="shield-check"></i>
+              </div>
+              <div class="security-row">
+                <div>
+                  <strong>Password</strong><span>Last updated 30 days ago</span>
+                </div>
+                <button class="outline-button" id="changePassword">
+                  Change password
+                </button>
+              </div>
+              <div class="security-row">
+                <div>
+                  <strong>Two-factor authentication</strong
+                  ><span>Add another layer of protection.</span>
+                </div>
+                <button class="outline-button" id="enableTwoFactor">
+                  Enable
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="page-content manage-content" id="manageContent" hidden>
+          <section class="intro">
+            <div>
+              <p class="overline">ADMINISTRATION</p>
+
+              <h1>Manage Workspace</h1>
+
+              <p>
+                Centralized control for users, permissions, security and
+                workspace operations.
+              </p>
+            </div>
+
+            <button class="primary" id="adminActionsButton">
+              <i data-lucide="shield-plus"></i>
+              Admin Actions
+            </button>
+          </section>
+
+          <section class="stats">
+            <article class="stat teal">
+              <div>
+                <span class="stat-label">TOTAL USERS</span>
+                <i data-lucide="users"></i>
+              </div>
+
+              <strong id="manageTotalUsers">0</strong>
+
+              <small class="positive">+8 this month</small>
+            </article>
+
+            <article class="stat gold">
+              <div>
+                <span class="stat-label">ROLES</span>
+
+                <i data-lucide="user-cog"></i>
+              </div>
+
+              <strong>12</strong>
+
+              <small class="positive">Permissions active</small>
+            </article>
+
+            <article class="stat coral">
+              <div>
+                <span class="stat-label">SECURITY ALERTS</span>
+
+                <i data-lucide="shield-alert"></i>
+              </div>
+
+              <strong>2</strong>
+              <small class="negative">Review required</small>
+            </article>
+
+            <article class="stat coral">
+              <div>
+                <span class="stat-label">REGISTERED MEMBERS</span>
+                <i data-lucide="users-round"></i>
+              </div>
+              <strong id="manageMemberCount">0</strong>
+              <small class="positive">Current records</small>
+            </article>
+          </section>
+
+          <div class="settings-grid">
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">USER MANAGEMENT</p>
+                  <h2>Accounts & Permissions</h2>
+                </div>
+              </div>
+
+              <div class="security-row">
+                <div>
+                  <strong>User Accounts</strong>
+                  <span>Create, edit and disable user accounts</span>
+                </div>
+
+                <button class="outline-button" data-manage-action="accounts">
+                  Manage
+                </button>
+              </div>
+
+              <div class="security-row">
+                <div>
+                  <strong>Roles & Permissions</strong>
+                  <span>Control access rights and modules</span>
+                </div>
+
+                <button class="outline-button" data-manage-action="roles">
+                  Configure
+                </button>
+              </div>
+
+              <div class="security-row">
+                <div>
+                  <strong>Teams & Departments</strong>
+                  <span>Manage organizational structure</span>
+                </div>
+
+                <button class="outline-button" data-manage-action="teams">
+                  Open
+                </button>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <div>
+                  <p class="overline">SYSTEM CONTROL</p>
+                  <h2>Workspace Administration</h2>
+                </div>
+              </div>
+
+              <div class="security-row">
+                <div>
+                  <strong>Billing & Subscription</strong>
+                  <span>Enterprise Plan</span>
+                </div>
+
+                <button class="outline-button" data-manage-action="billing">
+                  Manage
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="modal-backdrop" id="adminModal" hidden>
+          <section
+            class="modal admin-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="adminModalTitle"
+          >
+            <div class="modal-head">
+              <div>
+                <p class="overline">ADMINISTRATION</p>
+                <h2 id="adminModalTitle">Admin actions</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="closeAdminModal"
+                aria-label="Close admin actions"
+              >
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <div class="admin-action-list">
+              <form class="admin-action-row" id="inviteUserForm">
+                <div class="admin-action-icon">
+                  <i data-lucide="user-plus"></i>
+                </div>
+                <div class="admin-action-copy">
+                  <strong>Invite a user</strong
+                  ><span
+                    >Send an invitation with a selected workspace role.</span
+                  >
+                </div>
+                <div class="admin-invite-fields">
+                  <input
+                    id="inviteName"
+                    type="text"
+                    placeholder="Full name"
+                    aria-label="Member name"
+                    required
+                  /><input
+                    id="inviteEmail"
+                    type="email"
+                    placeholder="name@company.com"
+                    aria-label="User email"
+                    required
+                  /><select id="inviteRole" aria-label="User role">
+                    <option>Member</option>
+                    <option>Manager</option>
+                    <option>Viewer</option></select
+                  ><select id="inviteDepartment" aria-label="Department">
+                    <option>Unassigned</option>
+                    <option>Operations</option>
+                    <option>Design</option>
+                    <option>Support</option></select
+                  ><textarea
+                    id="inviteMessage"
+                    placeholder="Welcome message (optional)"
+                    aria-label="Welcome message"
+                    rows="2"
+                  ></textarea
+                  ><button class="outline-button" type="submit">Invite</button>
+                </div>
+              </form>
+              <button class="admin-action-row" id="exportLogs" type="button">
+                <span class="admin-action-icon"
+                  ><i data-lucide="download"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Export audit log</strong
+                  ><span
+                    >Download a CSV copy of recorded workspace activity.</span
+                  ></span
+                ><i class="admin-action-arrow" data-lucide="arrow-up-right"></i>
+              </button>
+              <button
+                class="admin-action-row"
+                id="reviewSecurity"
+                type="button"
+              >
+                <span class="admin-action-icon"
+                  ><i data-lucide="shield-check"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Review security</strong
+                  ><span
+                    >Open account security settings and authentication
+                    controls.</span
+                  ></span
+                ><i class="admin-action-arrow" data-lucide="arrow-up-right"></i>
+              </button>
+              <label class="admin-action-row admin-toggle-row"
+                ><span class="admin-action-icon"
+                  ><i data-lucide="user-round-x"></i></span
+                ><span class="admin-action-copy"
+                  ><strong>Pause new sign-ups</strong
+                  ><span
+                    >Temporarily prevent new users from joining this
+                    workspace.</span
+                  ></span
+                ><input id="pauseSignups" type="checkbox" /><b></b
+              ></label>
+            </div>
+          </section>
+        </div>
+        <div class="page-content logs-content" id="logsContent" hidden>
+          <section class="intro logs-intro">
+            <div>
+              <p class="overline">AUDIT TRAIL</p>
+              <h1>System Logs</h1>
+              <p>Review activity and changes made across your workspace.</p>
+            </div>
+            <button class="outline-button" id="clearLogs">
+              <i data-lucide="trash-2"></i>Clear logs
+            </button>
+          </section>
+          <section class="panel logs-panel">
+            <div class="panel-head">
+              <div>
+                <p class="overline">RECENT ACTIVITY</p>
+                <h2>All system events</h2>
+              </div>
+              <span class="staff-total" id="logTotal">0 events</span>
+            </div>
+            <div class="logs-table-wrap">
+              <table class="logs-table">
+                <thead>
+                  <tr>
+                    <th>Date and time</th>
+                    <th>User</th>
+                    <th>Activity</th>
+                    <th>Area</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="logRows"></tbody>
+              </table>
+              <p class="empty-logs" id="emptyLogs" hidden>
+                No activity has been recorded yet.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div
+          class="page-content inventory-content"
+          id="inventoryContent"
+          hidden
+        >
+          <section class="intro inventory-intro">
+            <div>
+              <p class="overline">INVENTORY CONTROL</p>
+              <h1>Inventory</h1>
+              <p>Track stock levels, locations, and item availability.</p>
+            </div>
+            <button class="primary" id="addInventory">
+              <i data-lucide="plus"></i>Add item
+            </button>
+          </section>
+          <section class="inventory-stats">
+            <article class="inventory-stat">
+              <span>Total stock quantity</span
+              ><strong id="inventoryTotal">0</strong
+              ><small>Across all locations</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Registered records</span
+              ><strong id="inventoryRecordTotal">0</strong
+              ><small>Inventory items recorded</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Low stock</span
+              ><strong class="inventory-warning-number" id="inventoryLowTotal"
+                >0</strong
+              ><small>Needs attention</small>
+            </article>
+            <article class="inventory-stat">
+              <span>Out of stock</span
+              ><strong class="inventory-danger-number" id="inventoryOutTotal"
+                >0</strong
+              ><small>Restock required</small>
+            </article>
+          </section>
+          <section class="panel inventory-table-panel">
+            <div class="inventory-toolbar">
+              <div class="search-box inventory-search">
+                <i data-lucide="search"></i
+                ><input
+                  id="inventorySearch"
+                  type="search"
+                  placeholder="Search items or SKU..."
+                />
+              </div>
+              <select class="inventory-filter" id="inventoryCategory">
+                <option value="all">All categories</option>
+                <option value="Equipment">Equipment</option>
+                <option value="Office supplies">Office supplies</option>
+                <option value="Furniture">Furniture</option></select
+              ><select class="inventory-filter" id="inventoryStatus">
+                <option value="all">All status</option>
+                <option value="In stock">In stock</option>
+                <option value="Low stock">Low stock</option>
+                <option value="Out of stock">Out of stock</option></select
+              ><button class="filter" id="inventoryFilterButton">
+                <i data-lucide="list-filter"></i>Filters
+              </button>
+            </div>
+            <div class="inventory-table-wrap">
+              <table class="inventory-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryRows">
+                  <tr
+                    data-category="Equipment"
+                    data-status="In stock"
+                    data-search="macbook pro mbp-14"
+                  >
+                    <td>
+                      <div class="inventory-item">
+                        <div class="item-icon green">
+                          <i data-lucide="laptop"></i>
+                        </div>
+                        <strong>MacBook Pro 14”</strong>
+                      </div>
+                    </td>
+                    <td>MBP-14-042</td>
+                    <td>Equipment</td>
+                    <td>48</td>
+                    <td>Main office</td>
+                    <td>
+                      <span class="inventory-status in-stock">In stock</span>
+                    </td>
+                    <td>
+                      <button class="row-action" aria-label="More actions">
+                        <i data-lucide="more-horizontal"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    data-category="Office supplies"
+                    data-status="Low stock"
+                    data-search="notebook set nts-008"
+                  >
+                    <td>
+                      <div class="inventory-item">
+                        <div class="item-icon orange">
+                          <i data-lucide="notebook-tabs"></i>
+                        </div>
+                        <strong>Notebook set</strong>
+                      </div>
+                    </td>
+                    <td>NTS-008</td>
+                    <td>Office supplies</td>
+                    <td>12</td>
+                    <td>Supply room</td>
+                    <td>
+                      <span class="inventory-status low-stock">Low stock</span>
+                    </td>
+                    <td>
+                      <button class="row-action" aria-label="More actions">
+                        <i data-lucide="more-horizontal"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    data-category="Furniture"
+                    data-status="In stock"
+                    data-search="ergonomic chair chr-221"
+                  >
+                    <td>
+                      <div class="inventory-item">
+                        <div class="item-icon blue">
+                          <i data-lucide="armchair"></i>
+                        </div>
+                        <strong>Ergonomic chair</strong>
+                      </div>
+                    </td>
+                    <td>CHR-221</td>
+                    <td>Furniture</td>
+                    <td>86</td>
+                    <td>Storage B</td>
+                    <td>
+                      <span class="inventory-status in-stock">In stock</span>
+                    </td>
+                    <td>
+                      <button class="row-action" aria-label="More actions">
+                        <i data-lucide="more-horizontal"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr
+                    data-category="Equipment"
+                    data-status="Out of stock"
+                    data-search="wireless headset hds-019"
+                  >
+                    <td>
+                      <div class="inventory-item">
+                        <div class="item-icon red">
+                          <i data-lucide="headphones"></i>
+                        </div>
+                        <strong>Wireless headset</strong>
+                      </div>
+                    </td>
+                    <td>HDS-019</td>
+                    <td>Equipment</td>
+                    <td>0</td>
+                    <td>Main office</td>
+                    <td>
+                      <span class="inventory-status out-stock"
+                        >Out of stock</span
+                      >
+                    </td>
+                    <td>
+                      <button class="row-action" aria-label="More actions">
+                        <i data-lucide="more-horizontal"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="empty-inventory" id="emptyInventory" hidden>
+                No inventory items match your filters.
+              </p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script>
+      const toast = document.getElementById("toast");
+      const currentView = document.getElementById("currentView");
+      const pageTitle = document.getElementById("pageTitle");
+      const overviewDate = document.getElementById("overviewDate");
+      const todayParts = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).formatToParts(new Date());
+      const today = Object.fromEntries(
+        todayParts.map(({ type, value }) => [type, value]),
+      );
+      overviewDate.textContent = `${today.weekday.toUpperCase()}, ${today.day} ${today.month.toUpperCase()} ${today.year}`;
+      const quickActionText = document.getElementById("quickActionText");
+      const navLinks = document.querySelectorAll("[data-view]");
+      const overviewContent = document.getElementById("overviewContent");
+      const staffContent = document.getElementById("staffContent");
+      const settingsContent = document.getElementById("settingsContent");
+      const manageContent = document.getElementById("manageContent");
+      const helpContent = document.getElementById("helpContent");
+      const logsContent = document.getElementById("logsContent");
+      const inventoryContent = document.getElementById("inventoryContent");
+      document.querySelectorAll("input").forEach((field) => {
+        field.autocomplete = field.type === "password" ? "off" : "on";
+      });
+      const overviewMemberTotal = document.getElementById(
+        "overviewMemberTotal",
+      );
+      const overviewStaffTotal = document.getElementById("overviewStaffTotal");
+      const overviewInventoryTotal = document.getElementById(
+        "overviewInventoryTotal",
+      );
+      const overviewSystemTotal = document.getElementById(
+        "overviewSystemTotal",
+      );
+      const manageTotalUsers = document.getElementById("manageTotalUsers");
+
+      const manageTotalRoles = document.getElementById("manageTotalRoles");
+
+      const manageMemberCount = document.getElementById("manageMemberCount");
+      const staffRows = document.getElementById("staffRows");
+      const staffTotal = document.getElementById("staffTotal");
+      const staffNavCount = document.getElementById("staffNavCount");
+            const staffSearch = document.getElementById("staffSearch");
+      const staffStatusFilter = document.getElementById("staffStatusFilter");
+      const emptyStaff = document.getElementById("emptyStaff");
+      const staffPassword = document.getElementById("staffPassword");
+      const staffPasswordConfirm = document.getElementById("staffPasswordConfirm");
+      const passwordStrengthLabel = document.getElementById("passwordStrengthLabel");
+      const passwordMeter = document.querySelector(".password-meter");
+            const overviewStaffList = document.getElementById("overviewStaffList");
+            const overviewStaffMenu = document.getElementById("overviewStaffMenu");
+            let staffRecords = [];
+      const phpBaseUrl = "http://localhost/clearlineDashboard";
+      const phpUrl = (endpoint) => `${phpBaseUrl}/${endpoint}`;
+            const currentViewStorageKey = "clearline-current-view";
+      const archivedStaffStorageKey = "clearline-archived-staff";
+
+      const readArchivedStaff = () => {
+        try {
+          return JSON.parse(localStorage.getItem(archivedStaffStorageKey) || "[]");
+        } catch {
+          return [];
+        }
+      };
+
+      const writeArchivedStaff = (emails) => {
+        localStorage.setItem(archivedStaffStorageKey, JSON.stringify(emails));
+      };
+
+      const isStaffArchived = (email) =>
+        readArchivedStaff().includes(String(email || "").trim().toLowerCase());
+
+      const setStaffArchived = (email, archived) => {
+        const key = String(email || "").trim().toLowerCase();
+        const current = readArchivedStaff().filter((item) => item !== key);
+        if (archived) current.push(key);
+        writeArchivedStaff(current);
+      };
+
+      const filterStaff = () => {
+        const search = (staffSearch?.value || "").trim().toLowerCase();
+        const status = staffStatusFilter?.value || "all";
+        let visible = 0;
+        [...staffRows.children].forEach((row) => {
+          const matches =
+            (!search || (row.dataset.staffSearch || "").includes(search)) &&
+            (status === "all" || row.dataset.staffStatus === status);
+          row.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        if (emptyStaff) emptyStaff.hidden = visible > 0;
+        staffTotal.textContent =
+          visible + " staff member" + (visible === 1 ? "" : "s");
+      };
+
+      const updateStaffCount = () => {
+        const rows = [...staffRows.children];
+        const active = rows.filter(
+          (row) => row.dataset.staffStatus !== "Archived"
+        ).length;
+        staffNavCount.textContent = active;
+        overviewStaffTotal.textContent = active;
+        overviewMemberTotal.textContent = rows.length;
+        if (manageMemberCount) manageMemberCount.textContent = rows.length;
+        if (manageTotalUsers) manageTotalUsers.textContent = rows.length;
+        filterStaff();
+      };
+      const renderOverviewStaff = (records) => {
+        if (!overviewStaffList) return;
+
+        overviewStaffList.replaceChildren();
+        const recentStaff = records.slice(-3).reverse();
+
+        if (recentStaff.length === 0) {
+          const emptyState = document.createElement("p");
+          emptyState.className = "empty-staff";
+          emptyState.textContent = "No staff members added yet.";
+          overviewStaffList.appendChild(emptyState);
+          return;
+        }
+
+        recentStaff.forEach((staff, index) => {
+          const initials = staff.staff_name
+            .split(/\s+/)
+            .map((part) => part[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          const item = document.createElement("div");
+          item.className = "member";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar " + ["mint", "peach", "lilac"][index];
+          avatar.textContent = initials;
+
+          const details = document.createElement("div");
+          const name = document.createElement("strong");
+          name.textContent = staff.staff_name;
+          const role = document.createElement("span");
+          role.textContent = staff.role + " · " + staff.department;
+          details.append(name, role);
+
+          const status = document.createElement("i");
+          status.className =
+            "status " + (staff.status === "Archived" ? "away" : "online");
+
+          item.append(avatar, details, status);
+          overviewStaffList.appendChild(item);
+        });
+      };
+      overviewStaffMenu?.addEventListener("click", () => {
+        document.querySelector('[data-view="Staff"]')?.click();
+      });
+      const logRows = document.getElementById("logRows");
+      const logTotal = document.getElementById("logTotal");
+      const emptyLogs = document.getElementById("emptyLogs");
+      const logStorageKey = "clearline-system-logs";
+      const readLogs = () => {
+        try {
+          return JSON.parse(localStorage.getItem(logStorageKey) || "[]");
+        } catch {
+          return [];
+        }
+      };
+      const renderLogs = () => {
+        const logs = readLogs();
+        logRows.replaceChildren();
+        logs.forEach((log) => {
+          const row = document.createElement("tr");
+          [log.time, log.user, log.action, log.area].forEach((value) => {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+          });
+          const status = document.createElement("td");
+          status.innerHTML = '<span class="log-status success">Success</span>';
+          row.appendChild(status);
+          logRows.appendChild(row);
+        });
+        logTotal.textContent = `${logs.length} event${logs.length === 1 ? "" : "s"}`;
+        emptyLogs.hidden = logs.length > 0;
+      };
+      const recordLog = (action, area) => {
+        const logs = readLogs();
+        logs.unshift({
+          time: new Date().toLocaleString([], {
+            dateStyle: "medium",
+            timeStyle: "short",
+          }),
+          user: "Jamie Smith",
+          action,
+          area,
+        });
+        localStorage.setItem(logStorageKey, JSON.stringify(logs.slice(0, 100)));
+        renderLogs();
+        overviewSystemTotal.textContent = logs.length;
+      };
+      const showToast = (message) => {
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2500);
+      };
+      const adminProfileModal = document.getElementById("adminProfileModal");
+      const adminAccountSelect = document.getElementById("adminAccountSelect");
+      const switchAdminButton = document.getElementById("switchAdminButton");
+      const updateAdminProfileDisplay = (profile) => {
+        const initials = profile.name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        document.getElementById("sidebarAdminName").textContent = profile.name;
+        document.getElementById("profileAdminName").textContent = profile.name;
+        document.getElementById("profileAdminEmail").textContent = profile.email;
+        document.getElementById("profileAdminDepartment").textContent =
+          profile.department || "Operations";
+        document.getElementById("profileAdminInitials").textContent = initials;
+        adminNameInput.value = profile.name;
+        adminEmailInput.value = profile.email;
+        pageTitle.textContent = getGreeting();
+        document
+          .getElementById("adminProfileButton")
+          .setAttribute("aria-label", "View administrator profile for " + profile.name);
+        localStorage.setItem(adminProfileStorageKey, JSON.stringify(profile));
+      };
+      const renderAdminSwitcher = () => {
+        if (!adminAccountSelect) return;
+        const administrators = staffRecords.filter(
+          (staff) => staff.role === "Administrator" && staff.status !== "Archived",
+        );
+        const currentEmail = adminEmailInput.value.trim().toLowerCase();
+        adminAccountSelect.replaceChildren();
+        const currentOption = document.createElement("option");
+        currentOption.value = "";
+        currentOption.textContent = "Select an administrator";
+        adminAccountSelect.appendChild(currentOption);
+        administrators.forEach((admin) => {
+          const option = document.createElement("option");
+          option.value = admin.email;
+          option.textContent = admin.staff_name + " · " + admin.email;
+          option.selected = admin.email.toLowerCase() === currentEmail;
+          adminAccountSelect.appendChild(option);
+        });
+        switchAdminButton.disabled = administrators.length === 0;
+      };
+      const closeAdminProfile = () => {
+        adminProfileModal.hidden = true;
+      };
+      document
+        .getElementById("adminProfileButton")
+        .addEventListener("click", () => {
+          renderAdminSwitcher();
+          adminProfileModal.hidden = false;
+          recordLog("Viewed administrator profile", "Settings");
+        });
+      switchAdminButton.addEventListener("click", () => {
+        const selectedAdmin = staffRecords.find(
+          (staff) => staff.email === adminAccountSelect.value,
+        );
+        if (!selectedAdmin) {
+          showToast("Select an administrator account first.");
+          return;
+        }
+        updateAdminProfileDisplay({
+          name: selectedAdmin.staff_name,
+          email: selectedAdmin.email,
+          department: selectedAdmin.department,
+        });
+        closeAdminProfile();
+        showToast("Switched to " + selectedAdmin.staff_name);
+        recordLog(
+          "Switched administrator profile to " + selectedAdmin.staff_name,
+          "Settings",
+        );
+      });
+      document
+        .getElementById("closeAdminProfile")
+        .addEventListener("click", closeAdminProfile);
+      document
+        .getElementById("closeAdminProfileAction")
+        .addEventListener("click", closeAdminProfile);
+      adminProfileModal.addEventListener("click", (event) => {
+        if (event.target === adminProfileModal) closeAdminProfile();
+      });
+      const adminProfileStorageKey = "clearline-admin-profile";
+      const settingsStorageKey = "clearline-settings";
+      const adminNameInput = document.getElementById("adminNameInput");
+      const adminEmailInput = document.getElementById("adminEmailInput");
+      const workspaceNameInput = document.getElementById("workspaceNameInput");
+      const workspaceAddressInput = document.getElementById(
+        "workspaceAddressInput",
+      );
+      const timeZoneInput = document.getElementById("timeZoneInput");
+      const systemActivityInput = document.getElementById(
+        "systemActivityInput",
+      );
+      const lowInventoryInput = document.getElementById("lowInventoryInput");
+      const weeklySummaryInput = document.getElementById("weeklySummaryInput");
+      const getGreeting = () => {
+        const hour = Number(
+          new Intl.DateTimeFormat("en-US", {
+            timeZone: "Asia/Manila",
+            hour: "numeric",
+            hour12: false,
+          }).format(new Date()),
+        );
+        const greeting =
+          hour < 12
+            ? "Good morning"
+            : hour === 12
+              ? "Good noon"
+              : "Good evening";
+        return (
+          greeting + ", " + adminNameInput.value.trim().split(/\s+/)[0] + " ✦"
+        );
+      };
+      try {
+        const savedAdminProfile = JSON.parse(
+          localStorage.getItem(adminProfileStorageKey) || "null",
+        );
+        if (savedAdminProfile?.name && savedAdminProfile?.email) {
+          adminNameInput.value = savedAdminProfile.name;
+          adminEmailInput.value = savedAdminProfile.email;
+          document.getElementById("sidebarAdminName").textContent =
+            savedAdminProfile.name;
+          document.getElementById("profileAdminName").textContent =
+            savedAdminProfile.name;
+          document.getElementById("profileAdminEmail").textContent =
+            savedAdminProfile.email;
+          document.getElementById("profileAdminDepartment").textContent =
+            savedAdminProfile.department || "Operations";
+          document.getElementById("profileAdminInitials").textContent =
+            savedAdminProfile.name
+              .split(/\s+/)
+              .map((part) => part[0])
+              .join("")
+              .slice(0, 2)
+              .toUpperCase();
+        }
+      } catch {
+        localStorage.removeItem(adminProfileStorageKey);
+      }
+      try {
+        const savedSettings = JSON.parse(
+          localStorage.getItem(settingsStorageKey) || "null",
+        );
+        if (savedSettings) {
+          workspaceNameInput.value =
+            savedSettings.workspaceName ?? workspaceNameInput.value;
+          workspaceAddressInput.value =
+            savedSettings.workspaceAddress ?? workspaceAddressInput.value;
+          timeZoneInput.value = savedSettings.timeZone ?? timeZoneInput.value;
+          systemActivityInput.checked =
+            savedSettings.systemActivity ?? systemActivityInput.checked;
+          lowInventoryInput.checked =
+            savedSettings.lowInventory ?? lowInventoryInput.checked;
+          weeklySummaryInput.checked =
+            savedSettings.weeklySummary ?? weeklySummaryInput.checked;
+        }
+      } catch {
+        localStorage.removeItem(settingsStorageKey);
+      }
+      pageTitle.textContent = getGreeting();
+      const manageModal = document.getElementById("manageModal");
+      const manageForm = document.getElementById("manageForm");
+      const manageModalTitle = document.getElementById("manageModalTitle");
+      const managePanelTitles = {
+        accounts: "Manage user accounts",
+        roles: "Configure roles & permissions",
+        teams: "Manage teams & departments",
+        billing: "Manage billing & subscription",
+      };
+      let activeManageAction = "accounts";
+      const closeManageModal = () => {
+        manageModal.hidden = true;
+      };
+      const openManageModal = (action) => {
+        activeManageAction = action;
+        manageModalTitle.textContent = managePanelTitles[action];
+        document.querySelectorAll("[data-manage-panel]").forEach((panel) => {
+          const isActive = panel.dataset.managePanel === action;
+          panel.hidden = !isActive;
+          panel.querySelectorAll("input, select").forEach((field) => {
+            field.disabled = !isActive;
+          });
+        });
+        manageModal.hidden = false;
+        manageModal
+          .querySelector(
+            "[data-manage-panel='" +
+              action +
+              "'] input, [data-manage-panel='" +
+              action +
+              "'] select",
+          )
+          ?.focus();
+        recordLog("Opened " + managePanelTitles[action], "Manage");
+      };
+      document.querySelectorAll("[data-manage-action]").forEach((button) => {
+        button.addEventListener("click", () =>
+          openManageModal(button.dataset.manageAction),
+        );
+      });
+      document
+        .getElementById("closeManageModal")
+        .addEventListener("click", closeManageModal);
+      document
+        .getElementById("cancelManage")
+        .addEventListener("click", closeManageModal);
+      manageModal.addEventListener("click", (event) => {
+        if (event.target === manageModal) closeManageModal();
+      });
+      manageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        closeManageModal();
+        showToast(managePanelTitles[activeManageAction] + " saved");
+        recordLog("Saved " + managePanelTitles[activeManageAction], "Manage");
+      });
+      const adminModal = document.getElementById("adminModal");
+      const closeAdminModal = () => {
+        adminModal.hidden = true;
+      };
+      document
+        .getElementById("adminActionsButton")
+        .addEventListener("click", () => {
+          adminModal.hidden = false;
+          document.getElementById("inviteEmail").focus();
+          recordLog("Opened admin actions", "Manage");
+        });
+      document
+        .getElementById("closeAdminModal")
+        .addEventListener("click", closeAdminModal);
+      adminModal.addEventListener("click", (event) => {
+        if (event.target === adminModal) closeAdminModal();
+      });
+      document
+        .getElementById("inviteUserForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const name = document.getElementById("inviteName").value.trim();
+          const email = document.getElementById("inviteEmail").value.trim();
+          const role = document.getElementById("inviteRole").value;
+          const department = document.getElementById("inviteDepartment").value;
+          const message = document.getElementById("inviteMessage").value.trim();
+          const initials = name
+            .split(/\s+/)
+            .map((part) => part[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          const row = document.createElement("tr");
+          row.dataset.memberSearch = (name + " " + email).toLowerCase();
+          row.dataset.memberStatus = "Pending";
+          row.dataset.memberRole = role;
+          row.dataset.memberName = name;
+          row.dataset.memberEmail = email;
+          row.dataset.memberDepartment = department;
+          row.dataset.memberJoined = "Pending invitation";
+          row.dataset.memberLastActive = "Not yet active";
+          row.dataset.memberAccess =
+            role +
+            " access pending invitation acceptance" +
+            (message ? "; welcome message included" : "");
+          row.innerHTML =
+            '<td><div class="staff-person"><div class="avatar sky"></div><strong></strong></div><small></small></td><td></td><td></td><td><span class="member-status pending">Pending</span></td><td>Not yet active</td><td>Pending</td><td><button class="row-action member-view" type="button" aria-label="View member"><i data-lucide="eye"></i></button></td>';
+          row.querySelector(".avatar").textContent = initials;
+          row.querySelector(".staff-person strong").textContent = name;
+          row.querySelector("td small").textContent = email;
+          row.querySelector("td:nth-child(2)").textContent = role;
+          row.querySelector("td:nth-child(3)").textContent = department;
+          const memberTable = document.getElementById("memberRows");
+          if (!memberTable) {
+            showToast("Manage Member is unavailable.");
+            return;
+          }
+          memberTable.appendChild(row);
+          row
+            .querySelector(".member-view")
+            .addEventListener("click", () => openMemberDetails(row));
+          event.currentTarget.reset();
+          updateMemberStats();
+          closeAdminModal();
+          showToast("Invitation sent to " + name);
+          recordLog("Invited " + email + " as " + role, "Manage Member");
+        });
+      document.getElementById("exportLogs").addEventListener("click", () => {
+        const rows = [
+          ["Date and time", "User", "Activity", "Area", "Status"],
+          ...readLogs().map((log) => [
+            log.time,
+            log.user,
+            log.action,
+            log.area,
+            "Success",
+          ]),
+        ];
+        const csv = rows
+          .map((row) =>
+            row
+              .map((value) => '"' + String(value).replaceAll('"', '""') + '"')
+              .join(","),
+          )
+          .join("\n");
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+        link.download = "clearline-audit-log.csv";
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showToast("Audit log exported");
+        recordLog("Exported audit log", "Manage");
+      });
+      document
+        .getElementById("reviewSecurity")
+        .addEventListener("click", () => {
+          closeAdminModal();
+          document.querySelector('[data-view="Settings"]').click();
+          showToast("Security settings opened");
+        });
+      document
+        .getElementById("pauseSignups")
+        .addEventListener("change", (event) => {
+          const status = event.currentTarget.checked ? "paused" : "resumed";
+          showToast("New sign-ups " + status);
+          recordLog("New sign-ups " + status, "Manage");
+        });
+              const memberDetailModal = document.getElementById("memberDetailModal");
+      let selectedStaffRow;
+
+      const closeMemberDetail = () => {
+        memberDetailModal.hidden = true;
+      };
+
+      const setStaffStatus = async (row, status) => {
+        const formData = new FormData();
+        formData.append("email", row.dataset.staffEmail);
+        formData.append("status", status);
+
+        const response = await fetch(phpUrl("update_staff_status.php"), {
+          method: "POST",
+          body: formData,
+        });
+        const result = await readJsonResponse(
+          response,
+          "Could not update staff status.",
+        );
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || "Could not update staff status.");
+        }
+
+        row.dataset.staffStatus = status;
+        const badge = row.querySelector(".member-status");
+        if (badge) {
+          badge.textContent = status;
+          badge.className =
+            "member-status " + status.toLowerCase().replace(/\s+/g, "-");
+        }
+        const staffRecord = staffRecords.find(
+          (staff) => staff.email.toLowerCase() === row.dataset.staffEmail,
+        );
+        if (staffRecord) {
+          staffRecord.status = status;
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
+        }
+        setStaffArchived(row.dataset.staffEmail, status === "Archived");
+      };
+
+      const updateArchiveButtons = () => {
+        const isArchived = selectedStaffRow?.dataset.staffStatus === "Archived";
+        archiveMember.hidden = isArchived;
+        recoverMember.hidden = !isArchived;
+        deleteMember.hidden = !isArchived;
+      };
+
+      const openStaffDetails = (row) => {
+        selectedStaffRow = row;
+        const data = row.dataset;
+        document.getElementById("memberDetailTitle").textContent = data.staffName;
+        document.getElementById("detailEmail").textContent = data.staffEmail;
+        document.getElementById("detailRole").textContent = data.staffRole;
+        document.getElementById("detailDepartment").textContent =
+          data.staffDepartment;
+        document.getElementById("detailStatus").textContent = data.staffStatus;
+        document.getElementById("detailLastActive").textContent = data.staffId;
+        document.getElementById("detailJoined").textContent = "Staff directory";
+        document.getElementById("detailAccess").textContent = data.staffAccess;
+        updateArchiveButtons();
+        memberDetailModal.hidden = false;
+        recordLog("Viewed staff profile: " + data.staffName, "Staff");
+      };
+
+      document
+        .getElementById("closeMemberDetail")
+        .addEventListener("click", closeMemberDetail);
+      document
+        .getElementById("closeMemberDetailAction")
+        .addEventListener("click", closeMemberDetail);
+
+      const archiveMember = document.getElementById("archiveMember");
+      const recoverMember = document.getElementById("recoverMember");
+      const deleteMember = document.getElementById("deleteMember");
+
+      const readJsonResponse = async (response, fallbackMessage) => {
+        const body = await response.text();
+
+        if (!body.trim()) {
+          throw new Error(
+            `${fallbackMessage} (PHP returned an empty response, HTTP ${response.status}).`,
+          );
+        }
+
+        try {
+          return JSON.parse(body);
+        } catch {
+          throw new Error(
+            `${fallbackMessage} (PHP returned invalid JSON, HTTP ${response.status}).`,
+          );
+        }
+      };
+
+      archiveMember.addEventListener("click", async () => {
+        try {
+          await setStaffStatus(selectedStaffRow, "Archived");
+        } catch (error) {
+          console.error(error);
+          showToast("Could not archive staff account.");
+          return;
+        }
+        document.getElementById("detailStatus").textContent = "Archived";
+        updateArchiveButtons();
+        updateStaffCount();
+        showToast(selectedStaffRow.dataset.staffName + " account archived");
+        recordLog(
+          "Archived staff account: " + selectedStaffRow.dataset.staffName,
+          "Staff"
+        );
+      });
+
+      recoverMember.addEventListener("click", async () => {
+        try {
+          await setStaffStatus(selectedStaffRow, "Active");
+        } catch (error) {
+          console.error(error);
+          showToast("Could not recover staff account.");
+          return;
+        }
+        document.getElementById("detailStatus").textContent = "Active";
+        updateArchiveButtons();
+        updateStaffCount();
+        showToast(selectedStaffRow.dataset.staffName + " account recovered");
+        recordLog(
+          "Recovered staff account: " + selectedStaffRow.dataset.staffName,
+          "Staff"
+        );
+      });
+
+      deleteMember.addEventListener("click", async () => {
+        const name = selectedStaffRow.dataset.staffName;
+        const email = selectedStaffRow.dataset.staffEmail;
+        const confirmed = confirm(
+          "Permanently delete " + name + "? This cannot be undone."
+        );
+        if (!confirmed) return;
+
+        const removeLocally = () => {
+          setStaffArchived(email, false);
+          staffRecords = staffRecords.filter(
+            (staff) => staff.email.toLowerCase() !== email,
+          );
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
+          selectedStaffRow.remove();
+          updateStaffCount();
+          closeMemberDetail();
+          showToast(name + " was permanently deleted.");
+          recordLog("Deleted staff account: " + name, "Staff");
+        };
+
+        try {
+          const formData = new FormData();
+          formData.append("email", email);
+          const response = await fetch(phpUrl("delete_staff.php"), {
+            method: "POST",
+            body: formData,
+          });
+          const result = await readJsonResponse(
+            response,
+            "Could not delete staff member.",
+          );
+          if (!result.success) {
+            showToast(result.error || "Could not delete Staff from database.");
+            return;
+          }
+          removeLocally();
+        } catch (error) {
+          console.error(error);
+          removeLocally();
+        }
+      });
+      const helpSearch = document.getElementById("helpSearch");
+      const helpArticles = document.querySelectorAll(".help-article");
+      const emptyHelp = document.getElementById("emptyHelp");
+      const filterHelp = (category = "all") => {
+        const search = helpSearch.value.trim().toLowerCase();
+        let visible = 0;
+        helpArticles.forEach((article) => {
+          const matches =
+            (category === "all" || article.dataset.helpCategory === category) &&
+            article.textContent.toLowerCase().includes(search);
+          article.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        emptyHelp.hidden = visible > 0;
+        document.getElementById("helpArticleCount").textContent =
+          visible + (visible === 1 ? " article" : " articles");
+      };
+      helpSearch.addEventListener("input", () => filterHelp());
+      document.querySelectorAll("[data-help-filter]").forEach((button) =>
+        button.addEventListener("click", () => {
+          helpSearch.value = "";
+          filterHelp(button.dataset.helpFilter);
+          recordLog(
+            "Filtered help articles: " + button.dataset.helpFilter,
+            "Help Center",
+          );
+        }),
+      );
+      helpArticles.forEach((article) =>
+        article.addEventListener("click", () => {
+          showToast("Help article opened");
+          recordLog(
+            "Opened help article: " +
+              article.querySelector("strong").textContent,
+            "Help Center",
+          );
+        }),
+      );
+      ["contactSupport", "emailSupport"].forEach((id) =>
+        document.getElementById(id).addEventListener("click", () => {
+          showToast("Support request started");
+          recordLog("Started support request", "Help Center");
+        }),
+      );
+      navLinks.forEach((link) =>
+        link.addEventListener("click", () => {
+          const view = link.dataset.view;
+          localStorage.setItem(currentViewStorageKey, view);
+          currentView.textContent = view;
+          document
+            .querySelectorAll(".nav-link")
+            .forEach((item) =>
+              item.classList.toggle("active", item.dataset.view === view),
+            );
+          overviewContent.hidden =
+            view === "Staff" ||
+            view === "Settings" ||
+            view === "System Logs" ||
+            view === "Inventory" ||
+            view === "Manage" ||
+            view === "Help Center";
+
+          staffContent.hidden = view !== "Staff";
+          manageContent.hidden = view !== "Manage";
+          helpContent.hidden = view !== "Help Center";
+          settingsContent.hidden = view !== "Settings";
+          logsContent.hidden = view !== "System Logs";
+          inventoryContent.hidden = view !== "Inventory";
+          pageTitle.textContent =
+            view === "Staff"
+              ? "Staff directory"
+              : view === "Manage"
+                ? "Manage Workspace"
+                  : view === "Help Center"
+                    ? "Help Center"
+                    : view === "Settings"
+                      ? "Settings"
+                      : view === "System Logs"
+                        ? "System Logs"
+                        : view === "Inventory"
+                          ? "Inventory Management"
+                          : getGreeting();
+          quickActionText.textContent =
+            view === "Staff" ? "Add staff" : "Add new member";
+          if (view !== "Overview") {
+            showToast(view + " workspace selected");
+            recordLog("Opened " + view + " page", view);
+          }
+          document.getElementById("sidebar").classList.remove("open");
+        }),
+      );
+      document.getElementById("workspaceHome").addEventListener("click", () => {
+        localStorage.setItem(currentViewStorageKey, "Overview");
+        currentView.textContent = "Overview";
+        overviewContent.hidden = false;
+        staffContent.hidden = true;
+        manageContent.hidden = true;
+        helpContent.hidden = true;
+        settingsContent.hidden = true;
+        logsContent.hidden = true;
+        inventoryContent.hidden = true;
+        pageTitle.textContent = getGreeting();
+        quickActionText.textContent = "Add new member";
+        document
+          .querySelectorAll(".nav-link")
+          .forEach((item) =>
+            item.classList.toggle("active", item.dataset.view === "Overview"),
+          );
+      });
+      document.getElementById("quickAction").addEventListener("click", () => {
+        adminModal.hidden = false;
+        document.getElementById("inviteName").focus();
+        showToast("New member form opened");
+        recordLog("Opened new member form", "Manage Member");
+      });
+      const staffModal = document.getElementById("staffModal");
+      /* Adds a staff record to the visible Staff table */
+      const addStaffRowToTable = (staff) => {
+        /* Make initials: Olivia Martin becomes OM */
+        const initials = staff.staff_name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+
+        /* Use the real MySQL primary key.
+     Example: database ID 4 becomes STF-004 */
+        const staffId = "STF-" + String(staff.id).padStart(3, "0");
+        const status = staff.status === "Archived" ? "Archived" : "Active";
+
+        const row = document.createElement("tr");
+        row.dataset.staffEmail = staff.email.toLowerCase();
+        row.dataset.staffSearch = (
+          staff.staff_name + " " + staff.email + " " + staff.department + " " + staff.role
+        ).toLowerCase();
+        row.dataset.staffStatus = status;
+        row.dataset.staffName = staff.staff_name;
+        row.dataset.staffRole = staff.role;
+        row.dataset.staffDepartment = staff.department;
+        row.dataset.staffId = staffId;
+        row.dataset.staffAccess = staff.role + " staff access";
+
+        row.innerHTML = `
+    <td>${staffId}</td>
+
+    <td>
+      <div class="staff-person">
+        <div class="avatar sky">${initials}</div>
+        <strong>${staff.staff_name}</strong>
+      </div>
+    </td>
+
+    <td>${staff.email}</td>
+    <td>${staff.department}</td>
+    <td>${staff.role}</td>
+    <td><span class="member-status ${status.toLowerCase()}">${status}</span></td>
+    <td>
+      <button class="row-action member-view" type="button" aria-label="View staff member">
+        <i data-lucide="eye"></i>
+      </button>
+    </td>
+  `;
+
+        staffRows.appendChild(row);
+
+        row.querySelector(".member-view").addEventListener("click", () => {
+          openStaffDetails(row);
+        });
+        lucide.createIcons();
+
+        updateStaffCount();
+      };
+      /* Load all saved Staff records from the MySQL database */
+      const loadStaffFromDatabase = async () => {
+        try {
+          const response = await fetch(phpUrl("get_staff.php"));
+
+          const staffList = await readJsonResponse(
+            response,
+            "Could not load staff records.",
+          );
+
+          if (!response.ok || !Array.isArray(staffList)) {
+            throw new Error(staffList.error || "Staff records could not be loaded.");
+          }
+
+          staffRecords = staffList;
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
+
+          /* Clear the Staff table before loading MySQL records */
+          staffRows.replaceChildren();
+
+          /* Put each MySQL Staff record into the Staff table */
+          staffList.forEach((staff) => {
+            addStaffRowToTable(staff);
+          });
+          updateStaffCount();
+        } catch (error) {
+          console.error(error);
+
+          showToast(
+            error.message || "Could not load Staff records from the database.",
+          );
+        }
+      };
+      /* =====================================================
+   Show the same Staff ID inside Manage Member.
+   Example: STF-004 in Staff also becomes STF-004 in Member.
+   ===================================================== */
+      const syncMemberIdsFromStaff = () => {
+        /* Make a list of: email -> Staff ID */
+        const staffIdByEmail = new Map();
+
+        document.querySelectorAll("#staffRows tr").forEach((staffRow) => {
+          const email = (
+            staffRow.dataset.staffEmail ||
+            staffRow.children[2]?.textContent ||
+            ""
+          )
+            .trim()
+            .toLowerCase();
+
+          /* Staff ID is in the first Staff table column */
+          const staffId = staffRow.children[0]?.textContent.trim();
+
+          if (email && staffId) {
+            staffIdByEmail.set(email, staffId);
+          }
+        });
+
+        /* Add/update the first column of every Manage Member row */
+        memberRows.forEach((memberRow) => {
+          const memberEmail = memberRow.dataset.memberEmail
+            .trim()
+            .toLowerCase();
+
+          /* Use the matching Staff ID. Show — if not a Staff account. */
+          const memberId = staffIdByEmail.get(memberEmail) || "—";
+
+          let idCell = memberRow.querySelector(".member-id");
+
+          /* Create the first Member ID cell only once */
+          if (!idCell) {
+            idCell = document.createElement("td");
+            idCell.className = "member-id";
+
+            /* Put Member ID before the Member name cell */
+            memberRow.insertBefore(idCell, memberRow.firstElementChild);
+          }
+
+          idCell.textContent = memberId;
+
+          /* Save ID in the Member row for future use */
+          memberRow.dataset.memberId = memberId;
+        });
+      };
+      /* Adds a Staff member to the Manage Member table */
+      const addStaffToManageMembers = (staff) => {
+        const initials = staff.staff_name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+
+        const row = document.createElement("tr");
+
+        row.dataset.memberSearch = (
+          staff.staff_name +
+          " " +
+          staff.email
+        ).toLowerCase();
+
+        row.dataset.memberStatus = "Active";
+        row.dataset.memberRole = staff.role;
+        row.dataset.memberName = staff.staff_name;
+        row.dataset.memberEmail = staff.email;
+        row.dataset.memberDepartment = staff.department;
+        row.dataset.memberJoined = "Added as staff";
+        row.dataset.memberLastActive = "Just added";
+        row.dataset.memberAccess = staff.role + " staff access";
+
+        row.innerHTML = `
+    <td>
+      <div class="staff-person">
+        <div class="avatar sky">${initials}</div>
+        <strong>${staff.staff_name}</strong>
+      </div>
+      <small>${staff.email}</small>
+    </td>
+
+    <td>${staff.role}</td>
+    <td>${staff.department}</td>
+    <td><span class="member-status active">Active</span></td>
+    <td>Just added</td>
+    <td>Today</td>
+
+    <td>
+      <button
+        class="row-action member-view"
+        type="button"
+        aria-label="View member"
+      >
+        <i data-lucide="eye"></i>
+      </button>
+    </td>
+  `;
+
+        document.getElementById("memberRows").appendChild(row);
+
+        /* Refresh the member list used by your filters and counters */
+        /* Make the new eye button work */
+        row.querySelector(".member-view").addEventListener("click", () => {
+          openMemberDetails(row);
+        });
+
+        updateMemberStats();
+
+        lucide.createIcons();
+      };
+      const staffForm = document.getElementById("staffForm");
+      const getPasswordStrength = (password) => {
+        let score = 0;
+        if (password.length >= 8) score += 1;
+        if (/[A-Z]/.test(password)) score += 1;
+        if (/[0-9]/.test(password)) score += 1;
+        if (/[^A-Za-z0-9]/.test(password)) score += 1;
+        return score >= 4 ? "High" : score >= 2 ? "Medium" : "Low";
+      };
+      const updatePasswordStrength = () => {
+        const password = staffPassword.value;
+        if (!password) {
+          passwordStrengthLabel.textContent = "Password strength: Not set";
+          passwordMeter.dataset.strength = "";
+          return;
+        }
+        const strength = getPasswordStrength(password);
+        passwordStrengthLabel.textContent = "Password strength: " + strength;
+        passwordMeter.dataset.strength = strength.toLowerCase();
+      };
+      document.querySelectorAll(".password-toggle").forEach((button) => {
+        button.addEventListener("click", () => {
+          const input = document.getElementById(button.dataset.passwordTarget);
+          const isVisible = input.type === "text";
+          input.type = isVisible ? "password" : "text";
+          button.setAttribute(
+            "aria-label",
+            isVisible ? "Show password" : "Hide password",
+          );
+          button.innerHTML = `<i data-lucide="${isVisible ? "eye" : "eye-off"}"></i>`;
+          lucide.createIcons();
+        });
+      });
+      staffPassword.addEventListener("input", updatePasswordStrength);
+      const closeStaffModal = () => {
+        staffModal.hidden = true;
+        staffForm.reset();
+        updatePasswordStrength();
+      };
+      document.getElementById("addStaff").addEventListener("click", () => {
+        staffModal.hidden = false;
+        document.getElementById("staffName").focus();
+        recordLog("Opened add staff form", "Staff");
+      });
+      document
+        .getElementById("closeStaffModal")
+        .addEventListener("click", closeStaffModal);
+      document
+        .getElementById("cancelStaff")
+        .addEventListener("click", closeStaffModal);
+      staffModal.addEventListener("click", (event) => {
+        if (event.target === staffModal) closeStaffModal();
+      });
+      staffForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        /* Read form values */
+        const name = document.getElementById("staffName").value.trim();
+        const email = document.getElementById("staffEmail").value.trim();
+        const department = document.getElementById("staffDepartment").value;
+        const role = document.getElementById("staffRole").value;
+        const password = staffPassword.value;
+        const passwordConfirm = staffPasswordConfirm.value;
+
+        if (password !== passwordConfirm) {
+          showToast("Passwords do not match.");
+          staffPasswordConfirm.focus();
+          return;
+        }
+        if (getPasswordStrength(password) !== "High") {
+          showToast("Use a high-strength password before adding staff.");
+          staffPassword.focus();
+          return;
+        }
+
+        /* Create data that PHP can receive with $_POST */
+        const formData = new FormData();
+
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("department", department);
+        formData.append("role", role);
+        formData.append("password", password);
+
+        try {
+          /* Sends data to add_staff.php */
+          const response = await fetch(phpUrl("add_staff.php"), {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await readJsonResponse(
+            response,
+            "Could not save staff member.",
+          );
+
+          if (!response.ok) {
+            throw new Error(result.error || "Could not save staff member.");
+          }
+
+          /* Show database/PHP error if it did not save */
+          if (!result.success) {
+            showToast(result.error || "Could not save staff member.");
+            return;
+          }
+
+          /* Add the saved staff member into the table.
+       result.id comes from MySQL AUTO_INCREMENT primary key. */
+          const newStaff = {
+            id: result.id,
+            staff_name: name,
+            email: email,
+            department: department,
+            role: role,
+            status: result.status || "Active",
+          };
+
+          staffRecords.push(newStaff);
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
+
+          /* Show staff in Staff table */
+          /* Show the saved Staff record in Staff */
+          addStaffRowToTable(newStaff);
+
+          closeStaffModal();
+
+          showToast(name + " was saved to the database.");
+
+          recordLog("Added staff member: " + name, "Staff");
+        } catch (error) {
+          console.error(error);
+
+          showToast(error.message || "Could not save staff member.");
+        }
+      });
+      document.getElementById("saveSettings").addEventListener("click", () => {
+        const adminName = adminNameInput.value.trim();
+        const adminEmail = adminEmailInput.value.trim();
+        if (
+          !adminNameInput.reportValidity() ||
+          !adminEmailInput.reportValidity()
+        )
+          return;
+        const initials = adminName
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        document.getElementById("sidebarAdminName").textContent = adminName;
+        document.getElementById("profileAdminName").textContent = adminName;
+        document.getElementById("profileAdminEmail").textContent = adminEmail;
+        document.getElementById("profileAdminInitials").textContent = initials;
+        document
+          .getElementById("adminProfileButton")
+          .setAttribute(
+            "aria-label",
+            "View administrator profile for " + adminName,
+          );
+        pageTitle.textContent = getGreeting();
+        localStorage.setItem(
+          adminProfileStorageKey,
+          JSON.stringify({ name: adminName, email: adminEmail }),
+        );
+        localStorage.setItem(
+          settingsStorageKey,
+          JSON.stringify({
+            workspaceName: workspaceNameInput.value,
+            workspaceAddress: workspaceAddressInput.value,
+            timeZone: timeZoneInput.value,
+            systemActivity: systemActivityInput.checked,
+            lowInventory: lowInventoryInput.checked,
+            weeklySummary: weeklySummaryInput.checked,
+          }),
+        );
+        showToast("Settings saved successfully");
+        recordLog("Updated administrator name to " + adminName, "Settings");
+      });
+      document
+        .querySelectorAll(".settings-form input, .settings-form select")
+        .forEach((field) =>
+          field.addEventListener("change", () => {
+            const label = field.closest("label").firstChild.textContent.trim();
+            recordLog("Edited " + label, "Settings");
+          }),
+        );
+      document
+        .getElementById("changePassword")
+        .addEventListener("click", () => {
+          showToast("Password change form opened");
+          recordLog("Opened password change form", "Settings");
+        });
+      document
+        .getElementById("enableTwoFactor")
+        .addEventListener("click", (event) => {
+          event.currentTarget.textContent = "Enabled";
+          showToast("Two-factor authentication enabled");
+          recordLog("Enabled two-factor authentication", "Settings");
+        });
+      const activityFilter = document.getElementById("activityFilter");
+      const filterActivity = () => {
+        const filter = activityFilter.value;
+        document.querySelectorAll(".event").forEach((event) => {
+          const search = event.dataset.search || "";
+          event.hidden = filter !== "all" && !search.includes(filter);
+        });
+        showToast(
+          activityFilter.options[activityFilter.selectedIndex].text +
+            " selected",
+        );
+        recordLog(
+          "Filtered activity: " +
+            activityFilter.options[activityFilter.selectedIndex].text,
+          "Overview",
+        );
+      };
+      activityFilter.addEventListener("change", filterActivity);
+      document
+        .getElementById("activityRange")
+        .addEventListener("change", (event) => {
+          document.querySelector(".chart-panel h2").textContent =
+            "Item highlights · " + event.target.value.toLowerCase();
+          showToast("Showing " + event.target.value.toLowerCase());
+          recordLog(
+            "Changed activity range to " + event.target.value,
+            "Overview",
+          );
+        });
+      document
+        .getElementById("focusSearch")
+        .addEventListener("click", () =>
+          document.getElementById("searchInput").focus(),
+        );
+      const notificationButton = document.getElementById("notificationButton");
+      const notificationPanel = document.getElementById("notificationPanel");
+      const notificationDot = document.getElementById("notificationDot");
+      const notificationCount = document.getElementById("notificationCount");
+      const notificationReadStorageKey = "clearline-notifications-read";
+      const updateNotificationState = () => {
+        const unreadCount = document.querySelectorAll(
+          ".notification-item.unread",
+        ).length;
+        notificationDot.hidden = unreadCount === 0;
+        notificationCount.textContent =
+          unreadCount === 0 ? "All caught up" : unreadCount + " unread";
+      };
+      if (localStorage.getItem(notificationReadStorageKey) === "true") {
+        document
+          .querySelectorAll(".notification-item")
+          .forEach((item) => item.classList.remove("unread"));
+      }
+      updateNotificationState();
+      const toggleNotifications = () => {
+        notificationPanel.hidden = !notificationPanel.hidden;
+        notificationButton.setAttribute(
+          "aria-expanded",
+          String(!notificationPanel.hidden),
+        );
+      };
+      notificationButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleNotifications();
+        document
+          .querySelectorAll(".notification-item")
+          .forEach((item) => item.classList.remove("unread"));
+        localStorage.setItem(notificationReadStorageKey, "true");
+        updateNotificationState();
+      });
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".notification-wrap")) {
+          notificationPanel.hidden = true;
+          notificationButton.setAttribute("aria-expanded", "false");
+        }
+      });
+      document
+        .getElementById("markNotificationsRead")
+        .addEventListener("click", () => {
+          document
+            .querySelectorAll(".notification-item")
+            .forEach((item) => item.classList.remove("unread"));
+          localStorage.setItem(notificationReadStorageKey, "true");
+          updateNotificationState();
+          showToast("Notifications marked as read");
+        });
+      document.querySelectorAll(".notification-item").forEach((item) =>
+        item.addEventListener("click", () => {
+          const title = item.querySelector("strong").textContent;
+          const destination =
+            title === "Low stock alert"
+              ? "Inventory"
+              : title === "New staff member"
+                ? "Staff"
+                : "Settings";
+          notificationPanel.hidden = true;
+          notificationButton.setAttribute("aria-expanded", "false");
+          document.querySelector(`[data-view="${destination}"]`).click();
+          if (destination === "Inventory") {
+            inventorySearch.value = "";
+            inventoryCategory.value = "all";
+            inventoryStatus.value = "all";
+            filterInventory();
+            showToast("Inventory opened: review the low stock item");
+          }
+          recordLog("Opened notification: " + title, destination);
+        }),
+      );
+      updateNotificationState();
+      document
+        .getElementById("viewNotifications")
+        .addEventListener("click", () => {
+          notificationPanel.hidden = true;
+          document.querySelector('[data-view="System Logs"]').click();
+        });
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", (event) => {
+          const term = event.target.value.toLowerCase();
+          document
+            .querySelectorAll(".event")
+            .forEach(
+              (item) =>
+                (item.hidden = term && !item.dataset.search.includes(term)),
+            );
+          if (term) recordLog("Searched activity: " + term, "Overview");
+        });
+      document.getElementById("clearLogs").addEventListener("click", () => {
+        localStorage.removeItem(logStorageKey);
+        renderLogs();
+        showToast("System logs cleared");
+      });
+      const inventoryRows = document.getElementById("inventoryRows");
+      const inventoryModal = document.getElementById("inventoryModal");
+      const inventoryForm = document.getElementById("inventoryForm");
+      const inventorySearch = document.getElementById("inventorySearch");
+      const inventoryCategory = document.getElementById("inventoryCategory");
+      const inventoryStatus = document.getElementById("inventoryStatus");
+      const inventoryModalTitle = document.getElementById(
+        "inventoryModalTitle",
+      );
+      const inventorySubmit = document.getElementById("inventorySubmit");
+      const inventoryPhoto = document.getElementById("inventoryPhoto");
+      const photoName = document.getElementById("photoName");
+      const photoPreview = document.getElementById("photoPreview");
+      const photoPreviewImage = document.getElementById("photoPreviewImage");
+      let pendingInventoryPhoto = null;
+      let editingInventoryRow = null;
+      const inventoryNavCount = document.getElementById("inventoryNavCount");
+      const inventoryRecordTotal = document.getElementById(
+        "inventoryRecordTotal",
+      );
+      const inventoryLowTotal = document.getElementById("inventoryLowTotal");
+      const inventoryOutTotal = document.getElementById("inventoryOutTotal");
+      const inventoryTotal = document.getElementById("inventoryTotal");
+      const renderStockOverview = () => {
+        const rows = [...inventoryRows.children];
+        const categories = {
+          Equipment: { total: 0, attention: 0 },
+          "Office supplies": { total: 0, attention: 0 },
+        };
+        rows.forEach((row) => {
+          const category = row.dataset.category;
+          if (!categories[category]) return;
+          const quantity = Number(row.children[3].textContent) || 0;
+          categories[category].total += quantity;
+          if (row.dataset.status !== "In stock")
+            categories[category].attention += 1;
+        });
+        [
+          ["Equipment", "stockEquipmentTotal", "stockEquipmentStatus"],
+          ["Office supplies", "stockSuppliesTotal", "stockSuppliesStatus"],
+        ].forEach(([category, totalId, statusId]) => {
+          const data = categories[category];
+          const status = data.attention ? "Review" : "Good";
+          document.getElementById(totalId).textContent =
+            data.total.toLocaleString() + " items";
+          document.getElementById(statusId).textContent = status;
+          document.getElementById(statusId).className = data.attention
+            ? "warning"
+            : "good";
+        });
+        const lowItems = rows.filter(
+          (row) => row.dataset.status === "Low stock",
+        ).length;
+        const outItems = rows.filter(
+          (row) => row.dataset.status === "Out of stock",
+        ).length;
+        document.getElementById("stockAttentionTotal").textContent =
+          lowItems +
+          " low" +
+          (outItems ? " · " + outItems + " out of stock" : "");
+      };
+      const updateInventoryCount = () => {
+        const rows = [...inventoryRows.children];
+        const count = rows.length;
+        const quantity = rows.reduce(
+          (total, row) => total + (Number(row.children[3].textContent) || 0),
+          0,
+        );
+        const low = rows.filter(
+          (row) =>
+            Number(row.children[3].textContent) > 0 &&
+            row.dataset.status === "Low stock",
+        ).length;
+        const out = rows.filter(
+          (row) => Number(row.children[3].textContent) === 0,
+        ).length;
+        inventoryNavCount.textContent = count;
+        inventoryRecordTotal.textContent = count;
+        inventoryTotal.textContent = quantity.toLocaleString();
+        inventoryLowTotal.textContent = low;
+        inventoryOutTotal.textContent = out;
+        overviewInventoryTotal.textContent = quantity.toLocaleString();
+        renderStockOverview();
+      };
+      const filterInventory = () => {
+        const term = inventorySearch.value.toLowerCase();
+        const category = inventoryCategory.value;
+        const status = inventoryStatus.value;
+        let visible = 0;
+        inventoryRows.querySelectorAll("tr").forEach((row) => {
+          const matches =
+            (!term || row.dataset.search.includes(term)) &&
+            (category === "all" || row.dataset.category === category) &&
+            (status === "all" || row.dataset.status === status);
+          row.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        document.getElementById("emptyInventory").hidden = visible > 0;
+      };
+      const closeInventoryModal = () => {
+        inventoryModal.hidden = true;
+        inventoryForm.reset();
+        editingInventoryRow = null;
+        inventoryModalTitle.textContent = "Add inventory item";
+        inventorySubmit.textContent = "Add item";
+        photoPreview.hidden = true;
+        photoName.textContent = "Choose a photo of this item";
+      };
+      const cancelInventoryPhoto = () => {
+        pendingInventoryPhoto = null;
+        closeInventoryModal();
+      };
+      inventoryPhoto.addEventListener("change", () => {
+        pendingInventoryPhoto = inventoryPhoto.files[0] || null;
+        photoName.textContent = pendingInventoryPhoto
+          ? pendingInventoryPhoto.name
+          : "Choose a photo of this item";
+        if (pendingInventoryPhoto) {
+          photoPreviewImage.src = URL.createObjectURL(pendingInventoryPhoto);
+          photoPreview.hidden = false;
+        } else {
+          photoPreview.hidden = true;
+        }
+      });
+      const openEditInventory = (row) => {
+        editingInventoryRow = row;
+        inventoryModalTitle.textContent = "Edit inventory item";
+        inventorySubmit.textContent = "Save changes";
+        document.getElementById("inventoryName").value = row.querySelector(
+          ".inventory-item strong",
+        ).textContent;
+        document.getElementById("inventorySku").value =
+          row.children[1].textContent;
+        document.getElementById("inventoryQuantity").value =
+          row.children[3].textContent;
+        document.getElementById("inventoryItemCategory").value =
+          row.children[2].textContent;
+        document.getElementById("inventoryLocation").value =
+          row.children[4].textContent;
+        document.getElementById("inventorySupplier").value =
+          row.dataset.supplier || "Existing supplier";
+        document.getElementById("inventoryReorder").value =
+          row.dataset.reorderLevel || 15;
+        document.getElementById("inventoryCost").value =
+          row.dataset.unitCost || 0;
+        document.getElementById("inventoryNotes").value =
+          row.dataset.notes || "";
+        inventoryModal.hidden = false;
+        document.getElementById("inventoryName").focus();
+        recordLog(
+          "Opened edit form: " +
+            row.querySelector(".inventory-item strong").textContent,
+          "Inventory",
+        );
+      };
+      document.getElementById("addInventory").addEventListener("click", () => {
+        editingInventoryRow = null;
+        inventoryModalTitle.textContent = "Add inventory item";
+        inventorySubmit.textContent = "Add item";
+        inventoryModal.hidden = false;
+        document.getElementById("inventoryName").focus();
+        recordLog("Opened add inventory form", "Inventory");
+      });
+      document
+        .getElementById("closeInventoryModal")
+        .addEventListener("click", cancelInventoryPhoto);
+      document
+        .getElementById("cancelInventory")
+        .addEventListener("click", cancelInventoryPhoto);
+      inventoryModal.addEventListener("click", (event) => {
+        if (event.target === inventoryModal) cancelInventoryPhoto();
+      });
+      inventoryForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = document.getElementById("inventoryName").value.trim();
+        const sku = document.getElementById("inventorySku").value.trim();
+        const quantity = Number(
+          document.getElementById("inventoryQuantity").value,
+        );
+        const category = document.getElementById("inventoryItemCategory").value;
+        const location = document
+          .getElementById("inventoryLocation")
+          .value.trim();
+        const supplier = document
+          .getElementById("inventorySupplier")
+          .value.trim();
+        const reorder = Number(
+          document.getElementById("inventoryReorder").value,
+        );
+        const cost = Number(document.getElementById("inventoryCost").value);
+        const notes = document.getElementById("inventoryNotes").value.trim();
+        const status =
+          quantity === 0
+            ? "Out of stock"
+            : quantity <= reorder
+              ? "Low stock"
+              : "In stock";
+        const statusClass =
+          quantity === 0
+            ? "out-stock"
+            : quantity <= reorder
+              ? "low-stock"
+              : "in-stock";
+        const row = document.createElement("tr");
+        row.dataset.category = category;
+        row.dataset.status = status;
+        row.dataset.search =
+          `${name} ${sku} ${supplier} ${notes}`.toLowerCase();
+        row.dataset.supplier = supplier;
+        row.dataset.reorderLevel = reorder;
+        row.dataset.unitCost = cost.toFixed(2);
+        row.dataset.notes = notes;
+        const itemCell = document.createElement("td");
+        const item = document.createElement("div");
+        item.className = "inventory-item";
+        const icon = document.createElement("div");
+        icon.className = "item-icon green";
+        icon.innerHTML = '<i data-lucide="package"></i>';
+        const itemName = document.createElement("strong");
+        itemName.textContent = name;
+        item.append(icon, itemName);
+        itemCell.appendChild(item);
+        row.appendChild(itemCell);
+        [sku, category, quantity, location].forEach((value) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        const statusCell = document.createElement("td");
+        const statusLabel = document.createElement("span");
+        statusLabel.className = `inventory-status ${statusClass}`;
+        statusLabel.textContent = status;
+        statusCell.appendChild(statusLabel);
+        row.appendChild(statusCell);
+        const actionCell = document.createElement("td");
+        actionCell.innerHTML =
+          '<button class="row-action" aria-label="More actions"><i data-lucide="more-horizontal"></i></button>';
+        row.appendChild(actionCell);
+        inventoryRows.appendChild(row);
+        updateInventoryCount();
+        const total =
+          Number(
+            document
+              .getElementById("inventoryTotal")
+              .textContent.replace(/,/g, ""),
+          ) + quantity;
+        document.getElementById("inventoryTotal").textContent =
+          total.toLocaleString();
+        closeInventoryModal();
+        showToast(`${name} added to inventory`);
+        recordLog(
+          `Added inventory item: ${name} (${quantity} units)`,
+          "Inventory",
+        );
+        lucide.createIcons();
+      });
+      inventoryForm.addEventListener(
+        "submit",
+        (event) => {
+          if (!editingInventoryRow) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          const row = editingInventoryRow;
+          const name = document.getElementById("inventoryName").value.trim();
+          const sku = document.getElementById("inventorySku").value.trim();
+          const quantity = Number(
+            document.getElementById("inventoryQuantity").value,
+          );
+          const category = document.getElementById(
+            "inventoryItemCategory",
+          ).value;
+          const location = document
+            .getElementById("inventoryLocation")
+            .value.trim();
+          const supplier = document
+            .getElementById("inventorySupplier")
+            .value.trim();
+          const reorder = Number(
+            document.getElementById("inventoryReorder").value,
+          );
+          const cost = Number(document.getElementById("inventoryCost").value);
+          const notes = document.getElementById("inventoryNotes").value.trim();
+          const status =
+            quantity === 0
+              ? "Out of stock"
+              : quantity <= reorder
+                ? "Low stock"
+                : "In stock";
+          const statusClass =
+            quantity === 0
+              ? "out-stock"
+              : quantity <= reorder
+                ? "low-stock"
+                : "in-stock";
+          row.querySelector(".inventory-item strong").textContent = name;
+          row.children[1].textContent = sku;
+          row.children[2].textContent = category;
+          row.children[3].textContent = quantity;
+          row.children[4].textContent = location;
+          row.querySelector(".inventory-status").className =
+            `inventory-status ${statusClass}`;
+          row.querySelector(".inventory-status").textContent = status;
+          row.dataset.category = category;
+          row.dataset.status = status;
+          row.dataset.search =
+            `${name} ${sku} ${supplier} ${notes}`.toLowerCase();
+          row.dataset.supplier = supplier;
+          row.dataset.reorderLevel = reorder;
+          row.dataset.unitCost = cost.toFixed(2);
+          row.dataset.notes = notes;
+          updateInventoryCount();
+          closeInventoryModal();
+          showToast(`${name} updated`);
+          recordLog(`Edited inventory item: ${name}`, "Inventory");
+        },
+        true,
+      );
+      inventoryRows.addEventListener("click", (event) => {
+        const row = event.target.closest("tr");
+        if (row) openEditInventory(row);
+      });
+      inventoryForm.addEventListener("submit", () =>
+        setTimeout(updateInventoryCount, 0),
+      );
+      inventoryForm.addEventListener("submit", () => {
+        if (!editingInventoryRow && pendingInventoryPhoto)
+          setTimeout(() => {
+            const image = document.createElement("img");
+            image.className = "inventory-photo";
+            image.src = URL.createObjectURL(pendingInventoryPhoto);
+            image.alt = "Uploaded item photo";
+            inventoryRows.lastElementChild
+              .querySelector(".inventory-item")
+              .appendChild(image);
+            pendingInventoryPhoto = null;
+          }, 0);
+      });
+      [inventorySearch, inventoryCategory, inventoryStatus].forEach((control) =>
+        control.addEventListener("input", filterInventory),
+      );
+      document
+        .getElementById("inventoryFilterButton")
+        .addEventListener("click", () => {
+          filterInventory();
+          showToast("Inventory filters applied");
+          recordLog("Applied inventory filters", "Inventory");
+        });
+      document
+        .getElementById("mobileToggle")
+        .addEventListener("click", () =>
+          document.getElementById("sidebar").classList.toggle("open"),
+        );
+      const trendPanel = document.querySelector(".chart-panel");
+      trendPanel.classList.add("trend-panel");
+      trendPanel.querySelector(".overline").textContent = "ITEM TRENDS";
+      trendPanel.querySelector("h2").textContent = "Top items sold";
+      trendPanel.querySelector(".select").value = "This month";
+      const trendCarousel = document.createElement("div");
+      trendCarousel.className = "trend-carousel";
+      const trendSlides = document.createElement("div");
+      trendSlides.className = "trend-slides";
+      const trendControls = document.createElement("div");
+      trendControls.className = "trend-controls";
+      const previousTrend = document.createElement("button");
+      previousTrend.className = "trend-arrow";
+      previousTrend.type = "button";
+      previousTrend.setAttribute("aria-label", "Show previous top item");
+      previousTrend.innerHTML = '<i data-lucide="chevron-left"></i>';
+      const trendDots = document.createElement("div");
+      trendDots.className = "trend-dots";
+      const nextTrend = document.createElement("button");
+      nextTrend.className = "trend-arrow";
+      nextTrend.type = "button";
+      nextTrend.setAttribute("aria-label", "Show next top item");
+      nextTrend.innerHTML = '<i data-lucide="chevron-right"></i>';
+      trendControls.append(previousTrend, trendDots, nextTrend);
+      [...inventoryRows.children]
+        .sort(
+          (first, second) =>
+            Number(second.children[3].textContent) -
+            Number(first.children[3].textContent),
+        )
+        .forEach((row, index) => {
+          const item = document.createElement("article");
+          item.className = "trend-slide";
+          const photo = document.createElement("div");
+          photo.className = "trend-photo";
+          const rank = document.createElement("b");
+          rank.className = "trend-rank";
+          rank.textContent = index + 1;
+          const inventoryPhoto = row.querySelector(".inventory-photo");
+          if (inventoryPhoto) {
+            photo.appendChild(inventoryPhoto.cloneNode(true));
+          } else {
+            const itemIcon = row.querySelector(".item-icon").cloneNode(true);
+            itemIcon.className = "trend-icon";
+            photo.appendChild(itemIcon);
+          }
+          photo.appendChild(rank);
+          const info = document.createElement("div");
+          info.className = "trend-info";
+          const name = document.createElement("strong");
+          name.textContent = row.querySelector(
+            ".inventory-item strong",
+          ).textContent;
+          const detail = document.createElement("span");
+          detail.textContent = `${row.children[2].textContent} · ${row.children[3].textContent} available`;
+          info.append(name, detail);
+          const status = document.createElement("span");
+          status.className = `trend-status ${row.dataset.status === "In stock" ? "good" : row.dataset.status === "Low stock" ? "warning" : "danger"}`;
+          status.textContent = row.dataset.status;
+          item.append(photo, info, status);
+          trendSlides.appendChild(item);
+          const dot = document.createElement("button");
+          dot.className = "trend-dot";
+          dot.type = "button";
+          dot.setAttribute("aria-label", `Show top item ${index + 1}`);
+          dot.addEventListener("click", () => showTrend(index));
+          trendDots.appendChild(dot);
+        });
+      let activeTrend = 0;
+      const showTrend = (index) => {
+        const slides = trendSlides.children;
+        activeTrend = (index + slides.length) % slides.length;
+        trendSlides.style.transform = `translateX(-${activeTrend * 100}%)`;
+        [...trendDots.children].forEach((dot, dotIndex) => {
+          dot.classList.toggle("active", dotIndex === activeTrend);
+        });
+      };
+      previousTrend.addEventListener("click", () => showTrend(activeTrend - 1));
+      nextTrend.addEventListener("click", () => showTrend(activeTrend + 1));
+      setInterval(() => showTrend(activeTrend + 1), 5000);
+      trendCarousel.append(trendSlides, trendControls);
+      trendPanel.querySelector(".chart").replaceWith(trendCarousel);
+      showTrend(0);
+      trendPanel.querySelector(".chart-foot span").innerHTML =
+        '<b class="legend"></b>Based on recorded inventory';
+      trendPanel.querySelector(".chart-foot strong").innerHTML =
+        "Live items <small>ranked by quantity</small>";
+      updateInventoryCount();
+      updateStaffCount();
+      overviewMemberTotal.textContent = document.querySelectorAll(
+        ".member-list .member",
+      ).length;
+      overviewSystemTotal.textContent = readLogs().length;
+      renderLogs();
+      lucide.createIcons();
+      const savedView = localStorage.getItem(currentViewStorageKey);
+      if (savedView && document.querySelector(`[data-view="${savedView}"]`)) {
+        document.querySelector(`[data-view="${savedView}"]`).click();
+      }
+      loadStaffFromDatabase();
+    </script>
+  </body>
+</html>
