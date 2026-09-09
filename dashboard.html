@@ -367,38 +367,23 @@
             <article class="panel">
               <div class="panel-head">
                 <div>
-                  <p class="overline">MANAGE MEMBER</p>
+                  <p class="overline">STAFF</p>
                   <h2>Recently added</h2>
                 </div>
-                <button class="icon-button">
+                <button
+                  class="icon-button"
+                  id="overviewStaffMenu"
+                  type="button"
+                  aria-label="Open staff dashboard"
+                >
                   <i data-lucide="more-horizontal"></i>
                 </button>
               </div>
-              <div class="member-list">
-                <div class="member">
-                  <div class="avatar mint">OM</div>
-                  <div>
-                    <strong>Olivia Martin</strong><span>Product designer</span>
-                  </div>
-                  <i class="status online"></i>
-                </div>
-                <div class="member">
-                  <div class="avatar peach">EB</div>
-                  <div>
-                    <strong>Ethan Brooks</strong><span>Operations lead</span>
-                  </div>
-                  <i class="status online"></i>
-                </div>
-                <div class="member">
-                  <div class="avatar lilac">MP</div>
-                  <div>
-                    <strong>Maya Patel</strong><span>Support specialist</span>
-                  </div>
-                  <i class="status away"></i>
-                </div>
+              <div class="member-list" id="overviewStaffList">
+                <p class="empty-staff">Loading staff...</p>
               </div>
-              <button class="link-button" data-view="Manage Member">
-                Manage members <i data-lucide="arrow-up-right"></i>
+              <button class="link-button" data-view="Staff">
+                View staff directory <i data-lucide="arrow-up-right"></i>
               </button>
             </article>
           </section>
@@ -572,7 +557,7 @@
               <div>
                 <span>Access level</span><strong>Full administrator</strong>
               </div>
-              <div><span>Department</span><strong>Operations</strong></div>
+              <div><span>Department</span><strong id="profileAdminDepartment">Operations</strong></div>
               <div>
                 <span>Last sign-in</span><strong>Today, 09:42 AM</strong>
               </div>
@@ -584,6 +569,17 @@
             <p class="profile-note">
               Profile details are managed from Settings.
             </p>
+            <div class="profile-switcher">
+              <label for="adminAccountSelect">Switch administrator</label>
+              <div>
+                <select id="adminAccountSelect" aria-label="Switch administrator">
+                  <option value="">Select an administrator</option>
+                </select>
+                <button class="outline-button" id="switchAdminButton" type="button">
+                  Switch profile
+                </button>
+              </div>
+            </div>
             <div class="modal-actions">
               <button
                 type="button"
@@ -633,6 +629,35 @@
                   id="staffEmail"
                   type="email"
                   placeholder="e.g. jordan@company.com"
+                  required
+                />
+              </label>
+
+              <div class="password-strength" aria-live="polite">
+                <label>
+                  Password
+                  <input
+                    id="staffPassword"
+                    type="password"
+                    placeholder="Create a secure password"
+                    minlength="8"
+                    required
+                  />
+                </label>
+                <div class="password-meter" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+                <strong id="passwordStrengthLabel">Password strength: Not set</strong>
+                <small>Use 8+ characters with a capital letter, number, and special character.</small>
+              </div>
+
+              <label>
+                Confirm password
+                <input
+                  id="staffPasswordConfirm"
+                  type="password"
+                  placeholder="Re-enter the password"
+                  minlength="8"
                   required
                 />
               </label>
@@ -1683,8 +1708,16 @@
             const staffSearch = document.getElementById("staffSearch");
       const staffStatusFilter = document.getElementById("staffStatusFilter");
       const emptyStaff = document.getElementById("emptyStaff");
+      const staffPassword = document.getElementById("staffPassword");
+      const staffPasswordConfirm = document.getElementById("staffPasswordConfirm");
+      const passwordStrengthLabel = document.getElementById("passwordStrengthLabel");
+      const passwordMeter = document.querySelector(".password-meter");
+            const overviewStaffList = document.getElementById("overviewStaffList");
+            const overviewStaffMenu = document.getElementById("overviewStaffMenu");
+            let staffRecords = [];
       const phpBaseUrl = "http://localhost/clearlineDashboard";
       const phpUrl = (endpoint) => `${phpBaseUrl}/${endpoint}`;
+            const currentViewStorageKey = "clearline-current-view";
       const archivedStaffStorageKey = "clearline-archived-staff";
 
       const readArchivedStaff = () => {
@@ -1737,6 +1770,52 @@
         if (manageTotalUsers) manageTotalUsers.textContent = rows.length;
         filterStaff();
       };
+      const renderOverviewStaff = (records) => {
+        if (!overviewStaffList) return;
+
+        overviewStaffList.replaceChildren();
+        const recentStaff = records.slice(-3).reverse();
+
+        if (recentStaff.length === 0) {
+          const emptyState = document.createElement("p");
+          emptyState.className = "empty-staff";
+          emptyState.textContent = "No staff members added yet.";
+          overviewStaffList.appendChild(emptyState);
+          return;
+        }
+
+        recentStaff.forEach((staff, index) => {
+          const initials = staff.staff_name
+            .split(/\s+/)
+            .map((part) => part[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase();
+          const item = document.createElement("div");
+          item.className = "member";
+
+          const avatar = document.createElement("div");
+          avatar.className = "avatar " + ["mint", "peach", "lilac"][index];
+          avatar.textContent = initials;
+
+          const details = document.createElement("div");
+          const name = document.createElement("strong");
+          name.textContent = staff.staff_name;
+          const role = document.createElement("span");
+          role.textContent = staff.role + " · " + staff.department;
+          details.append(name, role);
+
+          const status = document.createElement("i");
+          status.className =
+            "status " + (staff.status === "Archived" ? "away" : "online");
+
+          item.append(avatar, details, status);
+          overviewStaffList.appendChild(item);
+        });
+      };
+      overviewStaffMenu?.addEventListener("click", () => {
+        document.querySelector('[data-view="Staff"]')?.click();
+      });
       const logRows = document.getElementById("logRows");
       const logTotal = document.getElementById("logTotal");
       const emptyLogs = document.getElementById("emptyLogs");
@@ -1786,6 +1865,89 @@
         toast.classList.add("show");
         setTimeout(() => toast.classList.remove("show"), 2500);
       };
+      const adminProfileModal = document.getElementById("adminProfileModal");
+      const adminAccountSelect = document.getElementById("adminAccountSelect");
+      const switchAdminButton = document.getElementById("switchAdminButton");
+      const updateAdminProfileDisplay = (profile) => {
+        const initials = profile.name
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        document.getElementById("sidebarAdminName").textContent = profile.name;
+        document.getElementById("profileAdminName").textContent = profile.name;
+        document.getElementById("profileAdminEmail").textContent = profile.email;
+        document.getElementById("profileAdminDepartment").textContent =
+          profile.department || "Operations";
+        document.getElementById("profileAdminInitials").textContent = initials;
+        adminNameInput.value = profile.name;
+        adminEmailInput.value = profile.email;
+        pageTitle.textContent = getGreeting();
+        document
+          .getElementById("adminProfileButton")
+          .setAttribute("aria-label", "View administrator profile for " + profile.name);
+        localStorage.setItem(adminProfileStorageKey, JSON.stringify(profile));
+      };
+      const renderAdminSwitcher = () => {
+        if (!adminAccountSelect) return;
+        const administrators = staffRecords.filter(
+          (staff) => staff.role === "Administrator" && staff.status !== "Archived",
+        );
+        const currentEmail = adminEmailInput.value.trim().toLowerCase();
+        adminAccountSelect.replaceChildren();
+        const currentOption = document.createElement("option");
+        currentOption.value = "";
+        currentOption.textContent = "Select an administrator";
+        adminAccountSelect.appendChild(currentOption);
+        administrators.forEach((admin) => {
+          const option = document.createElement("option");
+          option.value = admin.email;
+          option.textContent = admin.staff_name + " · " + admin.email;
+          option.selected = admin.email.toLowerCase() === currentEmail;
+          adminAccountSelect.appendChild(option);
+        });
+        switchAdminButton.disabled = administrators.length === 0;
+      };
+      const closeAdminProfile = () => {
+        adminProfileModal.hidden = true;
+      };
+      document
+        .getElementById("adminProfileButton")
+        .addEventListener("click", () => {
+          renderAdminSwitcher();
+          adminProfileModal.hidden = false;
+          recordLog("Viewed administrator profile", "Settings");
+        });
+      switchAdminButton.addEventListener("click", () => {
+        const selectedAdmin = staffRecords.find(
+          (staff) => staff.email === adminAccountSelect.value,
+        );
+        if (!selectedAdmin) {
+          showToast("Select an administrator account first.");
+          return;
+        }
+        updateAdminProfileDisplay({
+          name: selectedAdmin.staff_name,
+          email: selectedAdmin.email,
+          department: selectedAdmin.department,
+        });
+        closeAdminProfile();
+        showToast("Switched to " + selectedAdmin.staff_name);
+        recordLog(
+          "Switched administrator profile to " + selectedAdmin.staff_name,
+          "Settings",
+        );
+      });
+      document
+        .getElementById("closeAdminProfile")
+        .addEventListener("click", closeAdminProfile);
+      document
+        .getElementById("closeAdminProfileAction")
+        .addEventListener("click", closeAdminProfile);
+      adminProfileModal.addEventListener("click", (event) => {
+        if (event.target === adminProfileModal) closeAdminProfile();
+      });
       const adminProfileStorageKey = "clearline-admin-profile";
       const settingsStorageKey = "clearline-settings";
       const adminNameInput = document.getElementById("adminNameInput");
@@ -1831,6 +1993,8 @@
             savedAdminProfile.name;
           document.getElementById("profileAdminEmail").textContent =
             savedAdminProfile.email;
+          document.getElementById("profileAdminDepartment").textContent =
+            savedAdminProfile.department || "Operations";
           document.getElementById("profileAdminInitials").textContent =
             savedAdminProfile.name
               .split(/\s+/)
@@ -2057,6 +2221,14 @@
           badge.className =
             "member-status " + status.toLowerCase().replace(/\s+/g, "-");
         }
+        const staffRecord = staffRecords.find(
+          (staff) => staff.email.toLowerCase() === row.dataset.staffEmail,
+        );
+        if (staffRecord) {
+          staffRecord.status = status;
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
+        }
         setStaffArchived(row.dataset.staffEmail, status === "Archived");
       };
 
@@ -2159,6 +2331,11 @@
 
         const removeLocally = () => {
           setStaffArchived(email, false);
+          staffRecords = staffRecords.filter(
+            (staff) => staff.email.toLowerCase() !== email,
+          );
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
           selectedStaffRow.remove();
           updateStaffCount();
           closeMemberDetail();
@@ -2234,6 +2411,7 @@
       navLinks.forEach((link) =>
         link.addEventListener("click", () => {
           const view = link.dataset.view;
+          localStorage.setItem(currentViewStorageKey, view);
           currentView.textContent = view;
           document
             .querySelectorAll(".nav-link")
@@ -2278,6 +2456,7 @@
         }),
       );
       document.getElementById("workspaceHome").addEventListener("click", () => {
+        localStorage.setItem(currentViewStorageKey, "Overview");
         currentView.textContent = "Overview";
         overviewContent.hidden = false;
         staffContent.hidden = true;
@@ -2371,6 +2550,10 @@
           if (!response.ok || !Array.isArray(staffList)) {
             throw new Error(staffList.error || "Staff records could not be loaded.");
           }
+
+          staffRecords = staffList;
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
 
           /* Clear the Staff table before loading MySQL records */
           staffRows.replaceChildren();
@@ -2504,9 +2687,30 @@
         lucide.createIcons();
       };
       const staffForm = document.getElementById("staffForm");
+      const getPasswordStrength = (password) => {
+        let score = 0;
+        if (password.length >= 8) score += 1;
+        if (/[A-Z]/.test(password)) score += 1;
+        if (/[0-9]/.test(password)) score += 1;
+        if (/[^A-Za-z0-9]/.test(password)) score += 1;
+        return score >= 4 ? "High" : score >= 2 ? "Medium" : "Low";
+      };
+      const updatePasswordStrength = () => {
+        const password = staffPassword.value;
+        if (!password) {
+          passwordStrengthLabel.textContent = "Password strength: Not set";
+          passwordMeter.dataset.strength = "";
+          return;
+        }
+        const strength = getPasswordStrength(password);
+        passwordStrengthLabel.textContent = "Password strength: " + strength;
+        passwordMeter.dataset.strength = strength.toLowerCase();
+      };
+      staffPassword.addEventListener("input", updatePasswordStrength);
       const closeStaffModal = () => {
         staffModal.hidden = true;
         staffForm.reset();
+        updatePasswordStrength();
       };
       document.getElementById("addStaff").addEventListener("click", () => {
         staffModal.hidden = false;
@@ -2530,6 +2734,19 @@
         const email = document.getElementById("staffEmail").value.trim();
         const department = document.getElementById("staffDepartment").value;
         const role = document.getElementById("staffRole").value;
+        const password = staffPassword.value;
+        const passwordConfirm = staffPasswordConfirm.value;
+
+        if (password !== passwordConfirm) {
+          showToast("Passwords do not match.");
+          staffPasswordConfirm.focus();
+          return;
+        }
+        if (getPasswordStrength(password) !== "High") {
+          showToast("Use a high-strength password before adding staff.");
+          staffPassword.focus();
+          return;
+        }
 
         /* Create data that PHP can receive with $_POST */
         const formData = new FormData();
@@ -2538,6 +2755,7 @@
         formData.append("email", email);
         formData.append("department", department);
         formData.append("role", role);
+        formData.append("password", password);
 
         try {
           /* Sends data to add_staff.php */
@@ -2571,6 +2789,10 @@
             role: role,
             status: result.status || "Active",
           };
+
+          staffRecords.push(newStaff);
+          renderOverviewStaff(staffRecords);
+          renderAdminSwitcher();
 
           /* Show staff in Staff table */
           /* Show the saved Staff record in Staff */
@@ -3229,6 +3451,10 @@
       overviewSystemTotal.textContent = readLogs().length;
       renderLogs();
       lucide.createIcons();
+      const savedView = localStorage.getItem(currentViewStorageKey);
+      if (savedView && document.querySelector(`[data-view="${savedView}"]`)) {
+        document.querySelector(`[data-view="${savedView}"]`).click();
+      }
       loadStaffFromDatabase();
     </script>
   </body>

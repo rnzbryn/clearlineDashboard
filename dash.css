@@ -2225,6 +2225,18 @@ body:has(.sidebar:focus-within) .topbar {
 .admin-modal {
   max-width: 650px;
 }
+#adminModal {
+  z-index: 1100;
+}
+#adminProfileModal {
+  z-index: 1100;
+}
+#staffModal {
+  z-index: 1100;
+}
+#inventoryModal {
+  z-index: 1100;
+}
 .admin-modal .modal-head strong,
 .admin-modal h2 {
   font-weight: 700;
@@ -2382,6 +2394,19 @@ button.admin-action-row {
 .member-search {
   max-width: none;
   flex: 1;
+}
+.staff-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 21px;
+}
+.staff-toolbar .member-search {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.staff-toolbar .inventory-filter {
+  flex: 0 0 150px;
 }
 .member-table-wrap {
   overflow-x: auto;
@@ -2890,10 +2915,40 @@ canvas {
 .admin-profile-modal .profile-summary .member-status {
   margin-left: auto;
 }
+.profile-switcher {
+  display: grid;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.profile-switcher label {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+.profile-switcher > div {
+  display: flex;
+  gap: 8px;
+}
+.profile-switcher select {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid #dfe6e0;
+  border-radius: 5px;
+  background: #fbfcfa;
+  color: var(--ink);
+  padding: 8px;
+  font: 600 11px "DM Sans";
+}
+.profile-switcher .outline-button {
+  white-space: nowrap;
+}
 @media (max-width: 1050px) {
   .toolbar,
   .inventory-toolbar,
-  .member-toolbar {
+  .member-toolbar,
+  .staff-toolbar {
     flex-wrap: wrap;
   }
   .search-box,
@@ -2915,7 +2970,8 @@ canvas {
   }
   .toolbar,
   .inventory-toolbar,
-  .member-toolbar {
+  .member-toolbar,
+  .staff-toolbar {
     align-items: stretch;
   }
   .search-box,
@@ -2927,7 +2983,8 @@ canvas {
   }
   .filter-select,
   .inventory-filter,
-  .member-toolbar .inventory-filter {
+  .member-toolbar .inventory-filter,
+  .staff-toolbar .inventory-filter {
     flex: 1 1 130px;
     min-width: 0;
   }
@@ -3107,4 +3164,44 @@ canvas {
 #staffForm select:focus {
   border-color: #70b8a5;
   box-shadow: 0 0 0 3px #118b7614;
+}
+.password-strength {
+  display: grid;
+  gap: 6px;
+}
+.password-strength label {
+  gap: 7px;
+}
+.password-strength > strong {
+  color: var(--muted);
+  font-size: 11px;
+}
+.password-strength > small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.password-meter {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.password-meter span {
+  height: 4px;
+  border-radius: 4px;
+  background: #e5ebe6;
+}
+.password-meter[data-strength="low"] span:first-child {
+  background: #d66b4f;
+}
+.password-meter[data-strength="medium"] span:nth-child(-n + 2) {
+  background: #d3a33c;
+}
+.password-meter[data-strength="high"] span {
+  background: #2a9b78;
+}
+.password-strength:has(.password-meter[data-strength="medium"]) > strong {
+  color: #a8791c;
+}
+.password-strength:has(.password-meter[data-strength="high"]) > strong {
+  color: #218365;
 }
