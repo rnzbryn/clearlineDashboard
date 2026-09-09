@@ -3169,6 +3169,34 @@ canvas {
   display: grid;
   gap: 6px;
 }
+.password-input-wrap {
+  position: relative;
+  display: block;
+}
+.password-input-wrap input {
+  width: 100%;
+  padding-right: 38px;
+}
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  transform: translateY(-50%);
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.password-toggle:hover {
+  color: var(--ink);
+}
+.password-toggle svg {
+  width: 16px;
+}
 .password-strength label {
   gap: 7px;
 }

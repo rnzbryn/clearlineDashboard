@@ -636,13 +636,23 @@
               <div class="password-strength" aria-live="polite">
                 <label>
                   Password
-                  <input
-                    id="staffPassword"
-                    type="password"
-                    placeholder="Create a secure password"
-                    minlength="8"
-                    required
-                  />
+                  <span class="password-input-wrap">
+                    <input
+                      id="staffPassword"
+                      type="password"
+                      placeholder="Create a secure password"
+                      minlength="8"
+                      required
+                    />
+                    <button
+                      class="password-toggle"
+                      type="button"
+                      data-password-target="staffPassword"
+                      aria-label="Show password"
+                    >
+                      <i data-lucide="eye"></i>
+                    </button>
+                  </span>
                 </label>
                 <div class="password-meter" aria-hidden="true">
                   <span></span><span></span><span></span>
@@ -653,13 +663,23 @@
 
               <label>
                 Confirm password
-                <input
-                  id="staffPasswordConfirm"
-                  type="password"
-                  placeholder="Re-enter the password"
-                  minlength="8"
-                  required
-                />
+                <span class="password-input-wrap">
+                  <input
+                    id="staffPasswordConfirm"
+                    type="password"
+                    placeholder="Re-enter the password"
+                    minlength="8"
+                    required
+                  />
+                  <button
+                    class="password-toggle"
+                    type="button"
+                    data-password-target="staffPasswordConfirm"
+                    aria-label="Show confirmation password"
+                  >
+                    <i data-lucide="eye"></i>
+                  </button>
+                </span>
               </label>
 
               <div class="form-row staff-form-row">
@@ -2706,6 +2726,19 @@
         passwordStrengthLabel.textContent = "Password strength: " + strength;
         passwordMeter.dataset.strength = strength.toLowerCase();
       };
+      document.querySelectorAll(".password-toggle").forEach((button) => {
+        button.addEventListener("click", () => {
+          const input = document.getElementById(button.dataset.passwordTarget);
+          const isVisible = input.type === "text";
+          input.type = isVisible ? "password" : "text";
+          button.setAttribute(
+            "aria-label",
+            isVisible ? "Show password" : "Hide password",
+          );
+          button.innerHTML = `<i data-lucide="${isVisible ? "eye" : "eye-off"}"></i>`;
+          lucide.createIcons();
+        });
+      });
       staffPassword.addEventListener("input", updatePasswordStrength);
       const closeStaffModal = () => {
         staffModal.hidden = true;
