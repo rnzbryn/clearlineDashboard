@@ -24,4 +24,13 @@ function copyPhpApi() {
 
 export default defineConfig({
   plugins: [react(), copyPhpApi()],
+  server: {
+    proxy: {
+      "^/(get_staff|add_staff|update_staff_status|delete_staff)\\.php$": {
+        target: "http://localhost",
+        changeOrigin: true,
+        rewrite: (path) => `/clearlineDashboard${path}`,
+      },
+    },
+  },
 });
