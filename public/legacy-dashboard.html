@@ -1735,8 +1735,9 @@
             const overviewStaffList = document.getElementById("overviewStaffList");
             const overviewStaffMenu = document.getElementById("overviewStaffMenu");
             let staffRecords = [];
-      const phpBaseUrl = "http://localhost/clearlineDashboard";
-      const phpUrl = (endpoint) => `${phpBaseUrl}/${endpoint}`;
+      // The PHP API is deployed beside this dashboard. This also works when
+      // the dashboard is served from a subfolder on the production host.
+      const phpUrl = (endpoint) => new URL(endpoint, window.location.href).href;
             const currentViewStorageKey = "clearline-current-view";
       const archivedStaffStorageKey = "clearline-archived-staff";
 
